@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of surveys</title>
+</head>
+<body>
+<h1 style="text-align: center">Hello, here will be list of surveys!</h1>
+<h2>Surveys</h2>
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid #999;
+    padding: 5px;
+}
+</style>
+<table>
+    <tr>
+        <th>Survey number</th>
+        <th>Survey name</th>
+        <th>Creator</th>
+        <th>Number of questions</th>
+    </tr>
+    {{#surveys}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>{{size}}</td>
+            <td>{{user}}</td>
+        </tr>
+    {{/surveys}}
+</table>
+
+</body>
+</html>

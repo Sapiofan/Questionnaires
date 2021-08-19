@@ -15,12 +15,19 @@ public class Survey extends ListOfSurveys {
     private Integer size;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     private List<Question> questions = new ArrayList<>();
 
     public Survey(){}
+
+    public Survey(String name, Integer size, User user){
+        this.name = name;
+        this.size = size;
+        this.user = user;
+    }
 
     public String getName() {
         return name;
