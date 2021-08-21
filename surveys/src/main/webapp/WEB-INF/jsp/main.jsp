@@ -5,7 +5,7 @@
     <title>Hello!</title>
 </head>
 <body>
-<h1 style="text-align: center">Hello, {{name}}!</h1>
+<h1 style="text-align: center">Hello, ${name}!</h1>
 <style>
       .button1, .button2, .button3 {
         background-color: #1c87c9;
@@ -20,8 +20,8 @@
         cursor: pointer;
       }
     </style>
-<a href="http://localhost:8089/survey", class="button1">Go to survey</a>
-<a href="http://localhost:8089/questionnaire", class="button2">Go to questionnaire</a>
-<a href="http://localhost:8089/list", class="button3">Go to list of surveys</a>
+<a href="/survey", class="button1">Go to survey</a>
+<a href="/questionnaire", class="button2">Go to questionnaire</a>
+<a href="/list", class="button3">Go to list of surveys</a>
 </body>
 </html>

@@ -5,6 +5,8 @@
     <title>Survey</title>
 </head>
 <body>
-<h1 style="text-align: center">Hello, here you will be able to create survey!</h1>
+    <form name="question" action="/addQuestion" method="post">
+
+    </form>
 </body>
 </html>

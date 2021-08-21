@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,21 +18,21 @@ table, td, th {
     padding: 5px;
 }
 </style>
-<table>
+<table border="1">
     <tr>
         <th>Survey number</th>
         <th>Survey name</th>
         <th>Creator</th>
         <th>Number of questions</th>
     </tr>
-    {{#surveys}}
+    <c:forEach  items="${surveys}" var ="survey">
         <tr>
-            <td>{{id}}</td>
-            <td>{{name}}</td>
-            <td>{{size}}</td>
-            <td>{{user}}</td>
+            <td>${survey.id}</td>
+            <td>${survey.name}</td>
+            <td>${survey.size}</td>
+            <td>${survey.user.nickname}</td>
         </tr>
-    {{/surveys}}
+    </c:forEach>
 </table>
 
 </body>

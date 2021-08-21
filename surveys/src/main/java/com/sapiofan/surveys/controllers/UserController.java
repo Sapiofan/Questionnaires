@@ -1,7 +1,7 @@
-package com.sapiofan.surveys.controller;
+package com.sapiofan.surveys.controllers;
 
-import com.sapiofan.surveys.dao.SurveysDao;
 import com.sapiofan.surveys.entities.Survey;
+import com.sapiofan.surveys.services.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +16,13 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private SurveysDao surveysDao;
+    private SurveyService surveyService;
 
-    @GetMapping("/")
+    @GetMapping(value ={"/", "/login"})
     public String index(){
         return "default";
     }
+
     @GetMapping("/main")
     public String main(
             @RequestParam(required = false, defaultValue = "World") String name,
@@ -33,7 +34,7 @@ public class UserController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Survey> surveys = surveysDao.getSurveys();
+        List<Survey> surveys = surveyService.findAllSurveys();
         model.addAttribute("surveys",surveys);
         return "list";
     }
@@ -44,7 +45,8 @@ public class UserController {
     }
 
     @GetMapping("/survey")
-    public String creating() {
+    public String creating(Model model) {
+
         return "survey";
     }
 }

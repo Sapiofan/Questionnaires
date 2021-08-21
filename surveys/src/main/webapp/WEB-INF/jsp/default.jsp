@@ -5,6 +5,6 @@
     <title>Survey</title>
 </head>
 <body>
-<h1 style="text-align: center">Hello, it's default page</h1>
+<h1 style="text-align: center">Hello, it is default page</h1>
 </body>
 </html>
