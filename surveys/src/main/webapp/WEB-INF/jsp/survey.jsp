@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Survey</title>
 </head>
 <body>
@@ -19,22 +18,15 @@
   transform: translateY(-50%);
 }
 </style>
-
     <div class="container mt-5">
         <form>
           <div class="form-group">
-            <label for="question" class="form-label">Question</label>
-            <input type="text" class="form-control" id="question" placeholder="Enter a question" name="question">
-
-          </div>
-          <div class="form-group">
-            <label for="answer" class="form-label">1.</label>
-            <input type="text" class="form-control" id="answer" placeholder="Enter an answer" name="answer">
+            <label for="SurveyName" class="form-label">Survey name</label>
+            <input type="text" class="form-control" id="SurveyName" placeholder="Enter a name" name="survey">
           </div>
           <div class="vertical-center">
-            <button type="button" class="btn btn-primary" action="/addAnswer">Add answer</button>
-            <button type="button" class="btn btn-primary" action="/addQuestion">Next question</button>
-            <button type="submit" class="btn btn-success" action="/processSurvey" method="post">Submit</button>
+            <button type="button" class="btn btn-danger" action="/main">Back</button>
+            <button type="submit" class="btn btn-success" action="/survey/creating" method="post">Continue</button>
           </div>
         </form>
 

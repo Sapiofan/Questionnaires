@@ -16,6 +16,7 @@ public class Answer {
     @Column(nullable = false)
     private String answer;
 
+    @Column(nullable = false)
     private Boolean correctAnswer;
 
     public Answer(){}

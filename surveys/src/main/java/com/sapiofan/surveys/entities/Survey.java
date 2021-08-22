@@ -33,6 +33,10 @@ public class Survey extends ListOfSurveys {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getSize() {
         return size;
     }

@@ -46,7 +46,6 @@ public class UserController {
 
     @GetMapping("/survey")
     public String creating(Model model) {
-
         return "survey";
     }
 }

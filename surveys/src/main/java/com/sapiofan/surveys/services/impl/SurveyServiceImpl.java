@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.services.impl;
 
 import com.sapiofan.surveys.dao.SurveyDao;
+import com.sapiofan.surveys.entities.Question;
 import com.sapiofan.surveys.entities.Survey;
 import com.sapiofan.surveys.services.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +24,33 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public Survey findByNickName() {
-        return surveyDao.findByNickName();
+    public List<Question> findAllQuestions(Long survey_id) {
+        return surveyDao.findAllQuestions(survey_id);
     }
 
     @Override
-    public Survey findBySurveyName() {
-        return surveyDao.findBySurveyName();
+    public Survey findSurveyByNickName(String nickname) {
+        return surveyDao.findSurveyByNickName(nickname);
+    }
+
+    @Override
+    public Survey findBySurveyName(String name) {
+        return surveyDao.findBySurveyName(name);
     }
 
     @Override
     public void addQuestion() {
-        surveyDao.addQuestion();
+//        surveyDao.addQuestion();
     }
 
     @Override
     public void deleteQuestion() {
         surveyDao.deleteQuestion();
+    }
+
+    @Override
+    public Long createSurvey(String name) {
+        return surveyDao.createSurvey(name);
     }
 
 

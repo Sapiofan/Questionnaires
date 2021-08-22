@@ -2,6 +2,7 @@ package com.sapiofan.surveys.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private Date created_at;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Survey> surveys = new ArrayList<>();
@@ -44,6 +48,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
     public List<Survey> getSurveys() {
