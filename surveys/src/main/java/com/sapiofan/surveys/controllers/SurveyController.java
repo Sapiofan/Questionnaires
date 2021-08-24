@@ -1,7 +1,9 @@
 package com.sapiofan.surveys.controllers;
 
 import com.sapiofan.surveys.entities.Question;
+import com.sapiofan.surveys.entities.Survey;
 import com.sapiofan.surveys.services.SurveyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/survey")
 public class SurveyController {
+    @Autowired
     public SurveyService surveyService;
     private static int counter = 0;
 
@@ -24,15 +27,26 @@ public class SurveyController {
 
     @PostMapping("/addQuestion")
     public String addQuestion(@ModelAttribute("question") Question question){
-        surveyService.addQuestion();
+
         return "redirect:/survey";
     }
 
     @GetMapping("/creating")
-    public String creating(Model model, @RequestParam String name) {
-        model.addAttribute("questions", surveyService.findAllQuestions(surveyService.createSurvey(name)));
-        return "addQuestion";
+    public String creating(Model model) {
+        model.addAttribute("questions", surveyService.findAllQuestions(1l));
+        return "ListQuestions";
     }
+
+    @PostMapping("/creating")
+    public String addSurvey(@RequestParam String name, Model model){
+        Survey survey = new Survey();
+        survey.setName(name);
+        surveyService.save(survey);
+        model.addAttribute("questions", surveyService.findAllQuestions(1l));
+        return "ListQuestions";
+    }
+
+
 
 
     @PostMapping()

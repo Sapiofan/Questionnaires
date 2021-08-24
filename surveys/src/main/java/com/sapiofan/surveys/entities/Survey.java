@@ -14,8 +14,8 @@ public class Survey extends ListOfSurveys {
     @Column(nullable = false)
     private Integer size;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)

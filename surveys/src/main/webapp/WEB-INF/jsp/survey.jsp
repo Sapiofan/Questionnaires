@@ -19,14 +19,14 @@
 }
 </style>
     <div class="container mt-5">
-        <form>
+        <form action="survey/creating" method="post">
           <div class="form-group">
             <label for="SurveyName" class="form-label">Survey name</label>
             <input type="text" class="form-control" id="SurveyName" placeholder="Enter a name" name="survey">
           </div>
           <div class="vertical-center">
-            <button type="button" class="btn btn-danger" action="/main">Back</button>
-            <button type="submit" class="btn btn-success" action="/survey/creating" method="post">Continue</button>
+            <a href="/main", class="btn btn-danger">Back</a>
+            <a href="/survey/creating", class="btn btn-success">Continue</a>
           </div>
         </form>
 

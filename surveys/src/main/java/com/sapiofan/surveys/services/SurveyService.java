@@ -10,8 +10,11 @@ public interface SurveyService {
     List<Question> findAllQuestions(Long survey_id);
     Survey findSurveyByNickName(String nickname);
     Survey findBySurveyName(String name);
-    void addQuestion();
-    void deleteQuestion();
 
-    Long createSurvey(String name);
+    void save(Survey survey);
+
+    void deleteQuestion(Long id);
+    void updateQuestion(String description, Long id);
+
+
 }

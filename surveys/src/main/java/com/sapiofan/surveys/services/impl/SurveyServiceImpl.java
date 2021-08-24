@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.services.impl;
 
-import com.sapiofan.surveys.dao.SurveyDao;
+import com.sapiofan.surveys.repository.QuestionRepository;
+import com.sapiofan.surveys.repository.SurveyRepository;
 import com.sapiofan.surveys.entities.Question;
 import com.sapiofan.surveys.entities.Survey;
 import com.sapiofan.surveys.services.SurveyService;
@@ -11,46 +12,47 @@ import java.util.List;
 
 @Service
 public class SurveyServiceImpl implements SurveyService {
-    @Autowired
-    private SurveyDao surveyDao;
 
-    public SurveyServiceImpl(SurveyDao surveyDao) {
-        this.surveyDao = surveyDao;
-    }
+    @Autowired
+    private SurveyRepository surveyRepository;
+    @Autowired
+    private QuestionRepository questionDao;
+
 
     @Override
     public List<Survey> findAllSurveys() {
-        return surveyDao.findAllSurveys();
+        return surveyRepository.findAllSurveys();
     }
 
     @Override
     public List<Question> findAllQuestions(Long survey_id) {
-        return surveyDao.findAllQuestions(survey_id);
+        return questionDao.findAllQuestions(survey_id);
     }
 
     @Override
     public Survey findSurveyByNickName(String nickname) {
-        return surveyDao.findSurveyByNickName(nickname);
+        return surveyRepository.findSurveyByNickName(nickname);
     }
 
     @Override
     public Survey findBySurveyName(String name) {
-        return surveyDao.findBySurveyName(name);
+        return surveyRepository.findBySurveyName(name);
     }
 
     @Override
-    public void addQuestion() {
-//        surveyDao.addQuestion();
+    public void save(Survey survey) {
+        surveyRepository.save(survey);
+    }
+
+
+    @Override
+    public void deleteQuestion(Long id) {
+        questionDao.deleteQuestion(id);
     }
 
     @Override
-    public void deleteQuestion() {
-        surveyDao.deleteQuestion();
-    }
-
-    @Override
-    public Long createSurvey(String name) {
-        return surveyDao.createSurvey(name);
+    public void updateQuestion(String description, Long id) {
+        questionDao.updateQuestion(description, id);
     }
 
 

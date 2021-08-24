@@ -2,8 +2,7 @@ package com.sapiofan.surveys.entities;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "list")
+@MappedSuperclass
 public class ListOfSurveys {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

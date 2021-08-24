@@ -15,14 +15,14 @@ public class User {
     @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 64)
     private String password;
 
     @Column(nullable = false)
     private Date created_at;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Survey> surveys = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Survey> surveys = new ArrayList<>();
 
     public User(){}
 

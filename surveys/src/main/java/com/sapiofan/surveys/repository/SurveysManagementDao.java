@@ -1,4 +1,4 @@
-package com.sapiofan.surveys.dao;
+package com.sapiofan.surveys.repository;
 
 public interface SurveysManagementDao {
     void createSurvey();

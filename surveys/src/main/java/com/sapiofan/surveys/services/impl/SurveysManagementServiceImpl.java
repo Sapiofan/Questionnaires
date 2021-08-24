@@ -1,6 +1,6 @@
 package com.sapiofan.surveys.services.impl;
 
-import com.sapiofan.surveys.dao.SurveysManagementDao;
+import com.sapiofan.surveys.repository.SurveysManagementDao;
 import com.sapiofan.surveys.services.SurveysManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 
