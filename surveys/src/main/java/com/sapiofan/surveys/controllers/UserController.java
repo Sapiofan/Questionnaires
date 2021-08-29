@@ -1,7 +1,6 @@
 package com.sapiofan.surveys.controllers;
 
 import com.sapiofan.surveys.entities.Survey;
-import com.sapiofan.surveys.entities.User;
 import com.sapiofan.surveys.services.impl.SurveyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,11 +35,11 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
-    }
+//    @GetMapping("/register")
+//    public String showRegistrationForm(Model model) {
+//        model.addAttribute("user", new User());
+//        return "registration";
+//    }
 
 //    @PostMapping("/process_register")
 //    public String processRegister(User user) {
