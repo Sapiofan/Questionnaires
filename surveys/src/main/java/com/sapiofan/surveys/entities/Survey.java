@@ -22,6 +22,10 @@ public class Survey extends ListOfSurveys {
 
     public Survey(){}
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

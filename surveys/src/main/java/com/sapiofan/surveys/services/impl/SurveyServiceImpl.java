@@ -1,6 +1,5 @@
 package com.sapiofan.surveys.services.impl;
 
-<<<<<<< HEAD
 import com.sapiofan.surveys.entities.*;
 import com.sapiofan.surveys.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,27 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
+
 @Service
 public class SurveyServiceImpl {
-=======
-import com.sapiofan.surveys.repository.QuestionRepository;
-import com.sapiofan.surveys.repository.SurveyRepository;
-import com.sapiofan.surveys.entities.Question;
-import com.sapiofan.surveys.entities.Survey;
-import com.sapiofan.surveys.services.SurveyService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-@Service
-public class SurveyServiceImpl implements SurveyService {
->>>>>>> origin/main
 
     @Autowired
     private SurveyRepository surveyRepository;
     @Autowired
-<<<<<<< HEAD
     private QuestionRepository questionRepository;
 
     @Autowired
@@ -44,17 +29,14 @@ public class SurveyServiceImpl implements SurveyService {
 
 
 
-=======
     private QuestionRepository questionDao;
 
 
-    @Override
->>>>>>> origin/main
+//    @Override
     public List<Survey> findAllSurveys() {
         return surveyRepository.findAllSurveys();
     }
 
-<<<<<<< HEAD
 //    public List<RightAnswers> results(UUID id){
 //        return rightAnswersRepository.findAllResultsBySurvey(id);
 //    }
@@ -134,38 +116,35 @@ public class SurveyServiceImpl implements SurveyService {
 //    public void updateQuestion(String description, Long id) {
 //        questionDao.updateQuestion(description, id);
 //    }
-=======
-    @Override
-    public List<Question> findAllQuestions(Long survey_id) {
-        return questionDao.findAllQuestions(survey_id);
-    }
-
-    @Override
-    public Survey findSurveyByNickName(String nickname) {
-        return surveyRepository.findSurveyByNickName(nickname);
-    }
-
-    @Override
-    public Survey findBySurveyName(String name) {
-        return surveyRepository.findBySurveyName(name);
-    }
-
-    @Override
-    public void save(Survey survey) {
-        surveyRepository.save(survey);
-    }
-
-
-    @Override
-    public void deleteQuestion(Long id) {
-        questionDao.deleteQuestion(id);
-    }
-
-    @Override
-    public void updateQuestion(String description, Long id) {
-        questionDao.updateQuestion(description, id);
-    }
->>>>>>> origin/main
-
+//    @Override
+//    public List<Question> findAllQuestions(Long survey_id) {
+//        return questionDao.findAllQuestions(survey_id);
+//    }
+//
+//    @Override
+//    public Survey findSurveyByNickName(String nickname) {
+//        return surveyRepository.findSurveyByNickName(nickname);
+//    }
+//
+//    @Override
+//    public Survey findBySurveyName(String name) {
+//        return surveyRepository.findBySurveyName(name);
+//    }
+//
+//    @Override
+//    public void save(Survey survey) {
+//        surveyRepository.save(survey);
+//    }
+//
+//
+//    @Override
+//    public void deleteQuestion(Long id) {
+//        questionDao.deleteQuestion(id);
+//    }
+//
+//    @Override
+//    public void updateQuestion(String description, Long id) {
+//        questionDao.updateQuestion(description, id);
+//    }
 
 }

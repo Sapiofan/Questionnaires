@@ -9,6 +9,9 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private Integer number;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
@@ -17,9 +20,16 @@ public class Answer {
     private String answer;
 
     @Column(nullable = false)
-    private Boolean correctAnswer;
+    private Boolean correctness;
 
     public Answer(){}
+
+    public Answer(Integer number, Question question, String answer, Boolean correctness){
+        this.number = number;
+        this.question = question;
+        this.answer = answer;
+        this.correctness = correctness;
+    }
 
     public Long getId() {
         return id;
@@ -38,6 +48,14 @@ public class Answer {
         question.addAnswer(this);
     }
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     public String getAnswer() {
         return answer;
     }
@@ -46,11 +64,11 @@ public class Answer {
         this.answer = answer;
     }
 
-    public Boolean getCorrectAnswer() {
-        return correctAnswer;
+    public Boolean getCorrectness() {
+        return correctness;
     }
 
-    public void setCorrectAnswer(Boolean correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setCorrectness(Boolean correctness) {
+        this.correctness = correctness;
     }
 }
