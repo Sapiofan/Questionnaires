@@ -19,6 +19,7 @@
 }
 </style>
     <div class="container mt-5">
+<<<<<<< HEAD
         <form action="/createSurvey" method="post">
           <input type="hidden" name="surveyId" value=${surveyId}>
           <div class="form-group">
@@ -28,6 +29,16 @@
           <div class="vertical-center">
             <a href="/main", class="btn btn-danger">Back</a>
             <input type="submit" class="btn btn-success" value="Continue" />
+=======
+        <form action="survey/creating" method="post">
+          <div class="form-group">
+            <label for="SurveyName" class="form-label">Survey name</label>
+            <input type="text" class="form-control" id="SurveyName" placeholder="Enter a name" name="survey">
+          </div>
+          <div class="vertical-center">
+            <a href="/main", class="btn btn-danger">Back</a>
+            <a href="/survey/creating", class="btn btn-success">Continue</a>
+>>>>>>> origin/main
           </div>
         </form>
 
