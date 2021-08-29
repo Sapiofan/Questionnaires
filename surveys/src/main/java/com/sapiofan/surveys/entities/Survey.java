@@ -15,10 +15,14 @@ public class Survey extends ListOfSurveys {
     private Integer size;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
+    private List<SurveyResults> results = new ArrayList<>();
 
     public Survey(){}
 
@@ -28,6 +32,10 @@ public class Survey extends ListOfSurveys {
 
     public Integer getSize() {
         return size;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setSize(Integer size) {
@@ -51,8 +59,16 @@ public class Survey extends ListOfSurveys {
         user.addSurvey(this);
     }
 
+    public List<SurveyResults> getResults() {
+        return results;
+    }
+
+    public void setResults(List<SurveyResults> results) {
+        this.results = results;
+    }
+
     public void addQuestion(Question question){
         this.questions.add(question);
-        size = questions.size();
+        this.size = questions.size();
     }
 }

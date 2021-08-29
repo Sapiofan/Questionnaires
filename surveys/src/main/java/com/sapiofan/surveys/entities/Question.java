@@ -1,15 +1,17 @@
 package com.sapiofan.surveys.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "questions")
-public class Question { // for changing number of quest add counter
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private Integer number;
 
     @Column(nullable = false)
     private String description;
@@ -21,7 +23,18 @@ public class Question { // for changing number of quest add counter
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<Answer> answers = new ArrayList<>();
 
+    @OneToOne(mappedBy = "question")
+    private RightAnswers rightAnswers;
+
+
     public Question(){}
+
+    public Question(Integer number, String description, Survey survey){
+        this.number = number;
+        this.description = description;
+        this.survey = survey;
+        survey.addQuestion(this);
+    }
 
     public Long getId() {
         return id;
@@ -29,6 +42,14 @@ public class Question { // for changing number of quest add counter
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public String getDescription() {
@@ -59,4 +80,5 @@ public class Question { // for changing number of quest add counter
     public void addAnswer(Answer answer){
         this.answers.add(answer);
     }
+
 }

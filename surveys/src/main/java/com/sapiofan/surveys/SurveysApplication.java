@@ -1,4 +1,4 @@
-package com.sapiofan.surveys.main;
+package com.sapiofan.surveys;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
