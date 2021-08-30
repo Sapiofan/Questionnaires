@@ -14,7 +14,7 @@
 <input type="hidden" name="answers" value=${answers}>
 <h2>You have passed the test</h2>
 <h3>Your results:</h3>
-<h5>Lost time: ${hours}:${minutes}:${seconds}</h5>
+<h5>Lost time: hours: ${hours}, minutes: ${minutes} seconds: ${seconds}</h5>
 <h5>Right answers/all answers: ${counter}/${allAnswers}</h5>
 
 <a href="/list", class="btn btn-danger">Back to list of surveys</a>

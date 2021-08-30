@@ -37,9 +37,9 @@ public class SurveyServiceImpl {
         return surveyRepository.findAllSurveys();
     }
 
-//    public List<RightAnswers> results(UUID id){
-//        return rightAnswersRepository.findAllResultsBySurvey(id);
-//    }
+    public List<RightAnswers> results(UUID id){
+        return rightAnswersRepository.findAllResultsBySurvey(id);
+    }
 
 //    @Override
     public List<Question> findAllQuestions(Long survey_id) {
@@ -50,8 +50,8 @@ public class SurveyServiceImpl {
         return answerRepository.findAllAnswers(question_id);
     }
 
-    public User findUserById(){
-        return surveyRepository.findUserById();
+    public User findUserById(Long id){
+        return surveyRepository.findUserById(id);
     }
 
     public SurveyResults findSurveyResultsById(UUID id){
@@ -92,6 +92,18 @@ public class SurveyServiceImpl {
     @Transactional
     public void deleteAnswerById(Long id){
         answerRepository.deleteAnswerById(id);
+    }
+    @Transactional
+    public void deleteQuestionById(Long id){
+        questionRepository.deleteQuestion(id);
+    }
+    @Transactional
+    public void deleteSurveyById(Long id){
+        surveyRepository.deleteById(id);
+    }
+    @Transactional
+    public void deleteResultsById(UUID id){
+        surveyResultsRepository.deleteResultsById(id);
     }
 
     public Survey findSurveyById(Long id){

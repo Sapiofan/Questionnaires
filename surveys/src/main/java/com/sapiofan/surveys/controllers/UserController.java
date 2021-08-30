@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -73,6 +74,7 @@ public class UserController {
     @GetMapping("/list")
     public String list(Model model) {
         List<Survey> surveys = surveyService.findAllSurveys();
+        surveys.stream().sorted(Comparator.comparingLong(Survey::getId));
         model.addAttribute("surveys",surveys);
         return "list";
     }

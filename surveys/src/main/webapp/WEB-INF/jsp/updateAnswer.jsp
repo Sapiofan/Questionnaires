@@ -32,17 +32,17 @@
             <input type="text" class="form-control" id="answer" placeholder="Enter a answer" name="answer" value="${answer.answer}" required>
 
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="correctAnswer" id="true" value="Correct" required>
+              <input class="form-check-input" type="radio" name="correctAnswer" id="true" value="1" required>
               <label class="form-check-label" for="inlineRadio1">Correct</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="correctAnswer" id="false" value="Incorrect" checked required>
+              <input class="form-check-input" type="radio" name="correctAnswer" id="false" value="2" required>
               <label class="form-check-label" for="inlineRadio2">Incorrect</label>
             </div>
 
           </div>
           <div class="vertical-center">
-            <a href="/listOfAnswers", class="btn btn-danger">Back</a>
+            <button type="submit" class="btn btn-danger" name="backToAnswersList">Back</button>
             <button type="submit" class="btn btn-success" name="saveAnswer">Submit</button>
           </div>
         </form>

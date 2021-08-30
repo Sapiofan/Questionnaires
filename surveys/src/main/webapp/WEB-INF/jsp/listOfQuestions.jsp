@@ -22,7 +22,8 @@
     <form action="/addQuestion" method="get">
        <input type="hidden" name="surveyId" value=${surveyId}>
        <input type="hidden" name="questionId" value=${questionId}>
-        <button type="submit" class="btn btn-danger" name="changeSurveyName" >Change survey name</button>
+        <button type="submit" class="btn btn-warning" name="changeSurveyName" >Change survey name</button>
+        <button type="submit" class="btn btn-danger" name="deleteSurvey">Delete survey</button>
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
         <button type="submit" class="btn btn-success" name="saveSurvey" >Save a survey</button>
 
@@ -36,6 +37,7 @@
            <tr>
                <td><a href="/listOfAnswers/${question.number}?surveyId=${surveyId}">${question.number}</a></td>
                <td>${question.description}</td>
+               <td><a href="/deleteQuestion/${question.number}?surveyId=${surveyId}">Delete</a></td>
            </tr>
        </c:forEach>
    </table>

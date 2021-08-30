@@ -21,6 +21,7 @@
 
     <form action="/addAnswer" method="get">
        <input type="hidden" name="questionId" value=${questionId}>
+       <input type="hidden" name="answers" value=${answers}>
 
         <button type="submit" class="btn btn-danger" name="changeQuestionName" >Change question name</button>
         <button type="submit" class="btn btn-primary" name="addAnswer" >Add an answer</button>
