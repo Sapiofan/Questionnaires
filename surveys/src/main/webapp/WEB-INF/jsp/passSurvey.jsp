@@ -35,8 +35,8 @@
             </c:forEach>
         </table>
           <div class="vertical-center">
-            <a href="/list", class="btn btn-danger">Back</a>
-            <input type="submit" class="btn btn-primary" value="next" />
+            <input type="submit" class="btn btn-danger" value="back" name="back" />
+            <input type="submit" class="btn btn-primary" value="next" name="next" />
           </div>
         </form>
 

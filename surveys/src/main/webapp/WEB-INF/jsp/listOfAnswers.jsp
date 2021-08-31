@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>List of questions</title>
 </head>
-<body>
+<body onLoad="javascript:checking()">
    <style>
        table {
            border-collapse: collapse;
@@ -19,13 +19,30 @@
        }
    </style>
 
+   <script type="text/javascript">
+   function checking() {
+        if(document.getElementById('size').value > 9){
+           document.getElementById('addAnswer').disabled = true;
+        }
+        else if(document.getElementById('size').value > 1 && document.getElementById('input').value == 'true'){
+           document.getElementById("addQuestion").disabled = false;
+        }
+        else{
+            document.getElementById("addQuestion").disabled = true;
+            document.getElementById('addAnswer').disabled = false;
+        }
+      }
+    </script>
+
     <form action="/addAnswer" method="get">
        <input type="hidden" name="questionId" value=${questionId}>
        <input type="hidden" name="answers" value=${answers}>
+       <input type="hidden" id="size" name="size" value=${size}>
+       <input type="hidden" id="input" name="input" value=${input}>
 
         <button type="submit" class="btn btn-danger" name="changeQuestionName" >Change question name</button>
-        <button type="submit" class="btn btn-primary" name="addAnswer" >Add an answer</button>
-        <button type="submit" class="btn btn-success" name="addQuestion" >Submit a question</button>
+        <button type="submit" class="btn btn-primary" id="addAnswer" name="addAnswer">Add an answer</button>
+        <button type="submit" class="btn btn-success" id="addQuestion" name="addQuestion">Submit a question</button>
 
         <h3>Question: ${question}</h3>
 
