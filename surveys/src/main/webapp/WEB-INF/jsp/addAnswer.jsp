@@ -17,6 +17,13 @@
   transform: translateY(-50%);
 }
 </style>
+<script type="text/javascript">
+   function notRequired() {
+        document.getElementById('answer').required=false;
+        document.getElementById('inlineRadio1').required=false;
+        document.getElementById('inlineRadio2').required=false;
+    }
+    </script>
     <div class="container mt-5">
         <form action="/listOfAnswers" method="post">
           <div class="form-group">
@@ -24,7 +31,7 @@
              <input type="hidden" name="questionId" value=${questionId}>
 
             <label for="answer" class="form-label">Answer</label>
-            <input type="text" class="form-control" id="answer" placeholder="Enter a answer" name="answer" required>
+            <input type="text" class="form-control" id="answer" placeholder="Enter an answer" name="answer" required>
 
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="correctAnswer" id="inlineRadio1" value="1" required>
@@ -37,7 +44,7 @@
 
           </div>
           <div class="vertical-center">
-            <a href="/addQuestion", class="btn btn-danger">Back</a>
+            <button type="submit" class="btn btn-danger" name="backToAnswers" onclick="notRequired()">Back to answers list</button>
             <button type="submit" class="btn btn-success" name="saveAnswer">Submit</button>
           </div>
         </form>

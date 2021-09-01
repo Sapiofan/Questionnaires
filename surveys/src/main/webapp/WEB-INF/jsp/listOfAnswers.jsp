@@ -36,7 +36,6 @@
 
     <form action="/addAnswer" method="get">
        <input type="hidden" name="questionId" value=${questionId}>
-       <input type="hidden" name="answers" value=${answers}>
        <input type="hidden" id="size" name="size" value=${size}>
        <input type="hidden" id="input" name="input" value=${input}>
 
@@ -54,7 +53,7 @@
                </tr>
                <c:forEach  items="${answers}" var ="answer">
                    <tr>
-                       <td><a href="/answer/${answer.number}?questionId=${questionId}">${answer.number}</a></td>
+                       <td>${answer.number}</td>
                        <td>${answer.answer}</td>
                        <td>${answer.correctness}</td>
                        <td><a href="/deleteAnswer/${answer.number}?questionId=${questionId}">Delete</a></td>

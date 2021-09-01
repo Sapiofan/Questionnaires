@@ -3,35 +3,34 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Sign Up</title>
-	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
 	<div class="container text-center">
 		<div>
 			<h1>Registration - Sign Up</h1>
 		</div>
-		<form action="process_register" th:object="${user}"
-			method="post" style="max-width: 600px; margin: 0 auto;">
+		<form action="/process_register" method="post">
 		<div class="m-3">
 			<div class="form-group row">
 				<label class="col-4 col-form-label">Nickname: </label>
 				<div class="col-8">
-					<input type="nickname" th:field="*{nickname}" class="form-control" required />
+					<input type="text" name="nickname" class="form-control" placeholder="Enter a nickname" required />
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-4 col-form-label">Password: </label>
 				<div class="col-8">
-					<input type="password" th:field="*{password}" class="form-control"
+					<input type="password" name="password" class="form-control" placeholder="password"
 							required minlength="6" maxlength="20"/>
 				</div>
 			</div>
 
 			<div>
-				<button type="submit" class="btn btn-success">Sign Up</button>
+			    <a href="/", class="btn btn-danger">Back</a>
+				<button type="submit" class="btn btn-success" name="signUp">Sign Up</button>
 			</div>
 		</div>
 		</form>

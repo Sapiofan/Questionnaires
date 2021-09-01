@@ -26,7 +26,7 @@
             <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" required>
           </div>
           <div class="vertical-center">
-            <a href="/main", class="btn btn-danger">Back</a>
+            <input type="submit" class="btn btn-danger" value="Back" name="backToMain" />
             <input type="submit" class="btn btn-success" value="Continue" />
           </div>
         </form>

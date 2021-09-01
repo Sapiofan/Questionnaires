@@ -86,7 +86,7 @@ table, td, th {
 
           </div>
           <div class="vertical-center">
-            <button type="submit" class="btn btn-danger" name="returnToQuestions" onclick="requiredDisabled()">Back</button>
+            <button type="submit" class="btn btn-danger" name="returnToQuestions" onclick="requiredDisabled()">Back to question list</button>
             <button type="submit" class="btn btn-success" name="add" >Add a question</button>
           </div>
         </form>

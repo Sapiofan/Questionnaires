@@ -53,7 +53,11 @@ public class SurveyController {
 
     @PostMapping(value = "/addQuestion", params = "returnToQuestions")
     public String returnToQuestions(Model model,
-                                    @RequestParam("surveyId") Long surveyId) {
+                                    @RequestParam("surveyId") Long surveyId,
+                                    @RequestParam("questionId") Long questionId) {
+        if(questionId != 0){
+            surveyService.deleteQuestionById(questionId);
+        }
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", 0);
         return "listOfQuestions";
@@ -86,7 +90,10 @@ public class SurveyController {
         surveyService.saveQuestion(question);
         model.addAttribute("questionId", question.getId());
         model.addAttribute("question", question.getDescription());
-        model.addAttribute("size", 0);
+        List<Answer> answers = surveyService.findAllAnswers(questionId);
+        model.addAttribute("answers", answers);
+        model.addAttribute("size", answers.size());
+        model.addAttribute("input", checkInput(answers));
         return "listOfAnswers";
     }
 
@@ -95,6 +102,15 @@ public class SurveyController {
         model.addAttribute("surveyId", surveyId);
         return "survey";
     }
+
+    @PostMapping(value = "/createSurvey", params = "backToMain")
+    public String backToMain(@RequestParam("surveyId") Long surveyId){
+        if(surveyId != 0){
+            surveyService.deleteSurveyById(surveyId);
+        }
+        return "main";
+    }
+
 
     @GetMapping(value = "/addAnswer", params = "addAnswer")
     public String listOfAnswers(Model model,
@@ -136,6 +152,14 @@ public class SurveyController {
         return "listOfAnswers";
     }
 
+    @PostMapping(name = "/listOfAnswers", params = "backToAnswers")
+    public String backToAnswers(@RequestParam("questionId") Long questionId, Model model){
+        List<Answer> answers = surveyService.findAllAnswers(questionId);
+        model.addAttribute("answers", answers);
+        model.addAttribute("size", answers.size());
+        model.addAttribute("input", checkInput(answers));
+        return "listOfAnswers";
+    }
 
     @PostMapping(value = "/listOfAnswers", params = "saveAnswer")
     public String addAnswer(Model model,
@@ -163,16 +187,6 @@ public class SurveyController {
         model.addAttribute("size", newAnswers.size());
         model.addAttribute("input", checkInput(newAnswers));
         return "listOfAnswers";
-    }
-
-
-    @GetMapping("/answer/{number}")
-    public String getAnswerByNumber(@PathVariable("number") Integer number,
-                                    @RequestParam("questionId") Long questionId,
-                                    Model model) {
-        model.addAttribute("questionId", questionId);
-        model.addAttribute("answer", surveyService.findQuestionById(questionId).getAnswers().get(number - 1));
-        return "showAnswer";
     }
 
     @GetMapping(("/deleteAnswer/{number}"))
@@ -210,7 +224,7 @@ public class SurveyController {
         return "updateAnswer";
     }
 
-    @PostMapping(value = "/updateAnswer", params = "saveAnswer") //link on row is wrong
+    @PostMapping(value = "/updateAnswer", params = "saveAnswer")
     public String updateAnswer(Model model,
                                @RequestParam("questionId") Long questionId,
                                @RequestParam("answerId") Long answerId,
@@ -241,16 +255,13 @@ public class SurveyController {
         }
         surveyService.saveAnswer(answer);
         surveyService.saveQuestion(question);
-        List<Answer> answers = surveyService.findAllAnswers(questionId)
-                .stream()
-                .sorted(Comparator.comparingInt(Answer::getNumber))
-                .collect(Collectors.toList());
-        for (Answer answer1 : answers) {
-            logger.info(""+answer1.getAnswer());
-        }
+        List<Answer> answers = surveyService.findAllAnswers(questionId);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());
-        model.addAttribute("answers", answers);
+        model.addAttribute("answers", answers
+                .stream()
+                .sorted(Comparator.comparingInt(Answer::getNumber))
+                .collect(Collectors.toList()));
         model.addAttribute("size", answers.size());
         model.addAttribute("input", checkInput(answers));
         return "listOfAnswers";
@@ -386,11 +397,7 @@ public class SurveyController {
         for (int i = 0; i < question.getAnswers().size(); i++) {
             Answer answer1 = question.getAnswers().get(i);
             if (answer.equals(String.valueOf(answer1.getNumber()))) {
-                if (answer1.getCorrectness()) {
-                    rightAnswers.addQuestion(question, true);
-                } else {
-                    rightAnswers.addQuestion(question, false);
-                }
+                rightAnswers.addQuestion(question, answer1.getCorrectness());
                 rightAnswers.setResults(results);
                 surveyService.saveResult(rightAnswers);
                 break;

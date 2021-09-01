@@ -5,7 +5,6 @@
     <title>Hello!</title>
 </head>
 <body>
-<h1 style="text-align: center">Hello, ${name}!</h1>
 <style>
       .button1, .button2, .button3 {
         background-color: #1c87c9;
