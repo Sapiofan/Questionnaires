@@ -26,10 +26,15 @@
             <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" required>
           </div>
           <div class="vertical-center">
-            <input type="submit" class="btn btn-danger" value="Back" name="backToMain" />
+            <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
             <input type="submit" class="btn btn-success" value="Continue" />
           </div>
         </form>
+    <script>
+    function requiredDisabled(){
+            document.getElementById("name").required = false;
+    }
+    </script>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

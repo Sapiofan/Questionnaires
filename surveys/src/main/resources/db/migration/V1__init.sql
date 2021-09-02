@@ -23,6 +23,45 @@ create table right_answers
     a_boolean boolean not null
 );
 
+create table scales
+(
+    id          int  not null primary key,
+    description text not null
+);
+
+insert into scales (id, description)
+values (1, 'FIVE');
+insert into scales (id, description)
+values (2, 'TEN');
+
+
+create table questionnaires
+(
+    id bigserial primary key,
+    name text,
+    size int,
+    general_description text,
+    user_id bigint references users(id) on delete cascade
+);
+
+create table questionnaire_questions
+(
+    id bigserial primary key,
+    number int,
+    name text,
+    questionnaire_id bigint references questionnaires(id) on delete cascade
+);
+
+create table descriptions
+(
+    id bigserial primary key,
+    questionnaire_id bigint references questionnaires(id) on delete cascade,
+    description text,
+    start_scale int,
+    end_scale int
+);
+
+
 create table surveys
 (
     id bigserial primary key,

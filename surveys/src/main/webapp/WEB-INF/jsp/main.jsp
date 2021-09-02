@@ -3,24 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<style>
-      .button1, .button2, .button3 {
-        background-color: #1c87c9;
-        border: none;
-        color: white;
-        padding: 20px 34px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 20px;
-        margin: 4px 2px;
-        cursor: pointer;
-      }
-    </style>
-<a href="/survey", class="button1">Go to survey</a>
-<a href="/questionnaire", class="button2">Go to questionnaire</a>
-<a href="/list", class="button3">Go to list of surveys</a>
+<form action="/logout" method="get">
+    <input type="submit" class="btn btn-danger" value="Sign out" />
+    <a href="/survey", class="btn btn-primary">Go to survey</a>
+    <a href="/questionnaire", class="btn btn-primary">Go to questionnaire</a>
+    <a href="/list", class="btn btn-primary">Go to list of surveys</a>
+</form>
 </body>
 </html>

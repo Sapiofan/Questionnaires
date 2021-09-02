@@ -25,6 +25,9 @@ public class User {
     private List<Survey> surveys = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Questionnaire> questionnaires = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<SurveyResults> results = new ArrayList<>();
 
     public User(){}
@@ -69,6 +72,14 @@ public class User {
         this.surveys = surveys;
     }
 
+    public List<Questionnaire> getQuestionnaires() {
+        return questionnaires;
+    }
+
+    public void setQuestionnaires(List<Questionnaire> questionnaires) {
+        this.questionnaires = questionnaires;
+    }
+
     public List<SurveyResults> getResults() {
         return results;
     }
@@ -79,5 +90,9 @@ public class User {
 
     public void addSurvey(Survey survey){
         this.surveys.add(survey);
+    }
+
+    public void addQuestionnaire(Questionnaire questionnaire){
+        this.questionnaires.add(questionnaire);
     }
 }

@@ -27,9 +27,9 @@ public class SurveyServiceImpl {
     @Autowired
     private RightAnswersRepository rightAnswersRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
-
-    private QuestionRepository questionDao;
 
 
 //    @Override

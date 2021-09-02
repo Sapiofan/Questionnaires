@@ -1,5 +1,6 @@
 package com.sapiofan.surveys.security.config;
 
+import com.sapiofan.surveys.Routes;
 import com.sapiofan.surveys.security.realization.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,12 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/main/**").authenticated()
+                .antMatchers(Routes.ROOT, Routes.LIST, Routes.LISTOFQUESTIONS,Routes.SURVEY).authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .usernameParameter("nickname")
+                    .defaultSuccessUrl("/main")
+                    .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
     }
