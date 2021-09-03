@@ -21,12 +21,17 @@
 
     <form action="/addQQuestion" method="get">
        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
-       <input type="hidden" name="questionNumber" value=${questionNumber}>
+
+
+       <div class="form-group">
+               <label for="Question" class="form-label">Question</label>
+               <input type="text" class="form-control" id="question" placeholder="Enter a question" name="question" required>
+       </div>
+
         <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" >Change questionnaire fields</button>
         <button type="submit" class="btn btn-danger" name="deleteQuestionnaire">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
-        <button type="submit" class="btn btn-success" name="saveQuestionnaire" >Save a questionnaire</button>
-
+        <button type="submit" class="btn btn-success" name="addDescriptions" >Add descriptions</button>
     </form>
    <table border="1">
        <tr>
@@ -36,11 +41,17 @@
        <c:forEach  items="${questions}" var ="question">
            <tr>
                <td>${question.number}</td>
-               <td>${question.description}</td>
+               <td>${question.name}</td>
                <td><a href="/deleteQQuestion/${question.number}?questionnaireId=${questionnaireId}">Delete</a></td>
            </tr>
        </c:forEach>
    </table>
+
+   <script type="text/javascript">
+      function notRequired() {
+           document.getElementById('question').required=false;
+       }
+   </script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

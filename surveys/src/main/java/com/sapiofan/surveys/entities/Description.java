@@ -9,6 +9,9 @@ public class Description {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private Integer number;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "questionnaire_id")
     private Questionnaire questionnaire;
@@ -30,6 +33,14 @@ public class Description {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public Questionnaire getQuestionnaire() {

@@ -68,13 +68,6 @@ public class UserController {
         return "signup_success";
     }
 
-
-
-//    @GetMapping(value ={"/", "/login"})
-//    public String index(){
-//        return "default";
-//    }
-
     @GetMapping("/main")
     public String main(
     ) {

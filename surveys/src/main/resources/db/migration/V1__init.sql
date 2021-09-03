@@ -55,6 +55,7 @@ create table questionnaire_questions
 create table descriptions
 (
     id bigserial primary key,
+    number int,
     questionnaire_id bigint references questionnaires(id) on delete cascade,
     description text,
     start_scale int,

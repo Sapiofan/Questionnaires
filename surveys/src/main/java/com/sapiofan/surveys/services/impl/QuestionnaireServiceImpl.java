@@ -1,7 +1,9 @@
 package com.sapiofan.surveys.services.impl;
 
+import com.sapiofan.surveys.entities.Description;
 import com.sapiofan.surveys.entities.QQuestion;
 import com.sapiofan.surveys.entities.Questionnaire;
+import com.sapiofan.surveys.repository.DescriptionRepository;
 import com.sapiofan.surveys.repository.QQuestionRepository;
 import com.sapiofan.surveys.repository.QuestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class QuestionnaireServiceImpl {
 
     @Autowired
     QQuestionRepository questionRepository;
+
+    @Autowired
+    DescriptionRepository descriptionRepository;
 
     @Transactional
     public Questionnaire findQuestionnaireById(Long id){
@@ -42,5 +47,17 @@ public class QuestionnaireServiceImpl {
     @Transactional
     public void deleteQQuestionById(Long id){
         questionRepository.deleteQQuestionById(id);
+    }
+    @Transactional
+    public void saveDescription(Description description){
+        descriptionRepository.save(description);
+    }
+    @Transactional
+    public void deleteDescriptionById(Long id){
+        descriptionRepository.deleteDescriptionById(id);
+    }
+    @Transactional
+    public List<Description> findAllDescriptions(Long id){
+        return descriptionRepository.findAllDescriptions(id);
     }
 }

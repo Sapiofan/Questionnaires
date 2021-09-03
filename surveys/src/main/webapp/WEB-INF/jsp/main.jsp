@@ -10,7 +10,7 @@
 <form action="/logout" method="get">
     <input type="submit" class="btn btn-danger" value="Sign out" />
     <a href="/survey", class="btn btn-primary">Create survey</a>
-    <a href="/questionnaire", class="btn btn-primary">Create questionnaire</a>
+    <a href="/createQuestionnaire", class="btn btn-primary">Create questionnaire</a>
     <a href="/list", class="btn btn-primary">List of surveys</a>
 </form>
 </body>

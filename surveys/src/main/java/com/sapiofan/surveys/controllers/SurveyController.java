@@ -352,12 +352,13 @@ public class SurveyController {
     }
 
     @PostMapping(value = "/survey/{id}", params = "start")
-    public String startSurvey(@PathVariable("id") Long id, Model model) {
+    public String startSurvey(@PathVariable("id") Long id, Model model, Authentication authentication) {
         model.addAttribute("surveyId", id);
+        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         Survey survey = surveyService.findSurveyById(id);
         SurveyResults results = new SurveyResults();
         results.setSurvey(survey);
-        results.setUser(userService.findUserById(1l));
+        results.setUser(userService.findUserByNickname(principal.getUsername()));
         Timestamp ts = Timestamp.from(Instant.now());
         results.setStart(ts);
         results.setEnd_time(ts);

@@ -35,11 +35,11 @@
 
             <p>Choose the scale</p>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="scale" id="inlineRadio1" value="1" required>
+              <input class="form-check-input" type="radio" name="scale" id="inlineRadio1" value="5" required>
               <label class="form-check-label" for="inlineRadio1">5-point scale</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="scale" id="inlineRadio2" value="2" required>
+              <input class="form-check-input" type="radio" name="scale" id="inlineRadio2" value="10" required>
               <label class="form-check-label" for="inlineRadio2">10-point scale</label>
             </div>
 
