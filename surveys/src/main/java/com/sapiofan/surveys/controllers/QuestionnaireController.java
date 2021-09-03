@@ -1,8 +1,11 @@
 package com.sapiofan.surveys.controllers;
 
 import com.sapiofan.surveys.entities.*;
+import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.impl.QuestionnaireServiceImpl;
 import com.sapiofan.surveys.services.impl.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class QuestionnaireController {
 
+    Logger logger = LoggerFactory.getLogger(QuestionnaireController.class);
+
     @Autowired
     private QuestionnaireServiceImpl questionnaireService;
 
@@ -20,35 +25,42 @@ public class QuestionnaireController {
     private UserServiceImpl userService;
 
     @GetMapping("/createQuestionnaire")
-    public String questionnaireForm(){
+    public String questionnaireForm(Model model){
+        model.addAttribute("questionnaireId", 0);
         return "questionnaire";
     }
 
-    @PostMapping("/createQuestionnaire")
+    @PostMapping(value = "/createQuestionnaire", params = "backToMain")
+    public String returnToMainPage(){
+        return "main";
+    }
+
+    @PostMapping(value = "/createQuestionnaire")
     public String createQuestionnaire(@RequestParam("name") String name,
                                       @RequestParam("description") String description,
-                                      @RequestParam("questionnaireId") Long id,
+
                                       @RequestParam("scale") String scale,
                                       Authentication authentication,
                                       Model model){
+        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         Questionnaire questionnaire;
-        if(id == 0) {
+//        if(questionnaireId == 0) {
             questionnaire = new Questionnaire();
-            questionnaire.setName(name);
-            questionnaire.setGeneral_description(description);
-            questionnaire.setSize(0);
-            questionnaire.setUser(getUser(authentication));
-            if(scale.equals("1")){
-                questionnaire.setScale(Scale.FIVE);
-            }
-            else {
-                questionnaire.setScale(Scale.TEN);
-            }
+            questionnaire.setUser(userService.findUserByNickname(principal.getUsername()));
+//        }
+//        else{
+//            questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+//        }
+        questionnaire.setName(name);
+        questionnaire.setGeneral_description(description);
+        questionnaire.setSize(0);
+        if(scale.equals("1")){
+            questionnaire.setScale(Scale.FIVE);
         }
-        else{
-            questionnaire = questionnaireService.findQuestionnaireById(id);
-            questionnaire.setName(name);
+        else {
+            questionnaire.setScale(Scale.TEN);
         }
+
         questionnaireService.saveQuestionnaire(questionnaire);
         model.addAttribute("questions", questionnaireService.findAllQuestions(questionnaire.getId()));
         model.addAttribute("questionnaireId", questionnaire.getId());
@@ -101,11 +113,5 @@ public class QuestionnaireController {
         questionnaireService.saveQuestionnaire(questionnaire);
         model.addAttribute("questionnaireId", questionnaireId);
         return "listOfQQuestions";
-    }
-
-
-    private User getUser(Authentication authentication) {
-        var nickname = (String) authentication.getPrincipal();
-        return userService.findUserByNickname(nickname);
     }
 }

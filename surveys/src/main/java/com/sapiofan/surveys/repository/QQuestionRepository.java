@@ -13,6 +13,6 @@ public interface QQuestionRepository extends JpaRepository<QQuestion, Long> {
     List<QQuestion> findAllQuestions(Long id);
 
     @Modifying
-    @Query("delete q from QQuestion where q.id = :id")
+    @Query("delete from QQuestion q where q.id = :id")
     void deleteQQuestionById(Long id);
 }

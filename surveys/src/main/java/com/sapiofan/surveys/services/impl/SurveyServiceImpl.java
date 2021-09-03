@@ -52,10 +52,6 @@ public class SurveyServiceImpl {
         return answerRepository.findAllAnswers(question_id);
     }
     @Transactional
-    public User findUserById(Long id){
-        return surveyRepository.findUserById(id);
-    }
-    @Transactional
     public SurveyResults findSurveyResultsById(UUID id){
         return surveyResultsRepository.findSurveyResultsById(id);
     }

@@ -19,16 +19,20 @@
 }
 </style>
     <div class="container mt-5">
-        <form action="/createSurvey" method="post">
+        <form action="/createQuestionnaire" method="post">
+
           <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+
           <div class="form-group">
             <label for="Questionnaire" class="form-label">Questionnaire name</label>
             <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" required>
           </div>
+
           <div class="form-group">
               <label for="description" class="form-label">Description</label>
               <input type="text" class="form-control" id="description" placeholder="Enter a name" name="description" required>
             </div>
+
             <p>Choose the scale</p>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="scale" id="inlineRadio1" value="1" required>
@@ -38,9 +42,10 @@
               <input class="form-check-input" type="radio" name="scale" id="inlineRadio2" value="2" required>
               <label class="form-check-label" for="inlineRadio2">10-point scale</label>
             </div>
+
           <div class="vertical-center">
             <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
-            <input type="submit" class="btn btn-success" value="Continue" />
+            <input type="submit" class="btn btn-success" value="Continue" name"continue" />
           </div>
         </form>
     <script>

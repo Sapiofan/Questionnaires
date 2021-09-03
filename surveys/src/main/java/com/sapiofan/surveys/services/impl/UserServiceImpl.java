@@ -15,4 +15,9 @@ public class UserServiceImpl {
     public User findUserByNickname(String nickname){
         return userRepository.findByNickname(nickname);
     }
+
+    @Transactional
+    public User findUserById(Long id){
+        return userRepository.findUserById(id);
+    }
 }

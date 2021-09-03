@@ -2,13 +2,13 @@ package com.sapiofan.surveys.controllers;
 
 
 import com.sapiofan.surveys.entities.*;
+import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.impl.SurveyServiceImpl;
 import com.sapiofan.surveys.services.impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,14 +37,15 @@ public class SurveyController {
     @PostMapping(value = "/createSurvey")
     public String addSurvey(@RequestParam("name") String name,
                             @RequestParam("surveyId") Long surveyId,
-                            @AuthenticationPrincipal User user,
+                            Authentication authentication,
                             Model model) {
+        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         Survey survey;
         if (surveyId == 0) {
             survey = new Survey();
             survey.setName(name);
             survey.setSize(0);
-            survey.setUser(user);
+            survey.setUser(userService.findUserByNickname(principal.getUsername()));
         } else {
             survey = surveyService.findSurveyById(surveyId);
             survey.setName(name);
@@ -356,7 +357,7 @@ public class SurveyController {
         Survey survey = surveyService.findSurveyById(id);
         SurveyResults results = new SurveyResults();
         results.setSurvey(survey);
-        results.setUser(surveyService.findUserById(1l));
+        results.setUser(userService.findUserById(1l));
         Timestamp ts = Timestamp.from(Instant.now());
         results.setStart(ts);
         results.setEnd_time(ts);
@@ -455,10 +456,5 @@ public class SurveyController {
         else {
             return true;
         }
-    }
-
-    private User getUser(Authentication authentication) {
-        var nickname = (String) authentication.getPrincipal();
-        return userService.findUserByNickname(nickname);
     }
 }
