@@ -12,6 +12,7 @@
     <a href="/survey", class="btn btn-primary">Create survey</a>
     <a href="/createQuestionnaire", class="btn btn-primary">Create questionnaire</a>
     <a href="/list", class="btn btn-primary">List of surveys</a>
+    <a href="/listOfQuestionnaires", class="btn btn-primary">List of questionnaires</a>
 </form>
 </body>
 </html>

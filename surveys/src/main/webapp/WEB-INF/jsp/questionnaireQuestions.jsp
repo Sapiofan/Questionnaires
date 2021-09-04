@@ -28,10 +28,10 @@
                <input type="text" class="form-control" id="question" placeholder="Enter a question" name="question" required>
        </div>
 
-        <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" >Change questionnaire fields</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire">Delete questionnaire</button>
+        <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" onclick="notRequired()">Change questionnaire fields</button>
+        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire"onclick="notRequired()">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
-        <button type="submit" class="btn btn-success" name="addDescriptions" >Add descriptions</button>
+        <button type="submit" class="btn btn-success" name="addDescriptions" onclick="notRequired()">Add descriptions</button>
     </form>
    <table border="1">
        <tr>

@@ -27,6 +27,14 @@ public class QuestionnaireServiceImpl {
     public Questionnaire findQuestionnaireById(Long id){
         return questionnaireRepository.findQuestionnaireById(id);
     }
+    @Transactional
+    public List<Questionnaire> findAllQuestionnaires(){
+        return questionnaireRepository.findAllQuestionnaires();
+    }
+    @Transactional
+    public QQuestion findQuestionByNumber(Long questionnaire_id, Integer number){
+        return questionRepository.findQuestionByNumber(questionnaire_id, number);
+    }
 
     @Transactional
     public void saveQuestionnaire(Questionnaire questionnaire){
@@ -59,5 +67,9 @@ public class QuestionnaireServiceImpl {
     @Transactional
     public List<Description> findAllDescriptions(Long id){
         return descriptionRepository.findAllDescriptions(id);
+    }
+    @Transactional
+    public Description findDescriptionById(Long id){
+        return descriptionRepository.findDescriptionById(id);
     }
 }

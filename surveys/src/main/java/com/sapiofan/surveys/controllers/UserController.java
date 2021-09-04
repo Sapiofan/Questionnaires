@@ -1,9 +1,11 @@
 package com.sapiofan.surveys.controllers;
 
+import com.sapiofan.surveys.entities.Questionnaire;
 import com.sapiofan.surveys.entities.Survey;
 import com.sapiofan.surveys.entities.User;
 import com.sapiofan.surveys.repository.UserRepository;
 import com.sapiofan.surveys.security.realization.CustomUserDetailsService;
+import com.sapiofan.surveys.services.impl.QuestionnaireServiceImpl;
 import com.sapiofan.surveys.services.impl.SurveyServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,9 @@ public class UserController {
 
     @Autowired
     private CustomUserDetailsService userService;
+
+    @Autowired
+    private QuestionnaireServiceImpl questionnaireService;
 
 
     @GetMapping
@@ -83,9 +88,14 @@ public class UserController {
     @GetMapping("/list")
     public String list(Model model) {
         List<Survey> surveys = surveyService.findAllSurveys();
-        surveys.stream().sorted(Comparator.comparingLong(Survey::getId));
-        model.addAttribute("surveys",surveys);
+        model.addAttribute("surveys",surveys.stream().sorted(Comparator.comparingLong(Survey::getId)));
         return "list";
+    }
+    @GetMapping("/listOfQuestionnaires")
+    public String listOfQuestionnaires(Model model) {
+        List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
+        model.addAttribute("questionnaires",questionnaires.stream().sorted(Comparator.comparingLong(Questionnaire::getId)));
+        return "listOfQuestionnaires";
     }
 
     @GetMapping("/questionnaire")

@@ -5,22 +5,10 @@
     <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <title>List of descriptions</title>
+        <title>Edit description</title>
 </head>
-<body onLoad="javascript:disableSubmit(${minimum}, ${maximum})">
+<body>
    <style>
-       table {
-           border-collapse: collapse;
-       }
-
-       table, td, th {
-           border: 1px solid #999;
-           padding: 5px;
-       }
-       .slidecontainer {
-         width: 100%;
-       }
-
        .slider {
          -webkit-appearance: none;
          width: 100%;
@@ -56,65 +44,53 @@
        }
    </style>
 
-    <form action="/addDescription" method="get">
+    <form action="/addDescription" method="post">
        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
        <input type="hidden" name="minimum" value=${minimum}>
         <input type="hidden" name="maximum" value=${maximum}>
 
        <div class="form-group">
                <label for="Description" class="form-label">Description</label>
-               <input type="text" class="form-control" id="description" placeholder="Enter a description" name="description" required>
+               <input type="text" class="form-control" id="description" value="${description.description}" placeholder="Enter a description" name="description" required>
        </div>
-       <h1>Enter a number of points</h1>
+           <h1>Low range</h1>
 
        <div class="slidecontainer">
-         <input type="range" min="${minimum}" max="${maximum}" value="${minimum}" class="slider" name="range" id="myRange">
+         <input type="range" min="${minimum}" max="${value_min}" value="${value_min}" class="slider" name="range1" id="myRange1">
          <p>Value: <span id="demo"></span></p>
        </div>
 
+        <h1>High range</h1>
+       <div class="slidecontainer">
+        <input type="range" min="${value_min}" max="${maximum}" value="${value}" class="slider" name="range2" id="myRange2">
+        <p>Value: <span id="second"></span></p>
+      </div>
 
-        <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Add questions</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire" onclick="notRequired()">Delete questionnaire</button>
-        <button type="submit" class="btn btn-primary" id="add" name="addDescription" >Add a description</button>
-        <button type="submit" class="btn btn-success" id="save" name="saveQuestionnaire" onclick="notRequired()" disabled>Save a questionnaire</button>
+
+        <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Back</button>
+        <button type="submit" class="btn btn-primary" id="add" name="addDescription" >Update</button>
     </form>
-   <table border="1">
-       <tr>
-           <th>number</th>
-           <th>description</th>
-           <th>start of range</th>
-           <th>end of range</th>
-       </tr>
-       <c:forEach  items="${descriptions}" var ="description">
-           <tr>
-               <td>${description.number}</td>
-               <td>${description.description}</td>
-               <td>${description.start_scale}</td>
-               <td>${description.end_scale}</td>
-               <td><a href="/deleteDescription/${description.id}?questionnaireId=${questionnaireId}">Delete</a></td>
-               <td><a href="/editDescription/${description.id}?questionnaireId=${questionnaireId}">Edit</a></td>
-           </tr>
-       </c:forEach>
-   </table>
 
    <script>
-        var slider = document.getElementById("myRange");
+        var slider = document.getElementById("myRange1");
         var output = document.getElementById("demo");
+        var slider1 = document.getElementById("myRange2");
+        var output1 = document.getElementById("second");
+
         output.innerHTML = slider.value;
+
+        output1.innerHTML = slider1.value;
 
         slider.oninput = function() {
          output.innerHTML = this.value;
         }
 
+        slider1.oninput = function() {
+            output1.innerHTML = this.value;
+        }
+
         function notRequired() {
            document.getElementById('description').required=false;
-       }
-
-       function disableSubmit(min, max) {
-            if(min > max){
-                document.getElementById('add').disabled=true;
-                document.getElementById('save').disabled=false;
-            }
        }
    </script>
 
