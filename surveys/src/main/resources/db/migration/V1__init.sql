@@ -23,6 +23,23 @@ create table right_answers
     a_boolean boolean not null
 );
 
+create table questionnaire_results
+(
+    id uuid primary key,
+    start timestamp default now(),
+    end_time timestamp default now(),
+    user_id bigint references users(id) on delete cascade,
+    questionnaire_id bigint references questionnaires(id) on delete cascade
+);
+
+create table evaluated_questions
+(
+    id bigserial primary key,
+    result_id uuid references questionnaire_results(id) on delete cascade,
+    question_id bigint references questionnaire_questions(id) on delete cascade,
+    grade int not null
+);
+
 create table scales
 (
     id          int  not null primary key,

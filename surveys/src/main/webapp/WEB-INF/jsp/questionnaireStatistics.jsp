@@ -1,47 +1,28 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List of surveys</title>
+    <title>Statistics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
+<input type="hidden" name="questionnaireId" value=${questionnaireId}>
+<input type="hidden" name="question" value=${question}>
+<h2>You have passed the test</h2>
 
-<h2>Questionnaires</h2>
-<style>
-table {
-    border-collapse: collapse;
-}
+<h5>Lost time: hours: ${hours}, minutes: ${minutes} seconds: ${seconds}</h5>
+<h5>Description: ${description}</h5>
 
-table, td, th {
-    border: 1px solid #999;
-    padding: 5px;
-}
-</style>
-
-<a href="/main", class="btn btn-danger">Back to main</a>
-
-<table border="1">
-    <tr>
-        <th>Questionnaire number</th>
-        <th>Questionnaire name</th>
-        <th>Creator</th>
-        <th>Number of questions</th>
-    </tr>
-    <c:forEach items="${questionnaires}" var ="questionnaire">
-        <tr>
-            <td><a href="/questionnaire/${questionnaire.id}">${questionnaire.id}</a></td>
-            <td>${questionnaire.name}</td>
-            <td>${questionnaire.user.nickname}</td>
-            <td>${questionnaire.size}</td>
-        </tr>
-    </c:forEach>
-</table>
+<form action="/listOfQuestionnaires" method="post">
+<input type="hidden" name="resultId" value=${resultId}>
+<button type="submit" class="btn btn-primary" name="back" >Back to list of questionnaires</button>
+</form>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

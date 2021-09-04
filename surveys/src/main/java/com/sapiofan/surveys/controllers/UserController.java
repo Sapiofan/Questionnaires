@@ -21,6 +21,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -88,13 +89,15 @@ public class UserController {
     @GetMapping("/list")
     public String list(Model model) {
         List<Survey> surveys = surveyService.findAllSurveys();
-        model.addAttribute("surveys",surveys.stream().sorted(Comparator.comparingLong(Survey::getId)));
+        model.addAttribute("surveys",surveys.stream().sorted(Comparator.comparingLong(Survey::getId)).collect(Collectors.toList()));
         return "list";
     }
     @GetMapping("/listOfQuestionnaires")
     public String listOfQuestionnaires(Model model) {
         List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
-        model.addAttribute("questionnaires",questionnaires.stream().sorted(Comparator.comparingLong(Questionnaire::getId)));
+        model.addAttribute("questionnaires",questionnaires.stream()
+                .sorted(Comparator.comparingLong(Questionnaire::getId))
+                .collect(Collectors.toList()));
         return "listOfQuestionnaires";
     }
 

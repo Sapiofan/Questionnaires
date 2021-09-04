@@ -1,9 +1,6 @@
 package com.sapiofan.surveys.controllers;
 
-import com.sapiofan.surveys.entities.Description;
-import com.sapiofan.surveys.entities.QQuestion;
-import com.sapiofan.surveys.entities.Questionnaire;
-import com.sapiofan.surveys.entities.Scale;
+import com.sapiofan.surveys.entities.*;
 import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.impl.QuestionnaireServiceImpl;
 import com.sapiofan.surveys.services.impl.UserServiceImpl;
@@ -18,7 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class QuestionnaireController {
@@ -198,8 +199,9 @@ public class QuestionnaireController {
     }
 
     @GetMapping(value = "/addDescription", params = "saveQuestionnaire")
-    public String saveQuestionnaire(){
-        return "list";
+    public String saveQuestionnaire(Model model){
+        model.addAttribute(questionnaireService.findAllQuestionnaires());
+        return "listOfQuestionnaires";
     }
 
     @GetMapping("/deleteDescription/{id}")
@@ -319,18 +321,102 @@ public class QuestionnaireController {
         CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(id);
 
-//        SurveyResults results = new SurveyResults();
-//        results.setSurvey(survey);
-//        results.setUser(userService.findUserByNickname(principal.getUsername()));
-//        Timestamp ts = Timestamp.from(Instant.now());
-//        results.setStart(ts);
-//        results.setEnd_time(ts);
-//        surveyService.saveSurveyResults(results);
-//        model.addAttribute("resultId", results.getId());
-//        Question question = surveyService.findQuestionByNumber(id, 1);
-//        model.addAttribute("question", question);
-//        model.addAttribute("answers", question.getAnswers());
-        return "passSurvey";
+        QuestionnaireResult result = new QuestionnaireResult();
+        result.setQuestionnaire(questionnaire);
+        result.setUser(userService.findUserByNickname(principal.getUsername()));
+        Timestamp ts = Timestamp.from(Instant.now());
+        result.setStart(ts);
+        result.setEnd_time(ts);
+        questionnaireService.saveQuestionnaireResult(result);
+        model.addAttribute("resultId", result.getId());
+        QQuestion question = questionnaireService.findQuestionByNumber(id, 1);
+        model.addAttribute("question", question);
+        model.addAttribute("maximum", 10);
+        model.addAttribute("minimum", 1);
+        model.addAttribute("middle", 5);
+        return "passQuestionnaire";
+    }
+
+    @GetMapping(value = "/questionnaire/{id}/{number}", params = "back")
+    public String backQuestion(@PathVariable("id") Long id, @PathVariable("number") Integer number,
+                               @RequestParam("resultId") UUID resultId,
+                               Model model){
+        if(number - 1 == 0){
+            questionnaireService.deleteResultsById(resultId);
+            model.addAttribute("questionnaires", questionnaireService.findAllQuestionnaires());
+            return "listOfQuestionnaires";
+        }
+        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(id);
+        model.addAttribute("questionnaireId", id);
+        model.addAttribute("resultId", resultId);
+        if(number-1 > 0 ) {
+            QQuestion question = questionnaireService.findQuestionByNumber(id, number - 1);
+            model.addAttribute("question", question);
+        }
+        model.addAttribute("maximum", 10);
+        model.addAttribute("minimum", 1);
+        model.addAttribute("middle", 5);
+        return "passQuestionnaire";
+    }
+
+    @GetMapping(value = "/questionnaire/{id}/{number}", params = "next")
+    public String getQuestion(@PathVariable("id") Long id, @PathVariable("number") Integer number, //fix updating of page
+                              @RequestParam("resultId") UUID resultId,
+                              @RequestParam("range") Integer answer,
+                              Model model) {
+        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(id);
+        QuestionnaireResult result = questionnaireService.findQuestionnaireResultById(resultId);
+        EvaluatedQuestion evaluatedQuestion = new EvaluatedQuestion();
+        QQuestion question = questionnaireService.findQuestionByNumber(id, number);
+        evaluatedQuestion.setQuestion(question);
+        evaluatedQuestion.setGrade(answer);
+        evaluatedQuestion.setResults(result);
+        questionnaireService.saveEvaluatedQuestion(evaluatedQuestion);
+
+        model.addAttribute("questionnaireId", id);
+        model.addAttribute("resultId", resultId);
+        if(number+1 <= questionnaire.getQuestions().size()) {
+            QQuestion question1 = questionnaireService.findQuestionByNumber(id, number + 1);
+            model.addAttribute("question", question1);
+        }
+        if (questionnaire.getQuestions().size() == number) {
+            Timestamp ts = Timestamp.from(Instant.now());
+            result.setEnd_time(ts);
+            long time_difference = ts.getTime() - result.getStart().getTime();
+            long hours_difference = TimeUnit.MILLISECONDS.toHours(time_difference) % 24;
+            long minutes_difference = TimeUnit.MILLISECONDS.toMinutes(time_difference) % 60;
+            long seconds_difference = TimeUnit.MILLISECONDS.toSeconds(time_difference) % 60;
+
+            List<EvaluatedQuestion> evaluatedQuestionList = questionnaireService.findAllEvaluatedQuestions(result.getId());
+            int counter = 0;
+            for (EvaluatedQuestion evaluatedQuestion1 : evaluatedQuestionList) {
+                counter += evaluatedQuestion1.getGrade();
+            }
+            List<Description> descriptions = questionnaire.getDescriptions();
+            String mainDescription = "";
+            for (Description description : descriptions) {
+                if(counter >= description.getStart_scale() && counter <= description.getEnd_scale()){
+                    mainDescription += description.getDescription();
+                    break;
+                }
+            }
+            model.addAttribute("description", mainDescription);
+            model.addAttribute("hours", hours_difference);
+            model.addAttribute("minutes", minutes_difference);
+            model.addAttribute("seconds", seconds_difference);
+            return "questionnaireStatistics";
+        }
+        model.addAttribute("maximum", 10);
+        model.addAttribute("minimum", 1);
+        model.addAttribute("middle", 5);
+        return "passQuestionnaire";
+    }
+
+    @PostMapping(value = "/listOfQuestionnaires", params = "back")
+    public String backQuestionnaires(@RequestParam("resultId") UUID resultId, Model model){
+        questionnaireService.deleteResultsById(resultId);
+        model.addAttribute("questionnaires", questionnaireService.findAllQuestionnaires());
+        return "listOfQuestionnaires";
     }
 
     private int minimum(List<Description> descriptions){

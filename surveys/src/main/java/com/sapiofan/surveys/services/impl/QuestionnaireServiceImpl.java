@@ -1,16 +1,13 @@
 package com.sapiofan.surveys.services.impl;
 
-import com.sapiofan.surveys.entities.Description;
-import com.sapiofan.surveys.entities.QQuestion;
-import com.sapiofan.surveys.entities.Questionnaire;
-import com.sapiofan.surveys.repository.DescriptionRepository;
-import com.sapiofan.surveys.repository.QQuestionRepository;
-import com.sapiofan.surveys.repository.QuestionnaireRepository;
+import com.sapiofan.surveys.entities.*;
+import com.sapiofan.surveys.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class QuestionnaireServiceImpl {
@@ -22,6 +19,12 @@ public class QuestionnaireServiceImpl {
 
     @Autowired
     DescriptionRepository descriptionRepository;
+
+    @Autowired
+    QuestionnaireResultRepository questionnaireResultRepository;
+
+    @Autowired
+    EvaluatedQuestionRepository evaluatedQuestionRepository;
 
     @Transactional
     public Questionnaire findQuestionnaireById(Long id){
@@ -71,5 +74,25 @@ public class QuestionnaireServiceImpl {
     @Transactional
     public Description findDescriptionById(Long id){
         return descriptionRepository.findDescriptionById(id);
+    }
+    @Transactional
+    public void saveQuestionnaireResult(QuestionnaireResult questionnaireResult){
+        questionnaireResultRepository.save(questionnaireResult);
+    }
+    @Transactional
+    public void deleteResultsById(UUID resultId){
+        questionnaireResultRepository.deleteQuestionnaireResultById(resultId);
+    }
+    @Transactional
+    public QuestionnaireResult findQuestionnaireResultById(UUID id){
+        return questionnaireResultRepository.findQuestionnaireResultById(id);
+    }
+    @Transactional
+    public void saveEvaluatedQuestion(EvaluatedQuestion evaluatedQuestion){
+        evaluatedQuestionRepository.save(evaluatedQuestion);
+    }
+    @Transactional
+    public List<EvaluatedQuestion> findAllEvaluatedQuestions(UUID id){
+        return evaluatedQuestionRepository.findAllResultsBySurvey(id);
     }
 }
