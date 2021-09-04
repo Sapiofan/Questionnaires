@@ -22,9 +22,10 @@ public class Answer {
     @Column(nullable = false)
     private Boolean correctness;
 
-    public Answer(){}
+    public Answer() {
+    }
 
-    public Answer(Integer number, Question question, String answer, Boolean correctness){
+    public Answer(Integer number, Question question, String answer, Boolean correctness) {
         this.number = number;
         this.question = question;
         this.answer = answer;

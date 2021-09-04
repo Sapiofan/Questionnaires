@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "questionnaires")
-public class Questionnaire extends ListOfSurveys{
+public class Questionnaire extends ListOfSurveys {
     @Column(nullable = false)
     private String name;
 
@@ -30,7 +30,8 @@ public class Questionnaire extends ListOfSurveys{
     private List<Description> descriptions = new ArrayList<>();
 
 
-    public Questionnaire(){}
+    public Questionnaire() {
+    }
 
     public String getName() {
         return name;
@@ -89,12 +90,12 @@ public class Questionnaire extends ListOfSurveys{
         this.scale = scale;
     }
 
-    public void addQuestion(QQuestion question){
+    public void addQuestion(QQuestion question) {
         this.questions.add(question);
         size = questions.size();
     }
 
-    public void addDescription(Description description){
+    public void addDescription(Description description) {
         this.descriptions.add(description);
     }
 }

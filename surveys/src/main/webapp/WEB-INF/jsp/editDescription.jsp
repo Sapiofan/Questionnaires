@@ -48,6 +48,7 @@
        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
        <input type="hidden" name="minimum" value=${minimum}>
         <input type="hidden" name="maximum" value=${maximum}>
+        <input type="hidden" name="descriptionObj" value=${descriptionObj}>
 
        <div class="form-group">
                <label for="Description" class="form-label">Description</label>
@@ -67,8 +68,8 @@
       </div>
 
 
-        <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Back</button>
-        <button type="submit" class="btn btn-primary" id="add" name="addDescription" >Update</button>
+        <button type="submit" class="btn btn-warning" name="back" onclick="notRequired()">Back</button>
+        <button type="submit" class="btn btn-primary" id="update" name="update" >Update</button>
     </form>
 
    <script>

@@ -293,15 +293,49 @@ public class QuestionnaireController {
         return "editDescription";
     }
 
-    @PostMapping("/addDescription")
+    @PostMapping(value = "/addDescription", params = "back")
+    public String backToDescriptions(@RequestParam("questionnaireId") Long questionnaireId,
+                                     Model model){
+        List<Description> descriptions = questionnaireService.findAllDescriptions(questionnaireId);
+        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+        model.addAttribute("questionnaireId", questionnaireId);
+        model.addAttribute("minimum", minimum(descriptions));
+        model.addAttribute("maximum", maximum(questionnaire));
+        model.addAttribute("descriptions", descriptions);
+        return "descriptions";
+    }
+
+    @PostMapping(value = "/addDescription", params = "update")
     public String editDescription(@RequestParam("questionnaireId") Long questionnaireId,
                                   @RequestParam("description") String inputtedDescription,
                                   @RequestParam("range1") Integer rangeLow,
                                   @RequestParam("range2") Integer rangeHigh,
                                   @RequestParam("minimum") Integer minimum,
                                   @RequestParam("maximum") Integer maximum,
+                                  @RequestParam("descriptionObj") Description description,
                                   Model model){
+        description.setDescription(inputtedDescription);
+        description.setStart_scale(rangeLow);
+        description.setEnd_scale(rangeHigh);
+        questionnaireService.saveDescription(description);
+        int number = description.getNumber();
+        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+        List<Description> descriptions = questionnaire.getDescriptions();
+        if(number - 2 >= 0) {
+            Description description1 = descriptions.get(number - 2);
+            description1.setEnd_scale(rangeLow - 1);
+            questionnaireService.saveDescription(description1);
+        }
+        if(number < descriptions.size()) {
+            Description description2 = descriptions.get(number);
+            description2.setStart_scale(rangeHigh + 1);
+            questionnaireService.saveDescription(description2);
+        }
+        descriptions = questionnaireService.findAllDescriptions(questionnaireId);
         model.addAttribute("questionnaireId", questionnaireId);
+        model.addAttribute("minimum", minimum(descriptions));
+        model.addAttribute("maximum", maximum(questionnaire));
+        model.addAttribute("descriptions", descriptions);
         return "descriptions";
     }
 

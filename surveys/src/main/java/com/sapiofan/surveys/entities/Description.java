@@ -25,7 +25,8 @@ public class Description {
     @Column(nullable = false)
     private Integer end_scale;
 
-    public Description(){}
+    public Description() {
+    }
 
     public Long getId() {
         return id;

@@ -27,9 +27,10 @@ public class Question {
     private RightAnswers rightAnswers;
 
 
-    public Question(){}
+    public Question() {
+    }
 
-    public Question(Integer number, String description, Survey survey){
+    public Question(Integer number, String description, Survey survey) {
         this.number = number;
         this.description = description;
         this.survey = survey;
@@ -77,7 +78,7 @@ public class Question {
         this.answers = answers;
     }
 
-    public void addAnswer(Answer answer){
+    public void addAnswer(Answer answer) {
         this.answers.add(answer);
     }
 

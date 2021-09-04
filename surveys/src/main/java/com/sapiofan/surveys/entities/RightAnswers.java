@@ -22,7 +22,8 @@ public class RightAnswers {
     private Boolean aBoolean;
 
 
-    public RightAnswers(){}
+    public RightAnswers() {
+    }
 
     public Long getId() {
         return id;
@@ -41,7 +42,7 @@ public class RightAnswers {
         results.addRightAnswers(this);
     }
 
-    public void addQuestion(Question question, Boolean b){
+    public void addQuestion(Question question, Boolean b) {
         setQuestion(question);
         setaBoolean(b);
     }

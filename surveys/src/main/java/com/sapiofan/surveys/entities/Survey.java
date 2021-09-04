@@ -20,7 +20,8 @@ public class Survey extends ListOfSurveys {
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     private List<Question> questions = new ArrayList<>();
 
-    public Survey(){}
+    public Survey() {
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -55,7 +56,7 @@ public class Survey extends ListOfSurveys {
         user.addSurvey(this);
     }
 
-    public void addQuestion(Question question){
+    public void addQuestion(Question question) {
         this.questions.add(question);
         size = questions.size();
     }

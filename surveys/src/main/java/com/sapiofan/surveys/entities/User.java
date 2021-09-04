@@ -30,7 +30,8 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<SurveyResults> results = new ArrayList<>();
 
-    public User(){}
+    public User() {
+    }
 
     public Long getId() {
         return id;
@@ -88,11 +89,11 @@ public class User {
         this.results = results;
     }
 
-    public void addSurvey(Survey survey){
+    public void addSurvey(Survey survey) {
         this.surveys.add(survey);
     }
 
-    public void addQuestionnaire(Questionnaire questionnaire){
+    public void addQuestionnaire(Questionnaire questionnaire) {
         this.questionnaires.add(questionnaire);
     }
 }

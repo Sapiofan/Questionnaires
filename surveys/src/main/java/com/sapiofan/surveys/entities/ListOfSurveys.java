@@ -8,7 +8,8 @@ public class ListOfSurveys {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public  ListOfSurveys(){}
+    public ListOfSurveys() {
+    }
 
     public Long getId() {
         return id;

@@ -30,7 +30,8 @@ public class QuestionnaireResult {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "results")
     private List<EvaluatedQuestion> evaluated_questions;
 
-    public QuestionnaireResult(){}
+    public QuestionnaireResult() {
+    }
 
     public UUID getId() {
         return id;
@@ -80,7 +81,7 @@ public class QuestionnaireResult {
         this.evaluated_questions = evaluated_questions;
     }
 
-    public void addEvaluatedQuestion(EvaluatedQuestion evaluatedQuestion){
+    public void addEvaluatedQuestion(EvaluatedQuestion evaluatedQuestion) {
         this.evaluated_questions.add(evaluatedQuestion);
     }
 }

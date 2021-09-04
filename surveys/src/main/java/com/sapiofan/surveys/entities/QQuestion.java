@@ -19,7 +19,8 @@ public class QQuestion {
     @JoinColumn(name = "questionnaire_id")
     private Questionnaire questionnaire;
 
-    public QQuestion(){}
+    public QQuestion() {
+    }
 
     public Long getId() {
         return id;

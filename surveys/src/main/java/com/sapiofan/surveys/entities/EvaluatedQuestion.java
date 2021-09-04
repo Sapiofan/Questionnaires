@@ -20,7 +20,8 @@ public class EvaluatedQuestion {
     @Column(nullable = false)
     private Integer grade;
 
-    public EvaluatedQuestion(){}
+    public EvaluatedQuestion() {
+    }
 
     public Long getId() {
         return id;
