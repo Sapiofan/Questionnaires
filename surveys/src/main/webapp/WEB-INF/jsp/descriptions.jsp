@@ -3,9 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <title>List of descriptions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>List of descriptions</title>
 </head>
 <body onLoad="javascript:disableSubmit(${minimum}, ${maximum})">
    <style>
@@ -57,20 +57,20 @@
    </style>
 
     <form action="/addDescription" method="get">
-       <input type="hidden" name="questionnaireId" value=${questionnaireId}>
-       <input type="hidden" name="minimum" value=${minimum}>
+        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+        <input type="hidden" name="minimum" value=${minimum}>
         <input type="hidden" name="maximum" value=${maximum}>
 
-       <div class="form-group">
-               <label for="Description" class="form-label">Description</label>
-               <input type="text" class="form-control" id="description" placeholder="Enter a description" name="description" required>
-       </div>
-       <h1>Enter a number of points</h1>
+        <div class="form-group">
+            <label for="Description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Enter a description" name="description" required>
+        </div>
+        <h1>Enter a number of points</h1>
 
-       <div class="slidecontainer">
-         <input type="range" min="${minimum}" max="${maximum}" value="${minimum}" class="slider" name="range" id="myRange">
-         <p>Value: <span id="demo"></span></p>
-       </div>
+        <div class="slidecontainer">
+            <input type="range" min="${minimum}" max="${maximum}" value="${minimum}" class="slider" name="range" id="myRange">
+            <p>Value: <span id="demo"></span></p>
+        </div>
 
 
         <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Add questions</button>
@@ -78,7 +78,8 @@
         <button type="submit" class="btn btn-primary" id="add" name="addDescription" >Add a description</button>
         <button type="submit" class="btn btn-success" id="save" name="saveQuestionnaire" onclick="notRequired()" disabled>Save a questionnaire</button>
     </form>
-   <table border="1">
+
+    <table border="1">
        <tr>
            <th>number</th>
            <th>description</th>
@@ -117,11 +118,5 @@
             }
        }
    </script>
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </body>
 </html>

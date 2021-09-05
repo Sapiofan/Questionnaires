@@ -1,6 +1,6 @@
 package com.sapiofan.surveys.security.realization;
 
-import com.sapiofan.surveys.entities.User;
+import com.sapiofan.surveys.entities.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

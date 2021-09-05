@@ -9,68 +9,68 @@
 </head>
 <body>
 
-<style>
-.vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 90%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
+    <style>
+        .vertical-center {
+          margin: 0;
+          position: absolute;
+          top: 90%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
 
-.slidecontainer {
-         width: 100%;
-       }
+           .slidecontainer {
+             width: 100%;
+           }
 
-       .slider {
-         -webkit-appearance: none;
-         width: 100%;
-         height: 15px;
-         border-radius: 5px;
-         background: #d3d3d3;
-         outline: none;
-         opacity: 0.7;
-         -webkit-transition: .2s;
-         transition: opacity .2s;
-       }
+           .slider {
+             -webkit-appearance: none;
+             width: 100%;
+             height: 15px;
+             border-radius: 5px;
+             background: #d3d3d3;
+             outline: none;
+             opacity: 0.7;
+             -webkit-transition: .2s;
+             transition: opacity .2s;
+           }
 
-       .slider:hover {
-         opacity: 1;
-       }
+           .slider:hover {
+             opacity: 1;
+           }
 
-       .slider::-webkit-slider-thumb {
-         -webkit-appearance: none;
-         appearance: none;
-         width: 25px;
-         height: 25px;
-         border-radius: 50%;
-         background: #04AA6D;
-         cursor: pointer;
-       }
+           .slider::-webkit-slider-thumb {
+             -webkit-appearance: none;
+             appearance: none;
+             width: 25px;
+             height: 25px;
+             border-radius: 50%;
+             background: #04AA6D;
+             cursor: pointer;
+           }
 
-       .slider::-moz-range-thumb {
-         width: 25px;
-         height: 25px;
-         border-radius: 50%;
-         background: #04AA6D;
-         cursor: pointer;
-       }
-</style>
+           .slider::-moz-range-thumb {
+             width: 25px;
+             height: 25px;
+             border-radius: 50%;
+             background: #04AA6D;
+             cursor: pointer;
+           }
+    </style>
+
     <div class="container mt-5">
         <form action="/questionnaire/${questionnaireId}/${question.number}" method="get">
-        <input type="hidden" name="resultId" value=${resultId}>
-        <input type="hidden" name="flag" value=${flag}>
-        <h3>Q${question.number}. ${question.name}</h3>
-        <div class="slidecontainer">
-         <input type="range" min="${minimum}" max="${maximum}" value="${middle}" class="slider" name="range" id="myRange">
-         <p>Degree of agreement : <span id="demo"></span></p>
-       </div>
-          <div class="vertical-center">
-            <input type="submit" class="btn btn-danger" value="back" name="back" />
-            <input type="submit" class="btn btn-primary" value="next" name="next" />
-          </div>
+            <input type="hidden" name="resultId" value=${resultId}>
+            <input type="hidden" name="flag" value=${flag}>
+            <h3>Q${question.number}. ${question.name}</h3>
+            <div class="slidecontainer">
+                <input type="range" min="${minimum}" max="${maximum}" value="${middle}" class="slider" name="range" id="myRange">
+                <p>Degree of agreement : <span id="demo"></span></p>
+            </div>
+            <div class="vertical-center">
+                <input type="submit" class="btn btn-danger" value="back" name="back" />
+                <input type="submit" class="btn btn-primary" value="next" name="next" />
+            </div>
         </form>
-
     </div>
 
     <script>
@@ -81,11 +81,6 @@
         slider.oninput = function() {
          output.innerHTML = this.value;
         }
-
    </script>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

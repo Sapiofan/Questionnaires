@@ -7,29 +7,25 @@
     <title>Start passing</title>
 </head>
 <body>
-<h1 style="text-align: center">Hello, here you can pass the test!</h1>
+    <h1 style="text-align: center">Hello, here you can pass the test!</h1>
 
-<style>
-.vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 90%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-</style>
+    <style>
+        .vertical-center {
+          margin: 0;
+          position: absolute;
+          top: 90%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
+    </style>
     <div class="container mt-5">
         <form action="/survey/${surveyId}" method="post">
-          <h3><p>Maybe here will be description of survey</p></h3>
-          <div class="vertical-center">
-            <a href="/list", class="btn btn-danger">Back to list</a>
-            <input type="submit" class="btn btn-success" value="Start" name="start" />
-          </div>
+            <h3><p>Maybe here will be description of survey</p></h3>
+            <div class="vertical-center">
+                <a href="/list", class="btn btn-danger">Back to list</a>
+                <input type="submit" class="btn btn-success" value="Start" name="start" />
+            </div>
         </form>
-
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
+   </body>
 </html>

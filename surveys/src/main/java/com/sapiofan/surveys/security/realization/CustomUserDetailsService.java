@@ -1,7 +1,7 @@
 package com.sapiofan.surveys.security.realization;
 
-import com.sapiofan.surveys.entities.User;
-import com.sapiofan.surveys.repository.UserRepository;
+import com.sapiofan.surveys.entities.user.User;
+import com.sapiofan.surveys.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,9 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new CustomUserDetails(user);
     }
 
-    public boolean checkIfUserExists(String username){
+    public boolean checkIfUserExists(String username) {
         User user = userRepository.findByNickname(username);
-        if(user != null){
+        if (user != null) {
             return true;
         }
         return false;

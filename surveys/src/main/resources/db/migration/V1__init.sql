@@ -1,8 +1,8 @@
 create table users
 (
     id         bigserial primary key,
-    nickname   text,
-    password   text,
+    nickname   text unique not null,
+    password   text not null,
     created_at timestamp default now()
 );
 
@@ -55,7 +55,7 @@ values (2, 'TEN');
 create table questionnaires
 (
     id bigserial primary key,
-    name text,
+    name text not null,
     size int,
     general_description text,
     user_id bigint references users(id) on delete cascade
@@ -64,33 +64,33 @@ create table questionnaires
 create table questionnaire_questions
 (
     id bigserial primary key,
-    number int,
-    name text,
+    number int not null,
+    name text not null,
     questionnaire_id bigint references questionnaires(id) on delete cascade
 );
 
 create table descriptions
 (
     id bigserial primary key,
-    number int,
+    number int not null,
     questionnaire_id bigint references questionnaires(id) on delete cascade,
     description text,
-    start_scale int,
-    end_scale int
+    start_scale int not null,
+    end_scale int not null
 );
 
 
 create table surveys
 (
     id bigserial primary key,
-    name text,
+    name text not null,
     size int,
     user_id bigint references users(id) on delete cascade
 );
 create table questions
 (
     id bigserial primary key,
-    number int,
+    number int not null,
     description text,
     survey_id bigint references surveys(id) on delete cascade
 );
@@ -98,9 +98,9 @@ create table questions
 create table answers
 (
     id bigserial primary key,
-    number int,
-    answer text,
-    correctness boolean,
+    number int not null,
+    answer text not null,
+    correctness boolean not null,
     question_id bigint references questions(id) on delete cascade
 );
 

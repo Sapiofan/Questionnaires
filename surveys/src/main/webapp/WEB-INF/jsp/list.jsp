@@ -9,39 +9,35 @@
 </head>
 <body>
 
-<h2>Surveys</h2>
-<style>
-table {
-    border-collapse: collapse;
-}
+    <h2>Surveys</h2>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
 
-table, td, th {
-    border: 1px solid #999;
-    padding: 5px;
-}
-</style>
+        table, td, th {
+            border: 1px solid #999;
+            padding: 5px;
+        }
+    </style>
 
-<a href="/main", class="btn btn-danger">Back to main</a>
+    <a href="/main", class="btn btn-danger">Back to main</a>
 
-<table border="1">
-    <tr>
-        <th>Survey number</th>
-        <th>Survey name</th>
-        <th>Creator</th>
-        <th>Number of questions</th>
-    </tr>
-    <c:forEach  items="${surveys}" var ="survey">
+    <table border="1">
         <tr>
-            <td><a href="/survey/${survey.id}">${survey.id}</a></td>
-            <td>${survey.name}</td>
-            <td>${survey.user.nickname}</td>
-            <td>${survey.size}</td>
+            <th>Survey number</th>
+            <th>Survey name</th>
+            <th>Creator</th>
+            <th>Number of questions</th>
         </tr>
-    </c:forEach>
-</table>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+        <c:forEach  items="${surveys}" var ="survey">
+            <tr>
+                <td><a href="/survey/${survey.id}">${survey.id}</a></td>
+                <td>${survey.name}</td>
+                <td>${survey.user.nickname}</td>
+                <td>${survey.size}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>

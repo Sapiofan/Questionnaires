@@ -1,12 +1,12 @@
 package com.sapiofan.surveys.controllers;
 
-import com.sapiofan.surveys.entities.Questionnaire;
-import com.sapiofan.surveys.entities.Survey;
-import com.sapiofan.surveys.entities.User;
-import com.sapiofan.surveys.repository.UserRepository;
+import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
+import com.sapiofan.surveys.entities.survey.Survey;
+import com.sapiofan.surveys.entities.user.User;
 import com.sapiofan.surveys.security.realization.CustomUserDetailsService;
-import com.sapiofan.surveys.services.impl.QuestionnaireServiceImpl;
-import com.sapiofan.surveys.services.impl.SurveyServiceImpl;
+import com.sapiofan.surveys.services.questionnaire.impl.QuestionnaireServiceImpl;
+import com.sapiofan.surveys.services.survey.SurveyService;
+import com.sapiofan.surveys.services.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +29,13 @@ public class UserController {
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private SurveyServiceImpl surveyService;
+    private SurveyService surveyService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private CustomUserDetailsService userService;
+    private CustomUserDetailsService customUserService;
 
     @Autowired
     private QuestionnaireServiceImpl questionnaireService;
@@ -55,7 +55,7 @@ public class UserController {
     @GetMapping(value = "/process", params = "signUp")
     public String processRegister(@RequestParam("nickname") String nickname,
                                   @RequestParam("password") String password, Model model) {
-        if(userService.checkIfUserExists(nickname)){
+        if (customUserService.checkIfUserExists(nickname)) {
             model.addAttribute("exist", true);
             return "registration";
         }
@@ -69,7 +69,7 @@ public class UserController {
         Timestamp ts = Timestamp.from(Instant.now());
         user.setCreated_at(ts);
 
-        userRepository.save(user);
+        userService.save(user);
 
         return "signup_success";
     }
@@ -81,7 +81,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String signOut(){
+    public String signOut() {
         SecurityContextHolder.getContext().setAuthentication(null);
         return "redirect:/index";
     }
@@ -89,13 +89,14 @@ public class UserController {
     @GetMapping("/list")
     public String list(Model model) {
         List<Survey> surveys = surveyService.findAllSurveys();
-        model.addAttribute("surveys",surveys.stream().sorted(Comparator.comparingLong(Survey::getId)).collect(Collectors.toList()));
+        model.addAttribute("surveys", surveys.stream().sorted(Comparator.comparingLong(Survey::getId)).collect(Collectors.toList()));
         return "list";
     }
+
     @GetMapping("/listOfQuestionnaires")
     public String listOfQuestionnaires(Model model) {
         List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
-        model.addAttribute("questionnaires",questionnaires.stream()
+        model.addAttribute("questionnaires", questionnaires.stream()
                 .sorted(Comparator.comparingLong(Questionnaire::getId))
                 .collect(Collectors.toList()));
         return "listOfQuestionnaires";
