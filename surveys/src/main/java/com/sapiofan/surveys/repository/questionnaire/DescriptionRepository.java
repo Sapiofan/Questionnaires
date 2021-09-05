@@ -14,6 +14,9 @@ public interface DescriptionRepository extends JpaRepository<Description, Long> 
     @Query("select d from Description d where d.id = :id")
     Description findDescriptionById(Long id);
 
+    @Query("select d from Description d where d.questionnaire.id = :questionnaireId and d.number = :number")
+    Description findDescriptionByNumber(Long questionnaireId, Integer number);
+
     @Query("delete from Description d where d.id = :id")
     @Modifying
     void deleteDescriptionById(Long id);

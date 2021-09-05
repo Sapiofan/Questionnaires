@@ -26,6 +26,11 @@ public class DescriptionServiceImpl implements DescriptionService {
     }
 
     @Transactional
+    public Description findDescriptionByNumber(Long questionnaireId, Integer number){
+        return descriptionRepository.findDescriptionByNumber(questionnaireId, number);
+    }
+
+    @Transactional
     public void saveDescription(Description description) {
         descriptionRepository.save(description);
     }

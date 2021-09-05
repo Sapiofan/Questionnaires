@@ -12,4 +12,6 @@ public interface UserService {
     void save(User user);
 
     List<User> findAllUsers();
+
+    void deleteUser(User user);
 }

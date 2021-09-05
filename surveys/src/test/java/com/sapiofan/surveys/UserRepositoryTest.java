@@ -1,81 +1,74 @@
-package com.sapiofan.surveys;
-
-import com.sapiofan.surveys.entities.user.User;
-import com.sapiofan.surveys.repository.user.UserRepository;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.annotation.Rollback;
-
-import java.sql.Timestamp;
-import java.time.Instant;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
-@Rollback(false)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UserRepositoryTest {
-
-    @Autowired
-    private TestEntityManager entityManager;
-
-//    @Autowired
-//    private UserServiceImpl userService;
-
-    @Autowired
-    private UserRepository repository;
-
-//    @Autowired
+//package com.sapiofan.surveys;
+//
+//import com.sapiofan.surveys.entities.user.User;
+//import com.sapiofan.surveys.security.realization.CustomUserDetailsService;
+//import com.sapiofan.surveys.services.user.UserService;
+//import com.sapiofan.surveys.services.user.impl.UserServiceImpl;
+//import org.junit.jupiter.api.*;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//
+//import java.sql.Timestamp;
+//import java.time.Instant;
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//import static org.assertj.core.api.Assertions.assertThat;
+//
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//public class UserRepositoryTest {
+//
+//    private UserService userService;
+//
 //    private CustomUserDetailsService customUserDetailsService;
-
-    @Test
-    @Order(1)
-    public void testCreateUser() {
-        User user = new User();
-        user.setNickname("TestNickname");
-        user.setPassword("test2021");
-        Timestamp timestamp = Timestamp.from(Instant.now());
-        user.setCreated_at(timestamp);
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        User savedUser = repository.save(user);
-
-        User existUser = entityManager.find(User.class, savedUser.getId());
-
-        assertThat(user.getNickname()).isEqualTo(existUser.getNickname());
-
-    }
-
-    @Test
-    @Order(2)
-    public void testFindByNickname() {
-        String nickname = "TestNickname";
-        User user = repository.findByNickname(nickname);
-
-        assertThat(user.getNickname()).isEqualTo(nickname);
-    }
-
-    @Test
-    @Order(3)
-    public void createTheSameUser(){
+//
+//    @BeforeEach
+//    void setUp() {
+//        userService = new UserServiceImpl();
+//        customUserDetailsService = new CustomUserDetailsService();
+//    }
+//
+//    @Test
+//    @Order(1)
+//    public void testCreateUser() {
+//        User user = new User();
+//        user.setNickname("TestNickname");
+//        user.setPassword("test2021");
+//        Timestamp timestamp = Timestamp.from(Instant.now());
+//        user.setCreated_at(timestamp);
+//
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String encodedPassword = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(encodedPassword);
+//
+//        userService.save(user);
+//
+//        User newUser = userService.findUserByNickname("TestNickname");
+//
+//        assertThat(user.getNickname()).isEqualTo(newUser.getNickname());
+//
+//    }
+//
+//    @Test
+//    @Order(2)
+//    public void testFindByNickname() {
+//        String nickname = "TestNickname";
+//        User user = userService.findUserByNickname(nickname);
+//
+//        assertThat(user.getNickname()).isEqualTo(nickname);
+//    }
+//
+//    @Test
+//    @Order(3)
+//    public void createTheSameUser(){
 //        if(customUserDetailsService.checkIfUserExists("TestNickname")) {
 //            User user = new User();
 //            user.setNickname("TestNickname");
 //            user.setPassword("test2021");
 //            Timestamp timestamp = Timestamp.from(Instant.now());
 //            user.setCreated_at(timestamp);
-//            repository.save(user);
+//            userService.save(user);
 //        }
-
+//
 //        List<User> users = userService.findAllUsers();
 //        List<User> duplicates = new ArrayList<>();
 //        for (User user1 : users) {
@@ -84,12 +77,13 @@ public class UserRepositoryTest {
 //            }
 //        }
 //        Assertions.assertEquals(duplicates.size(), 1);
-    }
-
-    @Test
-    @Order(4)
-    public void notRegisteredUser(){
-        Assertions.assertNull(repository.findByNickname("nicknameNickname"));
-    }
-}
-
+////        userService.deleteUser(userService.findUserByNickname("TestNickname"));
+//    }
+//
+//    @Test
+//    @Order(4)
+//    public void notRegisteredUser(){
+//        Assertions.assertNull(userService.findUserByNickname("nicknameNickname"));
+//    }
+//}
+//

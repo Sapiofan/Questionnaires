@@ -10,6 +10,8 @@ public interface DescriptionService {
 
     List<Description> findAllDescriptions(Long id);
 
+    Description findDescriptionByNumber(Long questionnaireId, Integer number);
+
     void saveDescription(Description description);
 
     void deleteDescriptionById(Long id);

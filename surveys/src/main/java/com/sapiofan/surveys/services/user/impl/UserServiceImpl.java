@@ -25,14 +25,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void save(User user) {
         userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public List<User> findAllUsers() {
         return userRepository.users();
     }
 
-
+    @Override
+    @Transactional
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
 }

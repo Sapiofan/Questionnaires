@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>Edit description</title>
 </head>
-<body>
+<body onLoad="javascript:disable(${minimum})">
    <style>
        .slider {
          -webkit-appearance: none;
@@ -48,7 +48,7 @@
         <input type="hidden" name="questionnaireId" value=${questionnaireId}>
         <input type="hidden" name="minimum" value=${minimum}>
         <input type="hidden" name="maximum" value=${maximum}>
-        <input type="hidden" name="descriptionObj" value=${descriptionObj}>
+        <input type="hidden" name="descriptionId" value=${descriptionId}>
 
         <div class="form-group">
             <label for="Description" class="form-label">Description</label>
@@ -91,6 +91,12 @@
 
         function notRequired() {
            document.getElementById('description').required=false;
+       }
+
+       function disabled(x){
+           if(x == 1){
+                document.getElementById('myRange1').disabled=true;
+           }
        }
    </script>
 </body>
