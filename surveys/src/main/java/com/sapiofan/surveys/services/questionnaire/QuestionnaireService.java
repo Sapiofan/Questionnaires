@@ -13,4 +13,6 @@ public interface QuestionnaireService {
     void saveQuestionnaire(Questionnaire questionnaire);
 
     void deleteQuestionnaire(Long id);
+
+    int maximum(Questionnaire questionnaire);
 }

@@ -34,4 +34,13 @@ public class DescriptionServiceImpl implements DescriptionService {
     public void deleteDescriptionById(Long id) {
         descriptionRepository.deleteDescriptionById(id);
     }
+
+    public int minimum(List<Description> descriptions) {
+        int minimum = 1;
+        for (int i = 0; i < descriptions.size(); i++) {
+            if (minimum < descriptions.get(i).getEnd_scale())
+                minimum = descriptions.get(i).getEnd_scale() + 1;
+        }
+        return minimum;
+    }
 }

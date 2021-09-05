@@ -1,4 +1,4 @@
-package com.sapiofan.surveys.controllers;
+package com.sapiofan.surveys.controllers.user;
 
 import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
 import com.sapiofan.surveys.entities.survey.Survey;

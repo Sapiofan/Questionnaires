@@ -1,5 +1,6 @@
 package com.sapiofan.surveys.services.survey.impl;
 
+import com.sapiofan.surveys.entities.survey.Answer;
 import com.sapiofan.surveys.entities.survey.Survey;
 import com.sapiofan.surveys.repository.survey.SurveyRepository;
 import com.sapiofan.surveys.services.survey.SurveyService;
@@ -101,6 +102,20 @@ public class SurveyServiceImpl implements SurveyService {
     @Transactional
     public Survey findSurveyById(Long id) {
         return surveyRepository.findSurveyById(id);
+    }
+
+    public boolean checkInput(List<Answer> answers) {
+        int counter = 0;
+        for (Answer answer : answers) {
+            if (answer.getCorrectness()) {
+                counter++;
+            }
+        }
+        if (counter == 0 || counter >= 2) {
+            return false;
+        } else {
+            return true;
+        }
     }
 //    @Transactional
 //    public Question findQuestionById(Long id){

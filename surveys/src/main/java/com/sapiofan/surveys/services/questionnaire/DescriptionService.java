@@ -13,4 +13,6 @@ public interface DescriptionService {
     void saveDescription(Description description);
 
     void deleteDescriptionById(Long id);
+
+    int minimum(List<Description> descriptions);
 }

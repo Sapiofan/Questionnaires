@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.services.questionnaire.impl;
 
 import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
+import com.sapiofan.surveys.entities.questionnaire.Scale;
 import com.sapiofan.surveys.repository.questionnaire.QuestionnaireRepository;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,16 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     @Transactional
     public void deleteQuestionnaire(Long id) {
         questionnaireRepository.deleteQuestionnaireById(id);
+    }
+
+    public int maximum(Questionnaire questionnaire) {
+        int max;
+        if (questionnaire.getScale().equals(Scale.FIVE))
+            max = 5;
+        else
+            max = 10;
+        max *= questionnaire.getQuestions().size();
+        return max;
     }
 //    @Transactional
 //    public void deleteQQuestionById(Long id){
