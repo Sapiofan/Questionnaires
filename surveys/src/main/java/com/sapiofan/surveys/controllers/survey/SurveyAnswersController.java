@@ -124,6 +124,7 @@ public class SurveyAnswersController {
         model.addAttribute("answerId", answer.getId());
         model.addAttribute("questionId", questionId);
         model.addAttribute("answer", answer);
+        model.addAttribute("value", getValue(answer));
         return "updateAnswer";
     }
 
@@ -160,5 +161,10 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-
+    private int getValue(Answer answer){
+        if(answer.getCorrectness())
+            return 1;
+        else
+            return 2;
+    }
 }

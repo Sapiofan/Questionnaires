@@ -6,6 +6,8 @@ import com.sapiofan.surveys.entities.questionnaire.Scale;
 import com.sapiofan.surveys.services.questionnaire.DescriptionService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireQuestionsService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +31,15 @@ public class QuestionnaireQuestionsController {
     @Autowired
     private QuestionnaireQuestionsService questionnaireQuestionsService;
 
+    Logger logger = LoggerFactory.getLogger(QuestionnaireQuestionsController.class);
+
     @GetMapping(value = "/addQQuestion", params = "changeQuestionnaireFields")
     public String changeFields(@RequestParam("questionnaireId") Long questionnaireId,
                                Model model) {
+        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+        model.addAttribute("value", getValue(questionnaire));
+        model.addAttribute("name", questionnaire.getName());
+        model.addAttribute("description", questionnaire.getGeneral_description());
         model.addAttribute("questionnaireId", questionnaireId);
         return "questionnaire";
     }
@@ -94,5 +102,12 @@ public class QuestionnaireQuestionsController {
                 minimum = descriptions.get(i).getEnd_scale() + 1;
         }
         return minimum;
+    }
+
+    private int getValue(Questionnaire questionnaire){
+        if(questionnaire.getScale().equals(Scale.FIVE))
+            return 5;
+        else
+            return 10;
     }
 }

@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label for="question" class="form-label">Question</label>
-                <input type="text" class="form-control" id="question" placeholder="Enter a question" name="question" required>
+                <input type="text" class="form-control" id="question" placeholder="Enter a question" value="${name}" name="question" required>
             </div>
             <div class="vertical-center">
                 <button type="submit" class="btn btn-danger" name="returnToQuestions" onclick="requiredDisabled()">Back to question list</button>

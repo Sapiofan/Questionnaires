@@ -65,6 +65,7 @@ public class SurveyQuestionsController {
                                      @RequestParam("questionId") Long questionId) {
         model.addAttribute("surveyId", surveyQuestionService.findQuestionById(questionId).getSurvey().getId());
         model.addAttribute("questionId", questionId);
+        model.addAttribute("name", surveyQuestionService.findQuestionById(questionId).getDescription());
         return "addQuestion";
     }
 

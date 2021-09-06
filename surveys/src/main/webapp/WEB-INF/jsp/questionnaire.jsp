@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Questionnaire</title>
 </head>
-<body>
+<body onLoad="javascript:checked(${value})">
 <h1 style="text-align: center">Hello, here you will be able to create questionnaire!</h1>
 
     <style>
@@ -25,12 +25,12 @@
 
             <div class="form-group">
                 <label for="Questionnaire" class="form-label">Questionnaire name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" required>
+                <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" value="${name}" required>
             </div>
 
             <div class="form-group">
                 <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" placeholder="Enter a name" name="description" required>
+                <input type="text" class="form-control" id="description" placeholder="Enter a name" value="${description}" name="description" required>
             </div>
 
             <p>Choose the scale</p>
@@ -55,6 +55,15 @@
                 document.getElementById("description").required = false;
                 document.getElementById("inlineRadio1").required = false;
                 document.getElementById("inlineRadio2").required = false;
+        }
+
+        function checked(value){
+            if(value == 10){
+                document.getElementById("inlineRadio2").checked = true;
+            }
+            else{
+                document.getElementById("inlineRadio1").checked = true;
+            }
         }
     </script>
 </body>

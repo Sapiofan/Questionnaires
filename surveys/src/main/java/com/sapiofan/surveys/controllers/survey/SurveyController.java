@@ -72,6 +72,7 @@ public class SurveyController {
     @GetMapping(value = "/addQuestion", params = "changeSurveyName")
     public String changeSurveyName(@RequestParam(name = "surveyId") Long surveyId, Model model) {
         model.addAttribute("surveyId", surveyId);
+        model.addAttribute("name", surveyService.findSurveyById(surveyId).getName());
         return "survey";
     }
 

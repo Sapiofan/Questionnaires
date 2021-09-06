@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Add answer</title>
 </head>
-<body>
+<body onLoad="javascript:checked(${value})>
 
     <style>
         .vertical-center {
@@ -49,6 +49,15 @@
             document.getElementById('answer').required=false;
             document.getElementById('inlineRadio1').required=false;
             document.getElementById('inlineRadio2').required=false;
+        }
+
+        function checked(value){
+            if(value == 2){
+                document.getElementById('inlineRadio2').checked=true;
+            }
+            else{
+                document.getElementById('inlineRadio1').checked=true;
+            }
         }
     </script>
 </body>

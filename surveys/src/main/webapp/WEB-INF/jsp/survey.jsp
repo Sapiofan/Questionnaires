@@ -24,7 +24,7 @@
             <input type="hidden" name="surveyId" value=${surveyId}>
             <div class="form-group">
                 <label for="SurveyName" class="form-label">Survey name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" required>
+                <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" value="${name}" required>
             </div>
             <div class="vertical-center">
                 <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
