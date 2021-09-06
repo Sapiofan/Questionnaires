@@ -100,18 +100,11 @@ public class SurveyAnswersController {
     }
 
     @GetMapping(("/deleteAnswer/{number}"))
-    public String deleteAnswerById(@PathVariable("number") Integer number,
+    public String deleteAnswerByNumber(@PathVariable("number") Integer number,
                                    @RequestParam("questionId") Long questionId,
                                    Model model) {
         Question question = surveyQuestionService.findQuestionById(questionId);
-        Answer answer = question.getAnswers().get(number - 1);
-        for (int i = 0; i < answersService.findAllAnswers(questionId).size() - answer.getNumber(); i++) {
-            Answer answer1 = question.getAnswers().get(number);
-            answer1.setNumber(answer1.getNumber() - 1);
-            answersService.saveAnswer(answer1);
-        }
-        answersService.deleteAnswerById(answer.getId());
-        surveyQuestionService.saveQuestion(question);
+        answersService.deleteAnswerByNumber(questionId, number);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());
         model.addAttribute("answers", answersService.findAllAnswers(questionId)
@@ -127,7 +120,7 @@ public class SurveyAnswersController {
     public String editAnswer(@PathVariable("number") Integer number,
                              @RequestParam("questionId") Long questionId,
                              Model model) {
-        Answer answer = surveyQuestionService.findQuestionById(questionId).getAnswers().get(number - 1);
+        Answer answer = answersService.findAnswerByNumber(questionId, number);
         model.addAttribute("answerId", answer.getId());
         model.addAttribute("questionId", questionId);
         model.addAttribute("answer", answer);
@@ -142,29 +135,7 @@ public class SurveyAnswersController {
                                @RequestParam("answer") String inputtedAnswer,
                                @RequestParam("correctAnswer") String correctness) {
         Question question = surveyQuestionService.findQuestionById(questionId);
-        Answer answer = answersService.findAnswerById(answerId);
-        answer.setAnswer(inputtedAnswer);
-        answer.setCorrectness(correctness.equals("1"));
-        if (number <= 0 || number > answersService.findAllAnswers(questionId).size()) {
-        } else if (number.equals(answer.getNumber())) {
-        } else {
-            if (number > answer.getNumber()) {
-                for (int i = 1; i < number - answer.getNumber() + 1; i++) {
-                    Answer answer1 = surveyQuestionService.findQuestionById(questionId).getAnswers().get(answer.getNumber() + i - 1);
-                    answer1.setNumber(answer1.getNumber() - 1);
-                    answersService.saveAnswer(answer1);
-                }
-            } else {
-                for (int i = 0; i < answer.getNumber() - number; i++) {
-                    Answer answer1 = surveyQuestionService.findQuestionById(questionId).getAnswers().get(number + i - 1);
-                    answer1.setNumber(answer1.getNumber() + 1);
-                    answersService.saveAnswer(answer1);
-                }
-            }
-            answer.setNumber(number);
-        }
-        answersService.saveAnswer(answer);
-        surveyQuestionService.saveQuestion(question);
+        answersService.updateAnswer(answerId, inputtedAnswer, correctness, number, questionId);
         List<Answer> answers = answersService.findAllAnswers(questionId);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());

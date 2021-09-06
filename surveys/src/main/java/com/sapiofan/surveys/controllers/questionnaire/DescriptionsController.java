@@ -5,7 +5,6 @@ import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
 import com.sapiofan.surveys.services.questionnaire.DescriptionService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireQuestionsService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
-import com.sapiofan.surveys.services.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,6 @@ public class DescriptionsController {
 
     @Autowired
     private QuestionnaireService questionnaireService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private DescriptionService descriptionService;
@@ -71,13 +67,8 @@ public class DescriptionsController {
                 return "descriptions";
             }
         }
-        Description description = new Description();
-        description.setDescription(inputtedDescription);
-        description.setNumber(questionnaire.getDescriptions().size() + 1);
-        description.setQuestionnaire(questionnaire);
-        description.setStart_scale(minimum);
-        description.setEnd_scale(range);
-        descriptionService.saveDescription(description);
+
+        descriptionService.createDescription(inputtedDescription, questionnaire, minimum, range);
 
         model.addAttribute("questionnaireId", questionnaireId);
         model.addAttribute("minimum", range + 1);
@@ -99,40 +90,7 @@ public class DescriptionsController {
                                         Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
         Description description = descriptionService.findDescriptionById(descriptionId);
-        if (description != null) {
-            int number = description.getNumber();
-            int diff = description.getEnd_scale() - description.getStart_scale() + 1;
-
-            if (number - 2 >= 0 && number < questionnaire.getDescriptions().size()) {
-                Description before = questionnaire.getDescriptions().get(number - 2);
-                Description after = questionnaire.getDescriptions().get(number);
-                after.setStart_scale(after.getStart_scale() - diff / 2);
-                descriptionService.saveDescription(before);
-                descriptionService.saveDescription(after);
-                if ((diff % 2 == 1)) {
-                    before.setEnd_scale(before.getEnd_scale() + diff / 2 + 1);
-                } else {
-                    before.setEnd_scale(before.getEnd_scale() + diff / 2);
-                }
-            } else if (number - 2 < 0) {
-                Description after = questionnaire.getDescriptions().get(number);
-                after.setStart_scale(1);
-                descriptionService.saveDescription(after);
-            } else if (number >= questionnaire.getDescriptions().size()) {
-                Description before = questionnaire.getDescriptions().get(number - 2);
-                before.setEnd_scale(description.getEnd_scale());
-                descriptionService.saveDescription(before);
-            }
-
-            for (int i = 0; i < questionnaire.getDescriptions().size() - description.getNumber(); i++) {
-                Description description1 = questionnaire.getDescriptions().get(number);
-                description1.setNumber(description1.getNumber() - 1);
-                descriptionService.saveDescription(description1);
-            }
-            descriptionService.deleteDescriptionById(description.getId());
-            questionnaireService.saveQuestionnaire(questionnaire);
-        }
-
+        descriptionService.deleteDescriptionById(description, questionnaire);
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
         int minimum = descriptionService.minimum(descriptions);
         int max = questionnaireService.maximum(questionnaire);
@@ -154,16 +112,16 @@ public class DescriptionsController {
         int minimum, max;
 
         if (number - 1 > 0 && number + 1 == descriptions.size()) {
-            Description before = descriptionService.findDescriptionByNumber(questionnaireId, number-1);
-            Description after = descriptionService.findDescriptionByNumber(questionnaireId, number+1);
+            Description before = descriptionService.findDescriptionByNumber(questionnaireId, number - 1);
+            Description after = descriptionService.findDescriptionByNumber(questionnaireId, number + 1);
             minimum = before.getStart_scale() + 1;
             max = after.getEnd_scale() - 1;
         } else if (number - 1 <= 0) {
-            Description after = descriptionService.findDescriptionByNumber(questionnaireId, number+1);
+            Description after = descriptionService.findDescriptionByNumber(questionnaireId, number + 1);
             minimum = 1;
             max = after.getEnd_scale() - 1;
         } else if (number + 1 > descriptions.size()) {
-            Description before = descriptionService.findDescriptionByNumber(questionnaireId, number-1);
+            Description before = descriptionService.findDescriptionByNumber(questionnaireId, number - 1);
             minimum = before.getStart_scale() + 1;
             max = questionnaireService.maximum(questionnaire);
         } else {
@@ -201,24 +159,8 @@ public class DescriptionsController {
                                   @RequestParam("range2") Integer rangeHigh,
                                   @RequestParam("descriptionId") Long descriptionId,
                                   Model model) {
-        Description description = descriptionService.findDescriptionById(descriptionId);
-        description.setDescription(inputtedDescription);
-        description.setStart_scale(rangeLow);
-        description.setEnd_scale(rangeHigh);
-        descriptionService.saveDescription(description);
-        description = descriptionService.findDescriptionById(descriptionId);
-        int number = description.getNumber();
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        if (number - 1 > 0) {
-            Description before = descriptionService.findDescriptionByNumber(questionnaireId, number-1);
-            before.setEnd_scale(rangeLow - 1);
-            descriptionService.saveDescription(before);
-        }
-        if (number < questionnaire.getDescriptions().size()) {
-            Description after = descriptionService.findDescriptionByNumber(questionnaireId, number+1);
-            after.setStart_scale(rangeHigh + 1);
-            descriptionService.saveDescription(after);
-        }
+        descriptionService.updateDescription(descriptionId, inputtedDescription, rangeLow, rangeHigh, questionnaire);
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
         descriptions = descriptions
                 .stream().sorted(Comparator.comparingInt(Description::getNumber)).collect(Collectors.toList());

@@ -2,7 +2,6 @@ package com.sapiofan.surveys.controllers.user;
 
 import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
 import com.sapiofan.surveys.entities.survey.Survey;
-import com.sapiofan.surveys.entities.user.User;
 import com.sapiofan.surveys.security.realization.CustomUserDetailsService;
 import com.sapiofan.surveys.services.questionnaire.impl.QuestionnaireServiceImpl;
 import com.sapiofan.surveys.services.survey.SurveyService;
@@ -11,14 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,18 +55,7 @@ public class UserController {
             model.addAttribute("exist", true);
             return "registration";
         }
-        User user = new User();
-        user.setPassword(password);
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-
-        user.setNickname(nickname);
-        user.setPassword(encodedPassword);
-        Timestamp ts = Timestamp.from(Instant.now());
-        user.setCreated_at(ts);
-
-        userService.save(user);
-
+        userService.save(nickname, password);
         return "signup_success";
     }
 
@@ -89,16 +74,18 @@ public class UserController {
     @GetMapping("/list")
     public String list(Model model) {
         List<Survey> surveys = surveyService.findAllSurveys();
-        model.addAttribute("surveys", surveys.stream().sorted(Comparator.comparingLong(Survey::getId)).collect(Collectors.toList()));
+        surveys = surveys.stream().sorted(Comparator.comparingLong(Survey::getId)).collect(Collectors.toList());
+        model.addAttribute("surveys", surveys);
         return "list";
     }
 
     @GetMapping("/listOfQuestionnaires")
     public String listOfQuestionnaires(Model model) {
         List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
-        model.addAttribute("questionnaires", questionnaires.stream()
+        questionnaires = questionnaires.stream()
                 .sorted(Comparator.comparingLong(Questionnaire::getId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        model.addAttribute("questionnaires", questionnaires);
         return "listOfQuestionnaires";
     }
 

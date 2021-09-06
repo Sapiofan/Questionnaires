@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.services.questionnaire;
 
 import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -11,6 +12,9 @@ public interface QuestionnaireService {
     List<Questionnaire> findAllQuestionnaires();
 
     void saveQuestionnaire(Questionnaire questionnaire);
+
+    Questionnaire createQuestionnaire(Authentication authentication, Long questionnaireId,
+                                      String name, String description, Integer scale);
 
     void deleteQuestionnaire(Long id);
 

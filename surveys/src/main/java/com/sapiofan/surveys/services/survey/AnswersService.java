@@ -10,7 +10,11 @@ public interface AnswersService {
 
     Answer findAnswerById(Long id);
 
+    Answer findAnswerByNumber(Long questionId, Integer number);
+
     void saveAnswer(Answer answer);
 
-    void deleteAnswerById(Long id);
+    Answer updateAnswer(Long answerId, String inputtedAnswer, String correctness, Integer number, Long questionId);
+
+    void deleteAnswerByNumber(Long questionId, Integer number);
 }

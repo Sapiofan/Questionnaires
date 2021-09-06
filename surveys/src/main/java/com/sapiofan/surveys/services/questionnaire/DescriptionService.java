@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.services.questionnaire;
 
 import com.sapiofan.surveys.entities.questionnaire.Description;
+import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
 
 import java.util.List;
 
@@ -14,7 +15,13 @@ public interface DescriptionService {
 
     void saveDescription(Description description);
 
-    void deleteDescriptionById(Long id);
+    Description createDescription(String inputtedDescription, Questionnaire questionnaire,
+                                  Integer minimum, Integer range);
+
+    Description updateDescription(Long descriptionId, String inputtedDescription,
+                                  Integer rangeLow, Integer rangeHigh, Questionnaire questionnaire);
+
+    void deleteDescriptionById(Description description, Questionnaire questionnaire);
 
     int minimum(List<Description> descriptions);
 }

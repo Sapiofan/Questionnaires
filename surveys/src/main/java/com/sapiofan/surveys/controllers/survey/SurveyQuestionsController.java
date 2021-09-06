@@ -2,10 +2,11 @@ package com.sapiofan.surveys.controllers.survey;
 
 import com.sapiofan.surveys.entities.survey.Answer;
 import com.sapiofan.surveys.entities.survey.Question;
-import com.sapiofan.surveys.entities.survey.Survey;
 import com.sapiofan.surveys.services.survey.AnswersService;
 import com.sapiofan.surveys.services.survey.SurveyQuestionService;
 import com.sapiofan.surveys.services.survey.SurveyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class SurveyQuestionsController {
@@ -28,6 +31,8 @@ public class SurveyQuestionsController {
 
     @Autowired
     private AnswersService answersService;
+
+    Logger logger = LoggerFactory.getLogger(SurveyQuestionsController.class);
 
     @GetMapping(value = "/addQuestion", params = "add")
     public String addQuestionForm(Model model,
@@ -45,15 +50,7 @@ public class SurveyQuestionsController {
                               @RequestParam(name = "surveyId") Long surveyId,
                               @RequestParam(name = "questionId") Long questionId,
                               Model model) {
-        Question question;
-        if (questionId == 0) {
-            Survey survey = surveyService.findSurveyById(surveyId);
-            question = new Question(survey.getQuestions().size() + 1, inputtedQuestion, survey);
-        } else {
-            question = surveyQuestionService.findQuestionById(questionId);
-            question.setDescription(inputtedQuestion);
-        }
-        surveyQuestionService.saveQuestion(question);
+        Question question = surveyQuestionService.createQuestion(questionId, surveyId, inputtedQuestion);
         model.addAttribute("questionId", question.getId());
         model.addAttribute("question", question.getDescription());
         List<Answer> answers = answersService.findAllAnswers(questionId);
@@ -77,6 +74,7 @@ public class SurveyQuestionsController {
                                       Model model) {
         model.addAttribute("questionId", questionId);
         List<Answer> answers = answersService.findAllAnswers(questionId);
+        answers = answers.stream().sorted(Comparator.comparingInt(Answer::getNumber)).collect(Collectors.toList());
         model.addAttribute("answers", answers);
         model.addAttribute("size", answers.size());
         model.addAttribute("input", surveyService.checkInput(answers));
@@ -98,15 +96,7 @@ public class SurveyQuestionsController {
     public String deleteQuestionById(@PathVariable("number") Integer number,
                                      @RequestParam("surveyId") Long surveyId,
                                      Model model) {
-        Survey survey = surveyService.findSurveyById(surveyId);
-        Question question = survey.getQuestions().get(number - 1);
-        for (int i = 0; i < surveyQuestionService.findAllQuestions(surveyId).size() - question.getNumber(); i++) {
-            Question question1 = survey.getQuestions().get(number);
-            question1.setNumber(question1.getNumber() - 1);
-            surveyQuestionService.saveQuestion(question1);
-        }
-        surveyQuestionService.deleteQuestionById(question.getId());
-        surveyService.save(survey);
+        surveyQuestionService.deleteQuestionByNumber(surveyId, number);
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", 0);
         model.addAttribute("questions", surveyQuestionService.findAllQuestions(surveyId));

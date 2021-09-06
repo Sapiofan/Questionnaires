@@ -1,9 +1,10 @@
 package com.sapiofan.surveys.controllers.questionnaire;
 
 import com.sapiofan.surveys.entities.questionnaire.*;
-import com.sapiofan.surveys.security.realization.CustomUserDetails;
-import com.sapiofan.surveys.services.questionnaire.*;
-import com.sapiofan.surveys.services.user.UserService;
+import com.sapiofan.surveys.services.questionnaire.QuestionnaireQuestionsService;
+import com.sapiofan.surveys.services.questionnaire.QuestionnaireResultsService;
+import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
+import com.sapiofan.surveys.services.questionnaire.QuestionnaireStatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,6 @@ public class QuestionnaireController {
 
     @Autowired
     private QuestionnaireService questionnaireService;
-
-    @Autowired
-    private UserService userService;
-
-//    @Autowired
-//    private DescriptionService descriptionService;
 
     @Autowired
     private QuestionnaireQuestionsService questionnaireQuestionsService;
@@ -64,287 +59,13 @@ public class QuestionnaireController {
                                       @RequestParam("scale") Integer scale,
                                       Authentication authentication,
                                       Model model) {
-        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-        Questionnaire questionnaire;
-        if (questionnaireId == 0) {
-            questionnaire = new Questionnaire();
-            questionnaire.setUser(userService.findUserByNickname(principal.getUsername()));
-        } else {
-            questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        }
-        questionnaire.setName(name);
-        questionnaire.setGeneral_description(description);
-        questionnaire.setSize(0);
-        if (scale == 5) {
-            questionnaire.setScale(Scale.FIVE);
-        } else {
-            questionnaire.setScale(Scale.TEN);
-        }
-
-        questionnaireService.saveQuestionnaire(questionnaire);
+        Questionnaire questionnaire = questionnaireService.createQuestionnaire(authentication, questionnaireId, name,
+                description, scale);
         model.addAttribute("questions", questionnaireQuestionsService.findAllQuestions(questionnaire.getId()));
         model.addAttribute("questionnaireId", questionnaire.getId());
         model.addAttribute("questionId", 0);
         return "questionnaireQuestions";
     }
-
-
-//    @GetMapping(value = "/addQQuestion", params = "changeQuestionnaireFields")
-//    public String changeFields(@RequestParam("questionnaireId") Long questionnaireId,
-//                               Model model) {
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        return "questionnaire";
-//    }
-//
-//    @GetMapping(value = "/addQQuestion", params = "deleteQuestionnaire")
-//    public String deleteQuestionnaire(@RequestParam("questionnaireId") Long questionnaireId) {
-//        questionnaireService.deleteQuestionnaire(questionnaireId);
-//        return "main";
-//    }
-//
-//    @GetMapping(value = "/addQQuestion", params = "add")
-//    public String addQQuestion(@RequestParam("questionnaireId") Long questionnaireId,
-//                               @RequestParam("question") String inputtedQuestion,
-//                               Model model) {
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        QQuestion question = new QQuestion();
-//        question.setNumber(questionnaire.getQuestions().size() + 1);
-//        question.setName(inputtedQuestion);
-//        question.setQuestionnaire(questionnaire);
-//        questionnaireQuestionsService.saveQQuestion(question);
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("questions", questionnaireQuestionsService.findAllQuestions(questionnaireId));
-//        return "questionnaireQuestions";
-//    }
-//
-//    @GetMapping(value = "/addQQuestion", params = "addDescriptions")
-//    public String goToDescriptions(Model model, @RequestParam("questionnaireId") Long questionnaireId) {
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        questionnaire.setSize(questionnaire.getQuestions().size());
-//        questionnaireService.saveQuestionnaire(questionnaire);
-//        int max;
-//        if (questionnaire.getScale().equals(Scale.FIVE))
-//            max = 5;
-//        else
-//            max = 10;
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
-//        int minimum = 1;
-//        for (int i = 0; i < descriptions.size(); i++) {
-//            if (minimum < descriptions.get(i).getEnd_scale())
-//                minimum = descriptions.get(i).getEnd_scale() + 1;
-//        }
-//        model.addAttribute("minimum", minimum);
-//        model.addAttribute("maximum", max * questionnaire.getQuestions().size());
-//        model.addAttribute("descriptions", descriptionService.findAllDescriptions(questionnaireId));
-//        return "descriptions";
-//    }
-
-//    @GetMapping("/deleteQQuestion/{number}")
-//    public String deleteQQuestionById(@PathVariable("number") Integer number,
-//                                      @RequestParam("questionnaireId") Long questionnaireId,
-//                                      Model model) {
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        QQuestion question = questionnaire.getQuestions().get(number - 1);
-//        for (int i = 0; i < questionnaire.getQuestions().size() - question.getNumber(); i++) {
-//            QQuestion question1 = questionnaire.getQuestions().get(number);
-//            question1.setNumber(question1.getNumber() - 1);
-//            questionnaireQuestionsService.saveQQuestion(question1);
-//        }
-//        questionnaireQuestionsService.deleteQQuestionById(question.getId());
-//        questionnaireService.saveQuestionnaire(questionnaire);
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("questions", questionnaireQuestionsService.findAllQuestions(questionnaireId));
-//        return "questionnaireQuestions";
-//    }
-
-
-//    @GetMapping(value = "/addDescription", params = "addQuestions")
-//    public String addQuestions(@RequestParam("questionnaireId") Long questionnaireId,
-//                               Model model) {
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("questions", questionnaireQuestionsService.findAllQuestions(questionnaireId));
-//        return "questionnaireQuestions";
-//    }
-
-//    @GetMapping(value = "/addDescription", params = "deleteQuestionnaire")
-//    public String deleteQuestionnaireFromDescription(@RequestParam("questionnaireId") Long questionnaireId) {
-//        questionnaireService.deleteQuestionnaire(questionnaireId);
-//        return "main";
-//    }
-//
-//    @GetMapping(value = "/addDescription", params = "addDescription")
-//    public String addDescription(@RequestParam("questionnaireId") Long questionnaireId,
-//                                 @RequestParam("description") String inputtedDescription,
-//                                 @RequestParam("range") Integer range,
-//                                 @RequestParam("minimum") Integer minimum,
-//                                 @RequestParam("maximum") Integer maximum,
-//                                 Model model
-//    ) {
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        List<Description> descriptionList = questionnaire.getDescriptions();
-//
-//        for (Description value : descriptionList) {
-//            if (value.getDescription().equals(inputtedDescription)) {
-//                model.addAttribute("questionnaireId", questionnaireId);
-//                model.addAttribute("minimum", minimum);
-//                model.addAttribute("maximum", maximum);
-//                model.addAttribute("descriptions", descriptionService.findAllDescriptions(questionnaireId));
-//                return "descriptions";
-//            }
-//        }
-//        Description description = new Description();
-//        description.setDescription(inputtedDescription);
-//        description.setNumber(questionnaire.getDescriptions().size() + 1);
-//        description.setQuestionnaire(questionnaire);
-//        description.setStart_scale(minimum);
-//        description.setEnd_scale(range);
-//        descriptionService.saveDescription(description);
-//
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("minimum", range + 1);
-//        model.addAttribute("maximum", maximum);
-//        model.addAttribute("descriptions", descriptionService.findAllDescriptions(questionnaireId));
-//        return "descriptions";
-//    }
-//
-//    @GetMapping(value = "/addDescription", params = "saveQuestionnaire")
-//    public String saveQuestionnaire(Model model) {
-//        model.addAttribute("questionnaires", questionnaireService.findAllQuestionnaires());
-//        return "listOfQuestionnaires";
-//    }
-//
-//    @GetMapping("/deleteDescription/{id}")
-//    public String deleteDescriptionById(@PathVariable("id") Long descriptionId,
-//                                        @RequestParam("questionnaireId") Long questionnaireId,
-//                                        Model model) {
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        Description description = descriptionService.findDescriptionById(descriptionId);
-//        if (description != null) {
-//            int number = description.getNumber();
-//            int diff = description.getEnd_scale() - description.getStart_scale() + 1;
-//
-//            if (number - 2 >= 0 && number < questionnaire.getDescriptions().size()) {
-//                Description before = questionnaire.getDescriptions().get(number - 2);
-//                Description after = questionnaire.getDescriptions().get(number);
-//                after.setStart_scale(after.getStart_scale() - diff / 2);
-//                descriptionService.saveDescription(before);
-//                descriptionService.saveDescription(after);
-//                if ((diff % 2 == 1)) {
-//                    before.setEnd_scale(before.getEnd_scale() + diff / 2 + 1);
-//                } else {
-//                    before.setEnd_scale(before.getEnd_scale() + diff / 2);
-//                }
-//            } else if (number - 2 < 0) {
-//                Description after = questionnaire.getDescriptions().get(number);
-//                after.setStart_scale(1);
-//                descriptionService.saveDescription(after);
-//            } else if (number >= questionnaire.getDescriptions().size()) {
-//                Description before = questionnaire.getDescriptions().get(number - 2);
-//                before.setEnd_scale(description.getEnd_scale());
-//                descriptionService.saveDescription(before);
-//            }
-//
-//            for (int i = 0; i < questionnaire.getDescriptions().size() - description.getNumber(); i++) {
-//                Description description1 = questionnaire.getDescriptions().get(number);
-//                description1.setNumber(description1.getNumber() - 1);
-//                descriptionService.saveDescription(description1);
-//            }
-//            descriptionService.deleteDescriptionById(description.getId());
-//            questionnaireService.saveQuestionnaire(questionnaire);
-//        }
-//
-//        List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
-//        int minimum = minimum(descriptions);
-//        int max = maximum(questionnaire);
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("descriptions", descriptionService.findAllDescriptions(questionnaireId));
-//        model.addAttribute("minimum", minimum);
-//        model.addAttribute("maximum", max);
-//        return "descriptions";
-//    }
-//
-//    @GetMapping("/editDescription/{id}")
-//    public String editDescriptionForm(@PathVariable("id") Long descriptionId,
-//                                      @RequestParam("questionnaireId") Long questionnaireId,
-//                                      Model model) {
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
-//        Description description = descriptionService.findDescriptionById(descriptionId);
-//        int number = description.getNumber();
-//        int minimum, max;
-//        if (number - 2 >= 0 && number < descriptions.size()) {
-//            Description before = descriptions.get(number - 2);
-//            Description after = descriptions.get(number);
-//            minimum = before.getStart_scale() + 1;
-//            max = after.getEnd_scale() - 1;
-//        } else if (number - 2 < 0) {
-//            Description after = descriptions.get(number);
-//            minimum = 2;
-//            max = after.getEnd_scale() - 1;
-//        } else if (number >= descriptions.size()) {
-//            Description before = descriptions.get(number - 2);
-//            minimum = before.getStart_scale() + 1;
-//            max = maximum(questionnaire);
-//        } else {
-//            minimum = 1;
-//            max = maximum(questionnaire);
-//        }
-//        model.addAttribute("descriptionId", descriptionId);
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("minimum", minimum);
-//        model.addAttribute("maximum", max);
-//        model.addAttribute("value", description.getEnd_scale());
-//        model.addAttribute("value_min", description.getStart_scale());
-//        model.addAttribute("description", description);
-//        return "editDescription";
-//    }
-//
-//    @PostMapping(value = "/addDescription", params = "back")
-//    public String backToDescriptions(@RequestParam("questionnaireId") Long questionnaireId,
-//                                     Model model) {
-//        List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("minimum", minimum(descriptions));
-//        model.addAttribute("maximum", maximum(questionnaire));
-//        model.addAttribute("descriptions", descriptions);
-//        return "descriptions";
-//    }
-//
-//    @PostMapping(value = "/addDescription", params = "update")
-//    public String editDescription(@RequestParam("questionnaireId") Long questionnaireId,
-//                                  @RequestParam("description") String inputtedDescription,
-//                                  @RequestParam("range1") Integer rangeLow,
-//                                  @RequestParam("range2") Integer rangeHigh,
-//                                  @RequestParam("minimum") Integer minimum,
-//                                  @RequestParam("maximum") Integer maximum,
-//                                  @RequestParam("descriptionObj") Description description,
-//                                  Model model) {
-//        description.setDescription(inputtedDescription);
-//        description.setStart_scale(rangeLow);
-//        description.setEnd_scale(rangeHigh);
-//        descriptionService.saveDescription(description);
-//        int number = description.getNumber();
-//        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-//        List<Description> descriptions = questionnaire.getDescriptions();
-//        if (number - 2 >= 0) {
-//            Description description1 = descriptions.get(number - 2);
-//            description1.setEnd_scale(rangeLow - 1);
-//            descriptionService.saveDescription(description1);
-//        }
-//        if (number < descriptions.size()) {
-//            Description description2 = descriptions.get(number);
-//            description2.setStart_scale(rangeHigh + 1);
-//            descriptionService.saveDescription(description2);
-//        }
-//        descriptions = descriptionService.findAllDescriptions(questionnaireId);
-//        model.addAttribute("questionnaireId", questionnaireId);
-//        model.addAttribute("minimum", minimum(descriptions));
-//        model.addAttribute("maximum", maximum(questionnaire));
-//        model.addAttribute("descriptions", descriptions);
-//        return "descriptions";
-//    }
 
     @GetMapping("/questionnaire/{id}")
     public String startPageQuestionnaire(@PathVariable("id") Long id, Model model) {
@@ -359,17 +80,8 @@ public class QuestionnaireController {
     @PostMapping(value = "/questionnaire/{id}", params = "start")
     public String startQuestionnaire(@PathVariable("id") Long id, Model model, Authentication authentication) {
         model.addAttribute("questionnaireId", id);
-        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(id);
-
-        QuestionnaireResult result = new QuestionnaireResult();
-        result.setQuestionnaire(questionnaire);
-        result.setUser(userService.findUserByNickname(principal.getUsername()));
-        Timestamp ts = Timestamp.from(Instant.now());
-        result.setStart(ts);
-        result.setEnd_time(ts);
-        questionnaireResultsService.saveQuestionnaireResult(result);
-        model.addAttribute("resultId", result.getId());
+        QuestionnaireResult questionnaireResult = questionnaireResultsService.createQuestionnaireResult(authentication, id);
+        model.addAttribute("resultId", questionnaireResult.getId());
         QQuestion question = questionnaireQuestionsService.findQuestionByNumber(id, 1);
         model.addAttribute("question", question);
         model.addAttribute("maximum", 10);
@@ -401,7 +113,7 @@ public class QuestionnaireController {
     }
 
     @GetMapping(value = "/questionnaire/{id}/{number}", params = "next")
-    public String getQuestion(@PathVariable("id") Long id, @PathVariable("number") Integer number, //fix updating of page
+    public String getQuestion(@PathVariable("id") Long id, @PathVariable("number") Integer number,
                               @RequestParam("resultId") UUID resultId,
                               @RequestParam("range") Integer answer,
                               Model model) {

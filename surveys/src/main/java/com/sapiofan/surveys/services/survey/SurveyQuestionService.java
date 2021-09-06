@@ -13,5 +13,8 @@ public interface SurveyQuestionService {
 
     void saveQuestion(Question question);
 
-    void deleteQuestionById(Long id);
+    Question createQuestion(Long questionId, Long surveyId, String inputtedQuestion);
+
+    void deleteQuestionByNumber(Long surveyId, Integer number);
+
 }
