@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.services.survey;
 
 import com.sapiofan.surveys.entities.survey.Answer;
+import com.sapiofan.surveys.entities.survey.Question;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface AnswersService {
     Answer findAnswerByNumber(Long questionId, Integer number);
 
     void saveAnswer(Answer answer);
+
+    Answer createAnswer(Question question, String inputtedAnswer, String correctness);
 
     Answer updateAnswer(Long answerId, String inputtedAnswer, String correctness, Integer number, Long questionId);
 

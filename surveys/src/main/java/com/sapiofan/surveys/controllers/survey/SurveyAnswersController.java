@@ -92,9 +92,7 @@ public class SurveyAnswersController {
             }
         }
         if (!flag) {
-            Answer answer = new Answer(question.getAnswers().size() + 1, question, inputtedAnswer, correctness.equals("1"));
-            surveyQuestionService.saveQuestion(question);
-            answersService.saveAnswer(answer);
+            answersService.createAnswer(question, inputtedAnswer, correctness);
         }
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());

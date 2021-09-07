@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void save(String nickname, String password) {
+    public User save(String nickname, String password) {
         User user = new User();
         user.setPassword(password);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
         Timestamp ts = Timestamp.from(Instant.now());
         user.setCreated_at(ts);
         userRepository.save(user);
+        return user;
     }
 
     @Override

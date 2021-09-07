@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.services.survey.impl;
 
 import com.sapiofan.surveys.entities.survey.Answer;
+import com.sapiofan.surveys.entities.survey.Question;
 import com.sapiofan.surveys.repository.survey.AnswerRepository;
 import com.sapiofan.surveys.services.survey.AnswersService;
 import com.sapiofan.surveys.services.survey.SurveyQuestionService;
@@ -37,6 +38,13 @@ public class AnswersServiceImpl implements AnswersService {
     @Transactional
     public void saveAnswer(Answer answer) {
         answerRepository.save(answer);
+    }
+
+    @Transactional
+    public Answer createAnswer(Question question, String inputtedAnswer, String correctness){
+        Answer answer = new Answer(question.getAnswers().size() + 1, question, inputtedAnswer, correctness.equals("1"));
+        saveAnswer(answer);
+        return answer;
     }
 
     @Transactional
