@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Update answer</title>
 </head>
-<body>
+<body onLoad="javascript:checked(${value})">
 
     <style>
         .vertical-center {
@@ -42,10 +42,28 @@
                 </div>
           </div>
           <div class="vertical-center">
-                <button type="submit" class="btn btn-danger" name="backToAnswersList">Back</button>
+                <button type="submit" class="btn btn-danger" name="backToAnswersList" onclick="notRequired()">Back</button>
                 <button type="submit" class="btn btn-success" name="saveAnswer">Submit</button>
           </div>
         </form>
     </div>
+
+    <script>
+        function notRequired() {
+            document.getElementById('answer').required=false;
+            document.getElementById('true').required=false;
+            document.getElementById('false').required=false;
+        }
+
+        function checked(value){
+            if(value == 2){
+                document.getElementById('false').checked=true;
+            }
+            else{
+                document.getElementById('true').checked=true;
+            }
+        }
+    </script>
+
    </body>
 </html>

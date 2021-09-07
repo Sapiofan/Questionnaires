@@ -62,9 +62,15 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-    @PostMapping(name = "/listOfAnswers", params = "backToAnswers")
+    @PostMapping(value = "/listOfAnswers", params = "answers")
     public String backToAnswers(@RequestParam("questionId") Long questionId, Model model) {
         List<Answer> answers = answersService.findAllAnswers(questionId);
+        answers = answers
+                .stream()
+                .sorted(Comparator.comparingInt(Answer::getNumber))
+                .collect(Collectors.toList());
+        model.addAttribute("questionId", questionId);
+        model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
         model.addAttribute("answers", answers);
         model.addAttribute("size", answers.size());
         model.addAttribute("input", surveyService.checkInput(answers));
@@ -155,6 +161,9 @@ public class SurveyAnswersController {
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
         List<Answer> answers = answersService.findAllAnswers(questionId);
+        answers = answers.stream()
+                .sorted(Comparator.comparingInt(Answer::getNumber))
+                .collect(Collectors.toList());
         model.addAttribute("answers", answers);
         model.addAttribute("size", answers.size());
         model.addAttribute("input", surveyService.checkInput(answers));

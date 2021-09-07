@@ -38,7 +38,7 @@
 
             </div>
             <div class="vertical-center">
-                <button type="submit" class="btn btn-danger" name="backToAnswers" onclick="notRequired()">Back to answers list</button>
+                <button type="submit" class="btn btn-danger" name="answers" onclick="notRequired()">Back to answers list</button>
                 <button type="submit" class="btn btn-success" name="saveAnswer">Submit</button>
             </div>
         </form>
@@ -49,15 +49,6 @@
             document.getElementById('answer').required=false;
             document.getElementById('inlineRadio1').required=false;
             document.getElementById('inlineRadio2').required=false;
-        }
-
-        function checked(value){
-            if(value == 2){
-                document.getElementById('inlineRadio2').checked=true;
-            }
-            else{
-                document.getElementById('inlineRadio1').checked=true;
-            }
         }
     </script>
 </body>

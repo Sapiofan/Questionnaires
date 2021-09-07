@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Questionnaire</title>
 </head>
-<body onLoad="javascript:checked(${value})">
+<body>
 <h1 style="text-align: center">Hello, here you will be able to create questionnaire!</h1>
 
     <style>
