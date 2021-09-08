@@ -5,8 +5,6 @@ import com.sapiofan.surveys.services.questionnaire.QuestionnaireQuestionsService
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireResultsService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireStatisticsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -24,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 @Controller
 public class QuestionnaireController {
-
-    Logger logger = LoggerFactory.getLogger(QuestionnaireController.class);
 
     @Autowired
     private QuestionnaireService questionnaireService;
@@ -106,7 +102,6 @@ public class QuestionnaireController {
             model.addAttribute("questionnaires", questionnaireService.findAllQuestionnaires());
             return "listOfQuestionnaires";
         }
-        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(id);
         model.addAttribute("questionnaireId", id);
         model.addAttribute("resultId", resultId);
         if (number - 1 > 0) {

@@ -5,8 +5,6 @@ import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
 import com.sapiofan.surveys.services.questionnaire.DescriptionService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireQuestionsService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +19,6 @@ import java.util.stream.Collectors;
 
 @Controller
 public class DescriptionsController {
-
-    Logger logger = LoggerFactory.getLogger(DescriptionsController.class);
 
     @Autowired
     private QuestionnaireService questionnaireService;
@@ -143,8 +139,6 @@ public class DescriptionsController {
                                      Model model) {
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        descriptions = descriptions
-                .stream().sorted(Comparator.comparingInt(Description::getNumber)).collect(Collectors.toList());
         model.addAttribute("questionnaireId", questionnaireId);
         model.addAttribute("minimum", descriptionService.minimum(descriptions));
         model.addAttribute("maximum", questionnaireService.maximum(questionnaire));
@@ -162,8 +156,6 @@ public class DescriptionsController {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
         descriptionService.updateDescription(descriptionId, inputtedDescription, rangeLow, rangeHigh, questionnaire);
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
-        descriptions = descriptions
-                .stream().sorted(Comparator.comparingInt(Description::getNumber)).collect(Collectors.toList());
         model.addAttribute("questionnaireId", questionnaireId);
         model.addAttribute("minimum", descriptionService.minimum(descriptions));
         model.addAttribute("maximum", questionnaireService.maximum(questionnaire));

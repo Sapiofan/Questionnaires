@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SurveyQuestionServiceImpl implements SurveyQuestionService {
@@ -27,7 +29,10 @@ public class SurveyQuestionServiceImpl implements SurveyQuestionService {
     @Transactional
     public List<Question> findAllQuestions(Long survey_id) {
         log.info("finding of all questions by survey id " + survey_id);
-        return questionRepository.findAllQuestions(survey_id);
+        return questionRepository.findAllQuestions(survey_id)
+                .stream()
+                .sorted(Comparator.comparingInt(Question::getNumber))
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -63,6 +68,30 @@ public class SurveyQuestionServiceImpl implements SurveyQuestionService {
         saveQuestion(question);
         log.info("question was created. Id = " + question.getId() + ", name = " + question.getDescription());
         return question;
+    }
+
+    @Transactional
+    public void changeQuestionNumber(Integer from, Integer to, Long surveyId){
+        List<Question> questions = findAllQuestions(surveyId);
+        int size = questions.size();
+        if(size != 0 && from <= size && from > 0 && to <= size && to > 0) {
+            Question question = findQuestionByNumber(surveyId, from);
+            if (from > to) {
+                for (int i = 1; i < from - to + 1; i++) {
+                    Question question1 = findQuestionByNumber(surveyId, from - i);
+                    question1.setNumber(question1.getNumber() + 1);
+                    questionRepository.save(question1);
+                }
+            } else if (to > from) {
+                for (int i = 1; i < to - from + 1; i++) {
+                    Question question1 = findQuestionByNumber(surveyId, from + i);
+                    question1.setNumber(question1.getNumber() - 1);
+                    questionRepository.save(question1);
+                }
+            }
+            question.setNumber(to);
+            saveQuestion(question);
+        }
     }
 
     @Transactional

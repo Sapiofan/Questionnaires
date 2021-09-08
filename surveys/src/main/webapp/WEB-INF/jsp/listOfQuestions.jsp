@@ -40,5 +40,27 @@
              </tr>
         </c:forEach>
     </table>
+    <form action="/addQuestion" method="post">
+        <input type="hidden" name="surveyId" value=${surveyId}>
+        <input type="hidden" name="questionId" value=${questionId}>
+
+        <label for="from" class="form-label">Answer</label>
+        <input type="text" class="form-control" id="from" placeholder="from" name="from">
+
+        <label for="to" class="form-label">Answer</label>
+        <input type="text" class="form-control" id="to" placeholder="to" name="to">
+
+         <button type="submit" class="btn btn-primary" name="ChangeQuestionNumber" onclick="checkSize(${questions.size})"></button>
+    </form>
+    <script>
+        function checkSize(size){
+            var from = document.getElementById('from').value;
+            var to = document.getElementById('to').value;
+            if(size == 0 && from > size && from <= 0 && to > size && to <= 0){
+                alert("You inputted not existed question number or tried to input number that is out of questions range")
+            }
+        }
+
+    </script>
 </body>
 </html>

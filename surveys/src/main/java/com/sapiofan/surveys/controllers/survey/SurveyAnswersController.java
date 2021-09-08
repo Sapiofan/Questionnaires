@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class SurveyAnswersController {
@@ -65,10 +63,6 @@ public class SurveyAnswersController {
     @PostMapping(value = "/listOfAnswers", params = "answers")
     public String backToAnswers(@RequestParam("questionId") Long questionId, Model model) {
         List<Answer> answers = answersService.findAllAnswers(questionId);
-        answers = answers
-                .stream()
-                .sorted(Comparator.comparingInt(Answer::getNumber))
-                .collect(Collectors.toList());
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
         model.addAttribute("answers", answers);
@@ -111,10 +105,7 @@ public class SurveyAnswersController {
         answersService.deleteAnswerByNumber(questionId, number);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());
-        model.addAttribute("answers", answersService.findAllAnswers(questionId)
-                .stream()
-                .sorted(Comparator.comparingInt(Answer::getNumber))
-                .collect(Collectors.toList()));
+        model.addAttribute("answers", answersService.findAllAnswers(questionId));
         model.addAttribute("size", answersService.findAllAnswers(questionId).size());
         model.addAttribute("input", surveyService.checkInput(answersService.findAllAnswers(questionId)));
         return "listOfAnswers";
@@ -144,10 +135,7 @@ public class SurveyAnswersController {
         List<Answer> answers = answersService.findAllAnswers(questionId);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());
-        model.addAttribute("answers", answers
-                .stream()
-                .sorted(Comparator.comparingInt(Answer::getNumber))
-                .collect(Collectors.toList()));
+        model.addAttribute("answers", answers);
         model.addAttribute("size", answers.size());
         model.addAttribute("input", surveyService.checkInput(answers));
         return "listOfAnswers";
@@ -159,9 +147,6 @@ public class SurveyAnswersController {
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
         List<Answer> answers = answersService.findAllAnswers(questionId);
-        answers = answers.stream()
-                .sorted(Comparator.comparingInt(Answer::getNumber))
-                .collect(Collectors.toList());
         model.addAttribute("answers", answers);
         model.addAttribute("size", answers.size());
         model.addAttribute("input", surveyService.checkInput(answers));

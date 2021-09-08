@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -74,7 +72,6 @@ public class UserController {
     @GetMapping("/list")
     public String list(Model model) {
         List<Survey> surveys = surveyService.findAllSurveys();
-        surveys = surveys.stream().sorted(Comparator.comparingLong(Survey::getId)).collect(Collectors.toList());
         model.addAttribute("surveys", surveys);
         return "list";
     }
@@ -82,9 +79,6 @@ public class UserController {
     @GetMapping("/listOfQuestionnaires")
     public String listOfQuestionnaires(Model model) {
         List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
-        questionnaires = questionnaires.stream()
-                .sorted(Comparator.comparingLong(Questionnaire::getId))
-                .collect(Collectors.toList());
         model.addAttribute("questionnaires", questionnaires);
         return "listOfQuestionnaires";
     }

@@ -15,6 +15,8 @@ public interface SurveyQuestionService {
 
     Question createQuestion(Long questionId, Long surveyId, String inputtedQuestion);
 
+    void changeQuestionNumber(Integer from, Integer to, Long surveyId);
+
     void deleteQuestionByNumber(Long surveyId, Integer number);
 
 }

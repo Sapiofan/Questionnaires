@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DescriptionServiceImpl implements DescriptionService {
@@ -23,7 +25,10 @@ public class DescriptionServiceImpl implements DescriptionService {
     @Transactional
     public List<Description> findAllDescriptions(Long id) {
         log.info("finding of all descriptions by questionnaire id " + id);
-        return descriptionRepository.findAllDescriptions(id);
+        return descriptionRepository.findAllDescriptions(id)
+                .stream()
+                .sorted(Comparator.comparingInt(Description::getNumber))
+                .collect(Collectors.toList());
     }
 
     @Transactional

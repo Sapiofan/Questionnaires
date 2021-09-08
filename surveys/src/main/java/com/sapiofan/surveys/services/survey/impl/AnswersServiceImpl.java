@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswersServiceImpl implements AnswersService {
@@ -27,7 +29,10 @@ public class AnswersServiceImpl implements AnswersService {
     @Transactional
     public List<Answer> findAllAnswers(Long question_id) {
         log.info("finding of all answers by question id " + question_id);
-        return answerRepository.findAllAnswers(question_id);
+        return answerRepository.findAllAnswers(question_id)
+                .stream()
+                .sorted(Comparator.comparingInt(Answer::getNumber))
+                .collect(Collectors.toList());
     }
 
     @Transactional

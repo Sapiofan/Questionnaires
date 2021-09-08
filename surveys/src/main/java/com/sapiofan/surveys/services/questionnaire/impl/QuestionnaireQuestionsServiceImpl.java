@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestionsService {
@@ -53,7 +55,10 @@ public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestions
     @Transactional
     public List<QQuestion> findAllQuestions(Long id) {
         log.info("finding of all questions by questionnaire id " + id);
-        return questionRepository.findAllQuestions(id);
+        return questionRepository.findAllQuestions(id)
+                .stream()
+                .sorted(Comparator.comparingInt(QQuestion::getNumber))
+                .collect(Collectors.toList());
     }
 
     @Transactional

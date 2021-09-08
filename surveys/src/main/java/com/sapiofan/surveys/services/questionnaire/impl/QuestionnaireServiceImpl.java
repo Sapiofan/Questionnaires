@@ -13,7 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionnaireServiceImpl implements QuestionnaireService {
@@ -34,7 +36,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     @Transactional
     public List<Questionnaire> findAllQuestionnaires() {
         log.info("finding of all questionnaires");
-        return questionnaireRepository.findAllQuestionnaires();
+        return questionnaireRepository.findAllQuestionnaires()
+                .stream()
+                .sorted(Comparator.comparingInt(Questionnaire::getNumber))
+                .collect(Collectors.toList());
     }
 
     @Transactional

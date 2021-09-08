@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -62,7 +60,6 @@ public class SurveyController {
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", 0);
         List<Question> questions = surveyQuestionService.findAllQuestions(surveyId);
-        questions = questions.stream().sorted(Comparator.comparingInt(Question::getNumber)).collect(Collectors.toList());
         model.addAttribute("questions", questions);
         return "listOfQuestions";
     }

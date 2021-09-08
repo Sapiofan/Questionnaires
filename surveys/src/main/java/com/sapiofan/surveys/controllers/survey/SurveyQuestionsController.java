@@ -5,8 +5,6 @@ import com.sapiofan.surveys.entities.survey.Question;
 import com.sapiofan.surveys.services.survey.AnswersService;
 import com.sapiofan.surveys.services.survey.SurveyQuestionService;
 import com.sapiofan.surveys.services.survey.SurveyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class SurveyQuestionsController {
@@ -32,7 +28,6 @@ public class SurveyQuestionsController {
     @Autowired
     private AnswersService answersService;
 
-    Logger logger = LoggerFactory.getLogger(SurveyQuestionsController.class);
 
     @GetMapping(value = "/addQuestion", params = "add")
     public String addQuestionForm(Model model,
@@ -69,13 +64,25 @@ public class SurveyQuestionsController {
         return "addQuestion";
     }
 
+    @PostMapping(value = "/addAnswer", params = "changeQuestionName")
+    public String changeQuestionNumber(@RequestParam("from") Integer from,
+                                       @RequestParam("to") Integer to,
+                                       @RequestParam("questionId") Long questionId,
+                                       @RequestParam("surveyId") Long surveyId,
+                                       Model model){
+        surveyQuestionService.changeQuestionNumber(from, to, surveyId);
+        model.addAttribute("surveyId", surveyId);
+        model.addAttribute("questionId", questionId);
+        model.addAttribute("questions", surveyQuestionService.findAllQuestions(surveyId));
+        return "listOfQuestions";
+    }
+
     @GetMapping("/question/{number}")
     public String getQuestionByNumber(@PathVariable("number") Integer number,
                                       @RequestParam("questionId") Long questionId,
                                       Model model) {
         model.addAttribute("questionId", questionId);
         List<Answer> answers = answersService.findAllAnswers(questionId);
-        answers = answers.stream().sorted(Comparator.comparingInt(Answer::getNumber)).collect(Collectors.toList());
         model.addAttribute("answers", answers);
         model.addAttribute("size", answers.size());
         model.addAttribute("input", surveyService.checkInput(answers));
