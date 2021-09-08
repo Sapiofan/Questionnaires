@@ -20,7 +20,7 @@
     </style>
     <div class="container mt-5">
         <form action="/survey/${surveyId}" method="post">
-            <h3><p>Maybe here will be description of survey</p></h3>
+            <h3><p>Description: ${description}</p></h3>
             <div class="vertical-center">
                 <a href="/list", class="btn btn-danger">Back to list</a>
                 <input type="submit" class="btn btn-success" value="Start" name="start" />

@@ -26,6 +26,10 @@
                 <label for="SurveyName" class="form-label">Survey name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" value="${name}" required>
             </div>
+            <div class="form-group">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" placeholder="Enter a name" value="${description}" name="description" required>
+            </div>
             <div class="vertical-center">
                 <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
                 <input type="submit" class="btn btn-success" value="Continue" />
@@ -36,6 +40,7 @@
     <script>
         function requiredDisabled(){
                 document.getElementById("name").required = false;
+                document.getElementById("description").required = false;
         }
     </script>
   </body>

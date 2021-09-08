@@ -32,7 +32,7 @@
         </tr>
         <c:forEach items="${questionnaires}" var ="questionnaire">
             <tr>
-                <td><a href="/questionnaire/${questionnaire.id}">${questionnaire.id}</a></td>
+                <td><a href="/questionnaire/${questionnaire.id}">${questionnaire.number}</a></td>
                 <td>${questionnaire.name}</td>
                 <td>${questionnaire.user.nickname}</td>
                 <td>${questionnaire.size}</td>

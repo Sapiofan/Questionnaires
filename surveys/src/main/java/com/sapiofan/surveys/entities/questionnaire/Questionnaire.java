@@ -12,6 +12,10 @@ import java.util.Set;
 @Entity
 @Table(name = "questionnaires")
 public class Questionnaire extends ListOfSurveys {
+
+    @Column(nullable = false)
+    private Integer number;
+
     @Column(nullable = false)
     private String name;
 
@@ -36,6 +40,14 @@ public class Questionnaire extends ListOfSurveys {
 
 
     public Questionnaire() {
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public String getName() {

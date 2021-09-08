@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <property name="HOME_LOG" value="logs"/>
+    <property name="ARCHIVED_LOG" value="archived"/>
+
+    <appender name="log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}/log.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${HOME_LOG}/${ARCHIVED_LOG}/log/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>30MB</maxFileSize>
+            <totalSizeCap>3GB</totalSizeCap>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <logger name="log" level="log" additivity="false">
+        <appender-ref ref="log"/>
+    </logger>
+
+</configuration>

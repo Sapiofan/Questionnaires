@@ -6,6 +6,8 @@ import com.sapiofan.surveys.repository.questionnaire.QuestionnaireRepository;
 import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
 import com.sapiofan.surveys.services.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -21,24 +23,31 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     @Autowired
     private UserService userService;
 
+    private static final Logger log = LoggerFactory.getLogger("log");
+
     @Transactional
     public Questionnaire findQuestionnaireById(Long id) {
+        log.info("finding of questionnaire by id " + id);
         return questionnaireRepository.findQuestionnaireById(id);
     }
 
     @Transactional
     public List<Questionnaire> findAllQuestionnaires() {
+        log.info("finding of all questionnaires");
         return questionnaireRepository.findAllQuestionnaires();
     }
 
     @Transactional
     public void saveQuestionnaire(Questionnaire questionnaire) {
+        log.info("saving of questionnaire");
         questionnaireRepository.save(questionnaire);
+        log.info("questionnaire successfully saved");
     }
 
     @Transactional
     public Questionnaire createQuestionnaire(Authentication authentication, Long questionnaireId,
                                              String name, String description, Integer scale) {
+        log.info("start of creating of questionnaire");
         CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         Questionnaire questionnaire;
         if (questionnaireId == 0) {
@@ -50,18 +59,29 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         questionnaire.setName(name);
         questionnaire.setGeneral_description(description);
         questionnaire.setSize(0);
+        questionnaire.setNumber(findAllQuestionnaires().size()+1);
         if (scale == 5) {
             questionnaire.setScale(Scale.FIVE);
         } else {
             questionnaire.setScale(Scale.TEN);
         }
         saveQuestionnaire(questionnaire);
+        log.info("questionnaire was created. Id = " + questionnaire.getId() + ", name = " + questionnaire.getName());
         return questionnaire;
     }
 
     @Transactional
     public void deleteQuestionnaire(Long id) {
+        Questionnaire questionnaire = findQuestionnaireById(id);
+        log.warn("deleting of questionnaire " + id);
+        int number = questionnaire.getNumber();
+        for (int i = 1; i <= findAllQuestionnaires().size() - questionnaire.getNumber(); i++) {
+            Questionnaire questionnaire1 = questionnaireRepository.findQuestionnaireByNumber(number + i);
+            questionnaire1.setNumber(questionnaire1.getNumber() - 1);
+            saveQuestionnaire(questionnaire1);
+        }
         questionnaireRepository.deleteQuestionnaireById(id);
+        log.warn("questionnaire has been deleted");
     }
 
     public int maximum(Questionnaire questionnaire) {

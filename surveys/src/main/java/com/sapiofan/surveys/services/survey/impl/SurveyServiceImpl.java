@@ -29,17 +29,20 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Transactional
-    public Survey createSurvey(Long surveyId, String name, Authentication authentication) {
+    public Survey createSurvey(Long surveyId, String name, String description, Authentication authentication) {
         CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         Survey survey;
         if (surveyId == 0) {
             survey = new Survey();
             survey.setName(name);
             survey.setSize(0);
+            survey.setDescription(description);
+            survey.setNumber(findAllSurveys().size()+1);
             survey.setUser(userService.findUserByNickname(principal.getUsername()));
         } else {
             survey = findSurveyById(surveyId);
             survey.setName(name);
+            survey.setDescription(description);
         }
         surveyRepository.save(survey);
         return survey;
@@ -52,6 +55,13 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Transactional
     public void deleteSurveyById(Long id) {
+        Survey survey = surveyRepository.findSurveyById(id);
+        int number = survey.getNumber();
+        for (int i = 1; i <= findAllSurveys().size() - survey.getNumber(); i++) {
+            Survey survey1 = surveyRepository.findSurveyByNumber(number + i);
+            survey1.setNumber(survey1.getNumber() - 1);
+            save(survey1);
+        }
         surveyRepository.deleteById(id);
     }
 

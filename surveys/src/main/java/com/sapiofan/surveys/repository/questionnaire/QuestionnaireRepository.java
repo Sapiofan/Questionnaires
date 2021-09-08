@@ -11,6 +11,9 @@ public interface QuestionnaireRepository extends JpaRepository<Questionnaire, Lo
     @Query("select q from Questionnaire q where q.id = :id")
     Questionnaire findQuestionnaireById(Long id);
 
+    @Query("select q from Questionnaire q where q.number = :number")
+    Questionnaire findQuestionnaireByNumber(Integer number);
+
     @Query("select q from Questionnaire q")
     List<Questionnaire> findAllQuestionnaires();
 

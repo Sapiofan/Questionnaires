@@ -13,7 +13,7 @@ public interface SurveyService {
 //    Survey findSurveyByNickName(String nickname);
 //    Survey findBySurveyName(String name);
 
-    Survey createSurvey(Long surveyId, String name, Authentication authentication);
+    Survey createSurvey(Long surveyId, String name, String description, Authentication authentication);
 
     void save(Survey survey);
     void deleteSurveyById(Long id);

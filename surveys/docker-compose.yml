@@ -7,7 +7,7 @@ services:
     build:
       context: .
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/surveys_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
       SPRING_DATASOURCE_PASSWORD: admin
     depends_on:
       - db
@@ -16,7 +16,7 @@ services:
 
   db:
     image: postgres:latest
-    container_name: surveys_db
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: admin

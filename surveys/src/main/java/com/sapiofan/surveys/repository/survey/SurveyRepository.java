@@ -11,9 +11,11 @@ public interface SurveyRepository extends JpaRepository<Survey, Long> {
     @Query("select s from Survey s")
     List<Survey> findAllSurveys();
 
-
     @Query("select s from Survey s where s.id=:id")
     Survey findSurveyById(Long id);
+
+    @Query("select s from Survey s where s.number = :number")
+    Survey findSurveyByNumber(Integer number);
 
     @Query("delete from Survey s where s.id=:id")
     @Modifying

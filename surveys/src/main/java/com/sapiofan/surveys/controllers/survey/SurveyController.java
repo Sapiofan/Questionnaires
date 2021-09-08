@@ -6,8 +6,6 @@ import com.sapiofan.surveys.services.survey.StatisticsService;
 import com.sapiofan.surveys.services.survey.SurveyQuestionService;
 import com.sapiofan.surveys.services.survey.SurveyResultsService;
 import com.sapiofan.surveys.services.survey.SurveyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -40,14 +38,14 @@ public class SurveyController {
     @Autowired
     private StatisticsService statisticsService;
 
-    Logger logger = LoggerFactory.getLogger(SurveyController.class);
 
     @PostMapping(value = "/createSurvey")
     public String addSurvey(@RequestParam("name") String name,
                             @RequestParam("surveyId") Long surveyId,
+                            @RequestParam("description") String description,
                             Authentication authentication,
                             Model model) {
-        Survey survey = surveyService.createSurvey(surveyId, name, authentication);
+        Survey survey = surveyService.createSurvey(surveyId, name, description, authentication);
         model.addAttribute("questions", surveyQuestionService.findAllQuestions(survey.getId()));
         model.addAttribute("surveyId", survey.getId());
         model.addAttribute("questionId", 0);
@@ -72,7 +70,9 @@ public class SurveyController {
     @GetMapping(value = "/addQuestion", params = "changeSurveyName")
     public String changeSurveyName(@RequestParam(name = "surveyId") Long surveyId, Model model) {
         model.addAttribute("surveyId", surveyId);
-        model.addAttribute("name", surveyService.findSurveyById(surveyId).getName());
+        Survey survey = surveyService.findSurveyById(surveyId);
+        model.addAttribute("name", survey.getName());
+        model.addAttribute("description", survey.getDescription());
         return "survey";
     }
 
@@ -105,6 +105,7 @@ public class SurveyController {
         Survey survey = surveyService.findSurveyById(id);
         surveyService.save(survey);
         model.addAttribute("question", surveyQuestionService.findQuestionByNumber(id, 1));
+        model.addAttribute("description", survey.getDescription());
         return "startSurvey";
     }
 

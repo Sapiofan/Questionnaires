@@ -25,6 +25,7 @@
             </div>
             <div class="vertical-center">
                 <a href="/", class="btn btn-danger">Back</a>
+                <a href="/login", class="btn btn-primary">Sign in</a>
                 <button type="submit" class="btn btn-success" name="signUp">Sign Up</button>
             </div>
         </form>
