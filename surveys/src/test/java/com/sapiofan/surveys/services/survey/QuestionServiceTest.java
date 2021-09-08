@@ -12,10 +12,6 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@DataJpaTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@Rollback(false)
-
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class QuestionServiceTest {
@@ -29,15 +25,15 @@ public class QuestionServiceTest {
     @Autowired
     private SurveyService surveyService;
 
-    private Long surveyId;
+    private static Long surveyId;
 
-    private Long questionId;
+    private static Long questionId;
 
     @Test
     @Order(1)
     public void testCreateQuestion() {
-        userService.save("TestNickname", "test2021");
-        User user = userService.findUserByNickname("TestNickname");
+        userService.save("TestSQuestions", "test2021");
+        User user = userService.findUserByNickname("TestSQuestions");
         Survey survey = new Survey();
         survey.setName("Survey");
         survey.setSize(0);
@@ -60,6 +56,7 @@ public class QuestionServiceTest {
     @Order(2)
     public void testFindQuestionById() {
         Question question = surveyQuestionService.findQuestionById(questionId);
+        System.out.println("Question description: " + question.getDescription());
         Assertions.assertNotNull(question);
         assertThat(question.getDescription().equals("NewQuestion"));
     }
@@ -76,6 +73,6 @@ public class QuestionServiceTest {
     public void testDeleteQuestionById(){
         surveyQuestionService.deleteQuestionByNumber(surveyId, 1);
         Assertions.assertNull(surveyQuestionService.findQuestionById(questionId));
-        userService.deleteUser(userService.findUserByNickname("TestNickname"));
+        userService.deleteUser(userService.findUserByNickname("TestSQuestions"));
     }
 }

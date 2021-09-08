@@ -28,17 +28,17 @@ public class AnswerServiceTest {
     @Autowired
     private AnswersService answersService;
 
-    private Long surveyId;
+    private static Long surveyId;
 
-    private Long questionId;
+    private static Long questionId;
 
-    private Long answerId;
+    private static Long answerId;
 
     @Test
     @Order(1)
     public void testCreateResults() {
-        userService.save("TestNickname", "test2021");
-        User user = userService.findUserByNickname("TestNickname");
+        userService.save("TestAnswers", "test2021");
+        User user = userService.findUserByNickname("TestAnswers");
         Survey survey = new Survey();
         survey.setName("Survey");
         survey.setSize(0);
@@ -53,7 +53,7 @@ public class AnswerServiceTest {
         Answer answer = answersService.createAnswer(question, "Answer", "1");
         answerId = answer.getId();
 
-        Answer savedAnswer = answersService.findAnswerById(questionId);
+        Answer savedAnswer = answersService.findAnswerById(answerId);
 
 
         Assertions.assertNotNull(savedAnswer);
@@ -97,6 +97,6 @@ public class AnswerServiceTest {
     public void testDeleteAnswerById(){
         answersService.deleteAnswerByNumber(questionId, 1);
         Assertions.assertNull(answersService.findAnswerById(answerId));
-        userService.deleteUser(userService.findUserByNickname("TestNickname"));
+        userService.deleteUser(userService.findUserByNickname("TestAnswers"));
     }
 }

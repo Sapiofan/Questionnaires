@@ -89,11 +89,11 @@ public class DescriptionServiceImpl implements DescriptionService {
                 } else {
                     before.setEnd_scale(before.getEnd_scale() + diff / 2);
                 }
-            } else if (number - 2 < 0) {
+            } else if (number - 2 < 0 && number < questionnaire.getDescriptions().size()) {
                 Description after = questionnaire.getDescriptions().get(number);
                 after.setStart_scale(1);
                 saveDescription(after);
-            } else if (number >= questionnaire.getDescriptions().size()) {
+            } else if (number >= questionnaire.getDescriptions().size() && number - 2 >= 0) {
                 Description before = questionnaire.getDescriptions().get(number - 2);
                 before.setEnd_scale(description.getEnd_scale());
                 saveDescription(before);

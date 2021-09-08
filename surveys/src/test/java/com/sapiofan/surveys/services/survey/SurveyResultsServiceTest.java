@@ -25,23 +25,18 @@ public class SurveyResultsServiceTest {
     @Autowired
     private SurveyResultsService surveyResultsService;
 
-    private Long surveyId;
-
-    private Long questionId;
-
-    private UUID resultsId;
+    private static UUID resultsId;
 
     @Test
     @Order(1)
     public void testCreateResults() {
-        userService.save("TestNickname", "test2021");
-        User user = userService.findUserByNickname("TestNickname");
+        userService.save("TestSResults", "test2021");
+        User user = userService.findUserByNickname("TestSResults");
         Survey survey = new Survey();
         survey.setName("Survey");
         survey.setSize(0);
         survey.setUser(user);
         surveyService.save(survey);
-        surveyId = survey.getId();
 
         SurveyResults surveyResults = new SurveyResults();
         surveyResults.setSurvey(survey);
@@ -72,6 +67,6 @@ public class SurveyResultsServiceTest {
     public void testDeleteResultsById(){
         surveyResultsService.deleteResultsById(resultsId);
         Assertions.assertNull(surveyResultsService.findSurveyResultsById(resultsId));
-        userService.deleteUser(userService.findUserByNickname("TestNickname"));
+        userService.deleteUser(userService.findUserByNickname("TestSResults"));
     }
 }

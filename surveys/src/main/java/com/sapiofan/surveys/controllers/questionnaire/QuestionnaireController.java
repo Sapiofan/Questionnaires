@@ -84,9 +84,16 @@ public class QuestionnaireController {
         model.addAttribute("resultId", questionnaireResult.getId());
         QQuestion question = questionnaireQuestionsService.findQuestionByNumber(id, 1);
         model.addAttribute("question", question);
-        model.addAttribute("maximum", 10);
-        model.addAttribute("minimum", 1);
-        model.addAttribute("middle", 5);
+        if(questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
+            model.addAttribute("maximum", 5);
+            model.addAttribute("minimum", 1);
+            model.addAttribute("middle", 3);
+        }
+        else {
+            model.addAttribute("maximum", 10);
+            model.addAttribute("minimum", 1);
+            model.addAttribute("middle", 5);
+        }
         return "passQuestionnaire";
     }
 
@@ -106,9 +113,16 @@ public class QuestionnaireController {
             QQuestion question = questionnaireQuestionsService.findQuestionByNumber(id, number - 1);
             model.addAttribute("question", question);
         }
-        model.addAttribute("maximum", 10);
-        model.addAttribute("minimum", 1);
-        model.addAttribute("middle", 5);
+        if(questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
+            model.addAttribute("maximum", 5);
+            model.addAttribute("minimum", 1);
+            model.addAttribute("middle", 3);
+        }
+        else {
+            model.addAttribute("maximum", 10);
+            model.addAttribute("minimum", 1);
+            model.addAttribute("middle", 5);
+        }
         return "passQuestionnaire";
     }
 
@@ -159,9 +173,16 @@ public class QuestionnaireController {
             model.addAttribute("seconds", seconds_difference);
             return "questionnaireStatistics";
         }
-        model.addAttribute("maximum", 10);
-        model.addAttribute("minimum", 1);
-        model.addAttribute("middle", 5);
+        if(questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
+            model.addAttribute("maximum", 5);
+            model.addAttribute("minimum", 1);
+            model.addAttribute("middle", 3);
+        }
+        else {
+            model.addAttribute("maximum", 10);
+            model.addAttribute("minimum", 1);
+            model.addAttribute("middle", 5);
+        }
         return "passQuestionnaire";
     }
 

@@ -20,7 +20,7 @@ public class Survey extends ListOfSurveys {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.EAGER)
     private List<Question> questions = new ArrayList<>();
 
     public Survey() {

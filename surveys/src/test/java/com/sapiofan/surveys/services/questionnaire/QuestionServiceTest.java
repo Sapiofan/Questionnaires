@@ -26,15 +26,15 @@ public class QuestionServiceTest {
     @Autowired
     private QuestionnaireService questionnaireService;
 
-    private Long questionnaireId;
+    private static Long questionnaireId;
 
-    private Long questionId;
+    private static Long questionId;
 
     @Test
     @Order(1)
     public void testCreateQuestion() {
-        userService.save("TestNickname", "test2021");
-        User user = userService.findUserByNickname("TestNickname");
+        userService.save("TestQuestionnaireQuestions", "test2021");
+        User user = userService.findUserByNickname("TestQuestionnaireQuestions");
         Questionnaire questionnaire = new Questionnaire();
         questionnaire.setName("Questionnaire");
         questionnaire.setScale(Scale.FIVE);
@@ -58,7 +58,7 @@ public class QuestionServiceTest {
     @Test
     @Order(2)
     public void testFindQuestionById() {
-        QQuestion question = questionnaireQuestionsService.findQuestionByNumber(questionId, 1);
+        QQuestion question = questionnaireQuestionsService.findQuestionByNumber(questionnaireId, 1);
         Assertions.assertNotNull(question);
         assertThat(question.getName().equals("NewQuestion"));
     }
@@ -75,6 +75,6 @@ public class QuestionServiceTest {
     public void testDeleteQuestionByNumber(){
         questionnaireQuestionsService.deleteQQuestionById(questionnaireId, 1);
         Assertions.assertNull(questionnaireQuestionsService.findQuestionByNumber(questionnaireId, 1));
-        userService.deleteUser(userService.findUserByNickname("TestNickname"));
+        userService.deleteUser(userService.findUserByNickname("TestQuestionnaireQuestions"));
     }
 }

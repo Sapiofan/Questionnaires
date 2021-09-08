@@ -20,7 +20,7 @@ public class Question {
     @JoinColumn(name = "survey_id")
     private Survey survey;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<Answer> answers = new ArrayList<>();
 
     @OneToOne(mappedBy = "question")

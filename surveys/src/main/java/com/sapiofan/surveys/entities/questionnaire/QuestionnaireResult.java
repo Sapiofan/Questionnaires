@@ -29,7 +29,7 @@ public class QuestionnaireResult {
     @Column(nullable = false)
     private Date end_time;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "results")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "results")
     private List<EvaluatedQuestion> evaluated_questions;
 
     public QuestionnaireResult() {

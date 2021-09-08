@@ -26,15 +26,15 @@ public class DescriptionServiceTest {
     @Autowired
     private DescriptionService descriptionService;
 
-    private Long questionnaireId;
+    private static Long questionnaireId;
 
-    private Long descriptionId;
+    private static Long descriptionId;
 
     @Test
     @Order(1)
     public void testCreateDescription() {
-        userService.save("TestNickname", "test2021");
-        User user = userService.findUserByNickname("TestNickname");
+        userService.save("TestDescriptions", "test2021");
+        User user = userService.findUserByNickname("TestDescriptions");
         Questionnaire questionnaire = new Questionnaire();
         questionnaire.setName("Questionnaire");
         questionnaire.setScale(Scale.FIVE);
@@ -59,6 +59,7 @@ public class DescriptionServiceTest {
     @Order(2)
     public void testFindDescriptionById() {
         Description description = descriptionService.findDescriptionById(descriptionId);
+        System.out.println("Description name: " + description.getDescription());
         Assertions.assertNotNull(description);
         assertThat(description.getDescription().equals("Description"));
     }
@@ -84,6 +85,6 @@ public class DescriptionServiceTest {
         descriptionService.deleteDescriptionById(descriptionService.findDescriptionById(descriptionId),
                 questionnaireService.findQuestionnaireById(questionnaireId));
         Assertions.assertNull(descriptionService.findDescriptionById(descriptionId));
-        userService.deleteUser(userService.findUserByNickname("TestNickname"));
+        userService.deleteUser(userService.findUserByNickname("TestDescriptions"));
     }
 }

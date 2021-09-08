@@ -28,7 +28,7 @@ public class SurveyResults {
     @Column(nullable = false)
     private Date end_time;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "results")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "results")
     private List<RightAnswers> right_answers;
 
     public SurveyResults() {

@@ -5,9 +5,7 @@ import com.sapiofan.surveys.entities.survey.Survey;
 import com.sapiofan.surveys.entities.survey.SurveyResults;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -25,14 +23,14 @@ public class User {
     @Column(nullable = false)
     private Date created_at;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Survey> surveys = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Questionnaire> questionnaires = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Questionnaire> questionnaires = new LinkedHashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<SurveyResults> results = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<SurveyResults> results = new LinkedHashSet<>();
 
     public User() {
     }
@@ -77,19 +75,19 @@ public class User {
         this.surveys = surveys;
     }
 
-    public List<Questionnaire> getQuestionnaires() {
+    public Set<Questionnaire> getQuestionnaires() {
         return questionnaires;
     }
 
-    public void setQuestionnaires(List<Questionnaire> questionnaires) {
+    public void setQuestionnaires(Set<Questionnaire> questionnaires) {
         this.questionnaires = questionnaires;
     }
 
-    public List<SurveyResults> getResults() {
+    public Set<SurveyResults> getResults() {
         return results;
     }
 
-    public void setResults(List<SurveyResults> results) {
+    public void setResults(Set<SurveyResults> results) {
         this.results = results;
     }
 

@@ -26,17 +26,13 @@ public class QuestionnaireResultsServiceTest {
     @Autowired
     private QuestionnaireResultsService questionnaireResultsService;
 
-    private Long questionnaireId;
-
-    private Long questionId;
-
-    private UUID resultsId;
+    private static UUID resultsId;
 
     @Test
     @Order(1)
     public void testCreateResults() {
-        userService.save("TestNickname", "test2021");
-        User user = userService.findUserByNickname("TestNickname");
+        userService.save("TestQResults", "test2021");
+        User user = userService.findUserByNickname("TestQResults");
         Questionnaire questionnaire = new Questionnaire();
         questionnaire.setName("Questionnaire");
         questionnaire.setSize(0);
@@ -44,7 +40,6 @@ public class QuestionnaireResultsServiceTest {
         questionnaire.setGeneral_description("description");
         questionnaire.setScale(Scale.FIVE);
         questionnaireService.saveQuestionnaire(questionnaire);
-        questionnaireId = questionnaire.getId();
 
         QuestionnaireResult questionnaireResult = new QuestionnaireResult();
         questionnaireResult.setQuestionnaire(questionnaire);
@@ -73,6 +68,6 @@ public class QuestionnaireResultsServiceTest {
     public void testDeleteResultsById(){
         questionnaireResultsService.deleteResultsById(resultsId);
         Assertions.assertNull(questionnaireResultsService.findQuestionnaireResultById(resultsId));
-        userService.deleteUser(userService.findUserByNickname("TestNickname"));
+        userService.deleteUser(userService.findUserByNickname("TestQResults"));
     }
 }

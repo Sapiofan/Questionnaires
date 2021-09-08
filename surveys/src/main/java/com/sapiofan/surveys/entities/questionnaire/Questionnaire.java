@@ -5,7 +5,9 @@ import com.sapiofan.surveys.entities.user.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "questionnaires")
@@ -26,10 +28,10 @@ public class Questionnaire extends ListOfSurveys {
     @Enumerated(EnumType.ORDINAL)
     private Scale scale;
 
-    @OneToMany(mappedBy = "questionnaire", fetch = FetchType.LAZY)
-    private List<QQuestion> questions = new ArrayList<>();
+    @OneToMany(mappedBy = "questionnaire", fetch = FetchType.EAGER)
+    private Set<QQuestion> questions = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "questionnaire", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionnaire", fetch = FetchType.EAGER)
     private List<Description> descriptions = new ArrayList<>();
 
 
@@ -69,11 +71,11 @@ public class Questionnaire extends ListOfSurveys {
         user.addQuestionnaire(this);
     }
 
-    public List<QQuestion> getQuestions() {
+    public Set<QQuestion> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<QQuestion> questions) {
+    public void setQuestions(Set<QQuestion> questions) {
         this.questions = questions;
     }
 
