@@ -43,6 +43,23 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Transactional
+    public List<Questionnaire> findQuestionnaireByNickName(String nickname){
+        log.info("find all questionnaires of a certain user");
+        return questionnaireRepository.findQuestionnaireByNickName(nickname)
+                .stream()
+                .sorted(Comparator.comparingInt(Questionnaire::getNumber))
+                .collect(Collectors.toList());
+    }
+    @Transactional
+    public List<Questionnaire> findByQuestionnaireName(String name){
+        log.info("find all questionnaires by name");
+        return questionnaireRepository.findByQuestionnaireName(name)
+                .stream()
+                .sorted(Comparator.comparingInt(Questionnaire::getNumber))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public void saveQuestionnaire(Questionnaire questionnaire) {
         log.info("saving of questionnaire");
         questionnaireRepository.save(questionnaire);

@@ -76,8 +76,48 @@ public class UserController {
         return "list";
     }
 
+    @GetMapping(value = "/search", params = "searchRows")
+    public String search(@RequestParam("type") String type,
+                         @RequestParam("search") String search,
+                         Model model){
+        if(type.equals("survey")){
+            model.addAttribute("surveys", surveyService.findBySurveyName(search));
+        }
+        else {
+            model.addAttribute("surveys", surveyService.findSurveyByNickName(search));
+        }
+        return "list";
+    }
+
+    @GetMapping(value = "/search", params = "backToList")
+    public String backToList(Model model){
+        List<Survey> surveys = surveyService.findAllSurveys();
+        model.addAttribute("surveys", surveys);
+        return "list";
+    }
+
     @GetMapping("/listOfQuestionnaires")
     public String listOfQuestionnaires(Model model) {
+        List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
+        model.addAttribute("questionnaires", questionnaires);
+        return "listOfQuestionnaires";
+    }
+
+    @GetMapping(value = "/searchQuestionnaire", params = "searchRows")
+    public String searchQuestionnaires(@RequestParam("type") String type,
+                         @RequestParam("search") String search,
+                         Model model){
+        if(type.equals("questionnaire")){
+            model.addAttribute("questionnaires", questionnaireService.findByQuestionnaireName(search));
+        }
+        else {
+            model.addAttribute("questionnaires", questionnaireService.findQuestionnaireByNickName(search));
+        }
+        return "listOfQuestionnaires";
+    }
+
+    @GetMapping(value = "/searchQuestionnaire", params = "backToList")
+    public String backToQuestionnaireList(Model model){
         List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
         model.addAttribute("questionnaires", questionnaires);
         return "listOfQuestionnaires";

@@ -36,6 +36,8 @@ public class SurveyResultsServiceTest {
         survey.setName("Survey");
         survey.setSize(0);
         survey.setUser(user);
+        survey.setDescription("Description");
+        survey.setNumber(1);
         surveyService.save(survey);
 
         SurveyResults surveyResults = new SurveyResults();

@@ -35,6 +35,7 @@ public class QuestionnaireServiceTest {
 
         Questionnaire questionnaire = new Questionnaire();
         questionnaire.setName("Questionnaire");
+        questionnaire.setNumber(questionnaireService.findAllQuestionnaires().size()+1);
         questionnaire.setSize(0);
         questionnaire.setUser(user);
         questionnaire.setGeneral_description("description");

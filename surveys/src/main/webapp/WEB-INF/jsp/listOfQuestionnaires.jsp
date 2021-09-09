@@ -21,7 +21,20 @@
         }
     </style>
 
-    <a href="/main", class="btn btn-danger">Back to main</a>
+    <form action="/searchQuestionnaire" method="get">
+         <label for="search" class="form-label">Search by survey/user</label>
+        <input type="text" class="form-control" id="search" placeholder="Search..." name="search" required>
+
+        <select id="type" name="type">
+          <option value="questionnaire">Questionnaire</option>
+          <option value="user">User</option>
+        </select>
+
+        <a href="/main", class="btn btn-danger">Back to main</a>
+        <button type="submit" class="btn btn-primary" name="backToList" onclick="disable()">Back to all list</button>
+        <button type="submit" class="btn btn-primary" name="searchRows">Search</button>
+
+    </form>
 
     <table border="1">
         <tr>
@@ -39,5 +52,11 @@
             </tr>
         </c:forEach>
     </table>
+
+    <script>
+        function disable(){
+            document.getElementById('search').required=false;
+        }
+    </script>
 </body>
 </html>

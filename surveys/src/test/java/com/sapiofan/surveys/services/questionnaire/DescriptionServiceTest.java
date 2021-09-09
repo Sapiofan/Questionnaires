@@ -41,6 +41,7 @@ public class DescriptionServiceTest {
         questionnaire.setGeneral_description("Description");
         questionnaire.setSize(0);
         questionnaire.setUser(user);
+        questionnaire.setNumber(1);
         questionnaireService.saveQuestionnaire(questionnaire);
         questionnaireId = questionnaire.getId();
 

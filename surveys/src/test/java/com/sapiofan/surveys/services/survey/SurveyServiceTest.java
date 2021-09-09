@@ -32,6 +32,8 @@ public class SurveyServiceTest {
         survey.setName("Survey");
         survey.setSize(0);
         survey.setUser(user);
+        survey.setDescription("Description");
+        survey.setNumber(surveyService.findAllSurveys().size()+1);
         surveyService.save(survey);
 
         Survey newSurvey = surveyService.findSurveyById(survey.getId());

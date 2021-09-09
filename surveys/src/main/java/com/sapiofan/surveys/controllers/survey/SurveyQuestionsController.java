@@ -64,7 +64,7 @@ public class SurveyQuestionsController {
         return "addQuestion";
     }
 
-    @PostMapping(value = "/addAnswer", params = "changeQuestionName")
+    @GetMapping(value = "/addQuestion", params = "changeQuestionNumber")
     public String changeQuestionNumber(@RequestParam("from") Integer from,
                                        @RequestParam("to") Integer to,
                                        @RequestParam("questionId") Long questionId,
@@ -73,7 +73,9 @@ public class SurveyQuestionsController {
         surveyQuestionService.changeQuestionNumber(from, to, surveyId);
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", questionId);
-        model.addAttribute("questions", surveyQuestionService.findAllQuestions(surveyId));
+        List<Question> questions = surveyQuestionService.findAllQuestions(surveyId);
+        model.addAttribute("size", questions.size());
+        model.addAttribute("questions", questions);
         return "listOfQuestions";
     }
 
@@ -97,6 +99,7 @@ public class SurveyQuestionsController {
         model.addAttribute("surveyId", question.getSurvey().getId());
         List<Question> questions = surveyQuestionService.findAllQuestions(question.getSurvey().getId());
         model.addAttribute("questions", questions);
+        model.addAttribute("size", questions.size());
         return "listOfQuestions";
     }
 
@@ -108,6 +111,7 @@ public class SurveyQuestionsController {
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", 0);
         model.addAttribute("questions", surveyQuestionService.findAllQuestions(surveyId));
+        model.addAttribute("size", surveyQuestionService.findAllQuestions(surveyId).size());
         return "listOfQuestions";
     }
 }

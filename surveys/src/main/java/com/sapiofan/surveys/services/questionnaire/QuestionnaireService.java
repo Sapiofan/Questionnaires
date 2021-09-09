@@ -16,6 +16,10 @@ public interface QuestionnaireService {
     Questionnaire createQuestionnaire(Authentication authentication, Long questionnaireId,
                                       String name, String description, Integer scale);
 
+    List<Questionnaire> findByQuestionnaireName(String name);
+
+    List<Questionnaire> findQuestionnaireByNickName(String nickname);
+
     void deleteQuestionnaire(Long id);
 
     int maximum(Questionnaire questionnaire);

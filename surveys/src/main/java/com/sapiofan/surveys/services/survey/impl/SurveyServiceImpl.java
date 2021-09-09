@@ -39,6 +39,23 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Transactional
+    public List<Survey> findSurveyByNickName(String nickname){
+        log.info("find all surveys of a certain user");
+        return surveyRepository.findSurveyByNickName(nickname)
+                .stream()
+                .sorted(Comparator.comparingInt(Survey::getNumber))
+                .collect(Collectors.toList());
+    }
+    @Transactional
+    public List<Survey> findBySurveyName(String name){
+        log.info("find all surveys by name");
+        return surveyRepository.findBySurveyName(name)
+                .stream()
+                .sorted(Comparator.comparingInt(Survey::getNumber))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public Survey createSurvey(Long surveyId, String name, String description, Authentication authentication) {
         log.info("start of creating of survey");
         CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();

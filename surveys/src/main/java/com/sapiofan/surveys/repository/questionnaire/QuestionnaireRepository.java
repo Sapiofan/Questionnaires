@@ -17,6 +17,12 @@ public interface QuestionnaireRepository extends JpaRepository<Questionnaire, Lo
     @Query("select q from Questionnaire q")
     List<Questionnaire> findAllQuestionnaires();
 
+    @Query("select q from Questionnaire q where q.user.nickname = :nickname")
+    List<Questionnaire> findQuestionnaireByNickName(String nickname);
+
+    @Query("select q from Questionnaire q where q.name = :name")
+    List<Questionnaire> findByQuestionnaireName(String name);
+
     @Query("delete from Questionnaire q where q.id = :id")
     @Modifying
     void deleteQuestionnaireById(Long id);

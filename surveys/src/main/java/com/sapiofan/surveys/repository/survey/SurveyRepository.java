@@ -21,9 +21,9 @@ public interface SurveyRepository extends JpaRepository<Survey, Long> {
     @Modifying
     void deleteById(Long id);
 
-//    @Query("select s from Survey s join User u on s.user_id=u.id where u.nickname = :nickname")
-//    Survey findSurveyByNickName(String nickname);
-//
-//    @Query("select s from Survey s where s.name = :name")
-//    Survey findBySurveyName(String name);
+    @Query("select s from Survey s where s.user.nickname = :nickname")
+    List<Survey> findSurveyByNickName(String nickname);
+
+    @Query("select s from Survey s where s.name = :name")
+    List<Survey> findBySurveyName(String name);
 }

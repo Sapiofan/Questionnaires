@@ -38,6 +38,8 @@ public class QuestionServiceTest {
         survey.setName("Survey");
         survey.setSize(0);
         survey.setUser(user);
+        survey.setDescription("Description");
+        survey.setNumber(1);
         surveyService.save(survey);
         surveyId = survey.getId();
 

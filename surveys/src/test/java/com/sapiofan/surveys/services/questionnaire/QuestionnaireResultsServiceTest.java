@@ -39,6 +39,7 @@ public class QuestionnaireResultsServiceTest {
         questionnaire.setUser(user);
         questionnaire.setGeneral_description("description");
         questionnaire.setScale(Scale.FIVE);
+        questionnaire.setNumber(1);
         questionnaireService.saveQuestionnaire(questionnaire);
 
         QuestionnaireResult questionnaireResult = new QuestionnaireResult();

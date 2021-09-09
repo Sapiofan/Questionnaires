@@ -10,8 +10,8 @@ public interface SurveyService {
     List<Survey> findAllSurveys();
     Survey findSurveyById(Long id);
 
-//    Survey findSurveyByNickName(String nickname);
-//    Survey findBySurveyName(String name);
+    List<Survey> findSurveyByNickName(String nickname);
+    List<Survey> findBySurveyName(String name);
 
     Survey createSurvey(Long surveyId, String name, String description, Authentication authentication);
 
