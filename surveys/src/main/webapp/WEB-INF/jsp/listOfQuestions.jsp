@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel = "icon" href =
+        "https://library.kissclipart.com/20181213/uwe/kissclipart-lab-results-clipart-computer-icons-software-testin-444675676f2f188d.jpg"
+                type = "image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>List of questions</title>
 </head>
@@ -42,26 +45,26 @@
              </tr>
         </c:forEach>
     </table>
-    <form action="/addQuestion" method="get">
+    <form action="/changedQuestionNumber" method="post">
         <input type="hidden" name="surveyId" value=${surveyId}>
         <input type="hidden" name="questionId" value=${questionId}>
 
-        <label for="from" class="form-label">Answer</label>
-        <input type="text" class="form-control" id="from" placeholder="from" name="from">
+        <label for="from" class="form-label">Current question number</label>
+        <input type="number" class="form-control" size="5" id="from" placeholder="from" name="from">
 
-        <label for="to" class="form-label">Answer</label>
-        <input type="text" class="form-control" id="to" placeholder="to" name="to">
+        <label for="to" class="form-label">New question number</label>
+        <input type="number" class="form-control" id="to" placeholder="to" name="to">
 
-         <button type="submit" class="btn btn-primary" name="ChangeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
+         <button type="submit" class="btn btn-primary" name="changeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
     </form>
     <script>
         function checkSize(size){
-            var from = document.getElementById('from').value;
-            var to = document.getElementById('to').value;
-            if(size == 0 && from > size && from <= 0 && to > size && to <= 0){
-                alert("You inputted not existed question number or tried to input number that is out of questions range")
-            }
-        }
+           var from = document.getElementById('from').value;
+           var to = document.getElementById('to').value;
+           if(size == 0 && from > size && from <= 0 && to > size && to <= 0){
+               alert("You inputted not existed question number or tried to input number that is out of questions range")
+           }
+       }
     </script>
 </body>
 </html>

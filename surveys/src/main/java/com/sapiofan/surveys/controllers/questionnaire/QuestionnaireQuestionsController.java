@@ -1,6 +1,7 @@
 package com.sapiofan.surveys.controllers.questionnaire;
 
 import com.sapiofan.surveys.entities.questionnaire.Description;
+import com.sapiofan.surveys.entities.questionnaire.QQuestion;
 import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
 import com.sapiofan.surveys.entities.questionnaire.Scale;
 import com.sapiofan.surveys.services.questionnaire.DescriptionService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -50,7 +52,9 @@ public class QuestionnaireQuestionsController {
                                Model model) {
         questionnaireQuestionsService.createQQuestion(questionnaireId, inputtedQuestion);
         model.addAttribute("questionnaireId", questionnaireId);
-        model.addAttribute("questions", questionnaireQuestionsService.findAllQuestions(questionnaireId));
+        List<QQuestion> qQuestions = questionnaireQuestionsService.findAllQuestions(questionnaireId);
+        model.addAttribute("questions", qQuestions);
+        model.addAttribute("size", qQuestions.size());
         return "questionnaireQuestions";
     }
 
@@ -67,6 +71,19 @@ public class QuestionnaireQuestionsController {
         model.addAttribute("maximum", max * questionnaire.getQuestions().size());
         model.addAttribute("descriptions", descriptions);
         return "descriptions";
+    }
+
+    @PostMapping(value = "/changedNumber", params = "changeQuestionNumber")
+    public String changeQuestionNumber(@RequestParam("from") Integer from,
+                                       @RequestParam("to") Integer to,
+                                       @RequestParam("questionnaireId") Long questionnaireId,
+                                       Model model){
+        questionnaireQuestionsService.changeQuestionNumber(from, to, questionnaireId);
+        model.addAttribute("questionnaireId", questionnaireId);
+        List<QQuestion> qQuestions = questionnaireQuestionsService.findAllQuestions(questionnaireId);
+        model.addAttribute("questions", qQuestions);
+        model.addAttribute("size", qQuestions.size());
+        return "questionnaireQuestions";
     }
 
     @GetMapping("/deleteQQuestion/{number}")

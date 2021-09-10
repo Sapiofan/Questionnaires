@@ -36,7 +36,6 @@ public class SurveyController {
     @Autowired
     private StatisticsService statisticsService;
 
-
     @PostMapping(value = "/createSurvey")
     public String addSurvey(@RequestParam("name") String name,
                             @RequestParam("surveyId") Long surveyId,
@@ -54,8 +53,16 @@ public class SurveyController {
     public String returnToQuestions(Model model,
                                     @RequestParam("surveyId") Long surveyId,
                                     @RequestParam("questionId") Long questionId) {
-        if (questionId != 0) {
-            surveyQuestionService.deleteQuestionByNumber(surveyId, surveyQuestionService.findQuestionById(questionId).getNumber());
+        Question question = surveyQuestionService.findQuestionById(questionId);
+        int counter = 0;
+        for (Answer answer : question.getAnswers()) {
+            if(answer.getCorrectness()){
+                counter++;
+            }
+        }
+
+        if (questionId != 0 && (question.getAnswers().size() < 2 || counter != 1)) {
+            surveyQuestionService.deleteQuestionByNumber(surveyId, question.getNumber());
         }
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", 0);
@@ -114,6 +121,7 @@ public class SurveyController {
         Question question = surveyQuestionService.findQuestionByNumber(id, 1);
         model.addAttribute("question", question);
         model.addAttribute("answers", question.getAnswers());
+        model.addAttribute("questions", surveyQuestionService.findAllQuestions(id));
         return "passSurvey";
     }
 
@@ -136,13 +144,14 @@ public class SurveyController {
             model.addAttribute("question", question1);
             model.addAttribute("answers", answers);
         }
+        model.addAttribute("questions", surveyQuestionService.findAllQuestions(id));
         return "passSurvey";
     }
 
-    @GetMapping(value = "/survey/{id}/{number}", params = "next")
+    @GetMapping(value = "/survey/{id}/{number}")
     public String getQuestion(@PathVariable("id") Long id, @PathVariable("number") Integer number,
                               @RequestParam("resultId") UUID resultId,
-                              @RequestParam("radio") String answer,
+                              @RequestParam(value = "radio", required = false) String answer,
                               Model model) {
         Survey survey = surveyService.findSurveyById(id);
         SurveyResults results = surveyResultsService.findSurveyResultsById(resultId);
@@ -188,6 +197,7 @@ public class SurveyController {
             surveyResultsService.deleteResultsById(resultId);
             return "statistics";
         }
+        model.addAttribute("questions", surveyQuestionService.findAllQuestions(id));
         return "passSurvey";
     }
 }

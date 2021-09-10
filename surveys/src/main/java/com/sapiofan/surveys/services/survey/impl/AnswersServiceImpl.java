@@ -57,6 +57,12 @@ public class AnswersServiceImpl implements AnswersService {
     @Transactional
     public Answer createAnswer(Question question, String inputtedAnswer, String correctness){
         log.info("start of creating of answer");
+        List<Answer> answers = findAllAnswers(question.getId());
+        for (Answer value : answers) {
+            if (value.getAnswer().equals(inputtedAnswer)) {
+                return value;
+            }
+        }
         Answer answer = new Answer(question.getAnswers().size() + 1, question, inputtedAnswer, correctness.equals("1"));
         saveAnswer(answer);
         log.info("answer was created. Id = " + answer.getId() + ", answer = " + answer.getAnswer());

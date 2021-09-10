@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel = "icon" href =
+        "https://library.kissclipart.com/20181213/uwe/kissclipart-lab-results-clipart-computer-icons-software-testin-444675676f2f188d.jpg"
+                type = "image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>List of descriptions</title>
 </head>
@@ -74,7 +77,7 @@
 
 
         <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Add questions</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire" onclick="notRequired(); if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addDescription'; else return false;">Delete questionnaire</button>
+        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire" onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addDescription'; else { return false;}; notRequired();">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" id="add" name="addDescription" >Add a description</button>
         <button type="submit" class="btn btn-success" id="save" name="saveQuestionnaire" onclick="notRequired()" disabled>Save a questionnaire</button>
     </form>

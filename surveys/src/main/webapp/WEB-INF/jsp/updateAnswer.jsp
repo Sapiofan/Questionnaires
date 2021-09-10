@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel = "icon" href =
+        "https://library.kissclipart.com/20181213/uwe/kissclipart-lab-results-clipart-computer-icons-software-testin-444675676f2f188d.jpg"
+                type = "image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Update answer</title>
 </head>
@@ -26,7 +29,7 @@
                 <input type="hidden" name="answerId" value=${answerId}>
 
                 <label for="number" class="form-label">Number of answer</label>
-                <input type="text" class="form-control" id="number" placeholder="Enter a number" name="number" value="${answer.number}" required>
+                <input type="number" class="form-control" id="number" placeholder="Enter a number" name="number" value="${answer.number}" required>
 
 
                 <label for="answer" class="form-label">Answer</label>

@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel = "icon" href =
+        "https://library.kissclipart.com/20181213/uwe/kissclipart-lab-results-clipart-computer-icons-software-testin-444675676f2f188d.jpg"
+                type = "image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>List of questions</title>
 </head>
@@ -29,7 +32,7 @@
        </div>
 
         <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" onclick="notRequired()">Change questionnaire fields</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire"onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addQQuestion'; else {notRequired(); return false;}">Delete questionnaire</button>
+        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire"onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addQQuestion'; else {return false;}; notRequired();">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
         <button type="submit" class="btn btn-success" name="addDescriptions" onclick="notRequired()">Add descriptions</button>
     </form>
@@ -48,10 +51,28 @@
        </c:forEach>
    </table>
 
-   <script type="text/javascript">
-      function notRequired() {
-           document.getElementById('question').required=false;
+   <form action="/changedNumber" method="post">
+       <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+
+       <label for="from" class="form-label">Current question number</label>
+       <input type="number" class="form-control" id="from" placeholder="from" name="from">
+
+       <label for="to" class="form-label">New question number</label>
+       <input type="number" class="form-control" id="to" placeholder="to" name="to">
+
+        <button type="submit" class="btn btn-primary" name="changeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
+   </form>
+   <script>
+       function checkSize(size){
+           var from = document.getElementById('from').value;
+           var to = document.getElementById('to').value;
+           if(size == 0 && from > size && from <= 0 && to > size && to <= 0){
+               alert("You inputted not existed question number or tried to input number that is out of questions range")
+           }
        }
+       function notRequired() {
+          document.getElementById('question').required=false;
+      }
    </script>
 </body>
 </html>

@@ -59,6 +59,30 @@ public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestions
     }
 
     @Transactional
+    public void changeQuestionNumber(Integer from, Integer to, Long questionnaireId){
+        List<QQuestion> questions = findAllQuestions(questionnaireId);
+        int size = questions.size();
+        if(size != 0 && from <= size && from > 0 && to <= size && to > 0) {
+            QQuestion question = findQuestionByNumber(questionnaireId, from);
+            if (from > to) {
+                for (int i = 1; i < from - to + 1; i++) {
+                    QQuestion question1 = findQuestionByNumber(questionnaireId, from - i);
+                    question1.setNumber(question1.getNumber() + 1);
+                    questionRepository.save(question1);
+                }
+            } else if (to > from) {
+                for (int i = 1; i < to - from + 1; i++) {
+                    QQuestion question1 = findQuestionByNumber(questionnaireId, from + i);
+                    question1.setNumber(question1.getNumber() - 1);
+                    questionRepository.save(question1);
+                }
+            }
+            question.setNumber(to);
+            saveQQuestion(question);
+        }
+    }
+
+    @Transactional
     public List<QQuestion> findAllQuestions(Long id) {
         log.info("finding of all questions by questionnaire id " + id);
         return questionRepository.findAllQuestions(id)

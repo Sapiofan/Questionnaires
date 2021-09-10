@@ -28,12 +28,12 @@ public class SurveyAnswersController {
     private SurveyQuestionService surveyQuestionService;
 
 
-    @GetMapping(value = "/addAnswer", params = "addAnswer")
-    public String listOfAnswers(Model model,
-                                @RequestParam("questionId") String questionId) {
-        model.addAttribute("questionId", questionId);
-        return "addAnswer";
-    }
+//    @GetMapping(value = "/addAnswer", params = "addAnswer")
+//    public String listOfAnswers(Model model,
+//                                @RequestParam("questionId") String questionId) {
+//        model.addAttribute("questionId", questionId);
+//        return "addAnswer";
+//    }
 
     @GetMapping("/listOfAnswers")
     public String showListAnswers(@RequestParam("questionId") Long questionId, Model model) {
@@ -60,34 +60,24 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-    @PostMapping(value = "/listOfAnswers", params = "answers")
-    public String backToAnswers(@RequestParam("questionId") Long questionId, Model model) {
-        List<Answer> answers = answersService.findAllAnswers(questionId);
-        model.addAttribute("questionId", questionId);
-        model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
-        model.addAttribute("answers", answers);
-        model.addAttribute("size", answers.size());
-        model.addAttribute("input", surveyService.checkInput(answers));
-        return "listOfAnswers";
-    }
+//    @PostMapping(value = "/listOfAnswers", params = "answers")
+//    public String backToAnswers(@RequestParam("questionId") Long questionId, Model model) {
+//        List<Answer> answers = answersService.findAllAnswers(questionId);
+//        model.addAttribute("questionId", questionId);
+//        model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
+//        model.addAttribute("answers", answers);
+//        model.addAttribute("size", answers.size());
+//        model.addAttribute("input", surveyService.checkInput(answers));
+//        return "listOfAnswers";
+//    }
 
-    @PostMapping(value = "/listOfAnswers", params = "saveAnswer")
+    @GetMapping(value = "/addAnswer", params = "saveAnswer")
     public String addAnswer(Model model,
                             @RequestParam("questionId") Long questionId,
                             @RequestParam("answer") String inputtedAnswer,
                             @RequestParam("correctAnswer") String correctness) {
         Question question = surveyQuestionService.findQuestionById(questionId);
-        List<Answer> answers = answersService.findAllAnswers(questionId);
-        boolean flag = false;
-        for (int i = 0; i < answers.size(); i++) {
-            if (answers.get(i).getAnswer().equals(inputtedAnswer)) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            answersService.createAnswer(question, inputtedAnswer, correctness);
-        }
+        answersService.createAnswer(question, inputtedAnswer, correctness);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());
         List<Answer> newAnswers = answersService.findAllAnswers(questionId);

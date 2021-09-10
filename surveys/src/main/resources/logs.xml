@@ -10,7 +10,7 @@
             <fileNamePattern>${HOME_LOG}/${ARCHIVED_LOG}/log/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
             <maxFileSize>30MB</maxFileSize>
             <totalSizeCap>3GB</totalSizeCap>
-            <maxHistory>1</maxHistory>
+            <maxHistory>10</maxHistory>
         </rollingPolicy>
 
         <encoder>

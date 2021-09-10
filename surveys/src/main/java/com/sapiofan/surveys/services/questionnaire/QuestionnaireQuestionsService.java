@@ -14,5 +14,7 @@ public interface QuestionnaireQuestionsService {
 
     QQuestion createQQuestion(Long questionnaireId, String inputtedQuestion);
 
+    void changeQuestionNumber(Integer from, Integer to, Long questionnaireId);
+
     void deleteQQuestionById(Long questionnaireId, Integer number);
 }

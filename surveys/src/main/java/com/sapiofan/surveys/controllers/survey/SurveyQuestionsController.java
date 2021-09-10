@@ -64,7 +64,7 @@ public class SurveyQuestionsController {
         return "addQuestion";
     }
 
-    @GetMapping(value = "/addQuestion", params = "changeQuestionNumber")
+    @PostMapping(value = "/changedQuestionNumber", params = "changeQuestionNumber")
     public String changeQuestionNumber(@RequestParam("from") Integer from,
                                        @RequestParam("to") Integer to,
                                        @RequestParam("questionId") Long questionId,
