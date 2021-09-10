@@ -40,7 +40,8 @@
                      <td>${answer.number}</td>
                      <td>${answer.answer}</td>
                      <td>${answer.correctness}</td>
-                     <td><a href="/deleteAnswer/${answer.number}?questionId=${questionId}">Delete</a></td>
+                     <td><a href="/deleteAnswer/${answer.number}?questionId=${questionId}"
+                     onclick="if (confirm('Are you sure you want to delete the answer?')) form.action='/deleteAnswer'; else return false;">Delete</a></td>
                      <td><a href="/editAnswer/${answer.number}?questionId=${questionId}">Edit</a></td>
                  </tr>
             </c:forEach>

@@ -57,7 +57,7 @@ public class DescriptionsController {
         for (Description value : descriptionList) {
             if (value.getDescription().equals(inputtedDescription)) {
                 model.addAttribute("questionnaireId", questionnaireId);
-                model.addAttribute("minimum", minimum);
+                model.addAttribute("minimum", descriptionService.minimum(descriptionList));
                 model.addAttribute("maximum", maximum);
                 model.addAttribute("descriptions", descriptionService.findAllDescriptions(questionnaireId));
                 return "descriptions";

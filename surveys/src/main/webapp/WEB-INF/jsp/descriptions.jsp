@@ -74,7 +74,7 @@
 
 
         <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Add questions</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire" onclick="notRequired()">Delete questionnaire</button>
+        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire" onclick="notRequired(); if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addDescription'; else return false;">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" id="add" name="addDescription" >Add a description</button>
         <button type="submit" class="btn btn-success" id="save" name="saveQuestionnaire" onclick="notRequired()" disabled>Save a questionnaire</button>
     </form>
@@ -92,7 +92,8 @@
                <td>${description.description}</td>
                <td>${description.start_scale}</td>
                <td>${description.end_scale}</td>
-               <td><a href="/deleteDescription/${description.id}?questionnaireId=${questionnaireId}">Delete</a></td>
+               <td><a href="/deleteDescription/${description.id}?questionnaireId=${questionnaireId}"
+               onclick="if (confirm('Are you sure you want to delete the description?')) form.action='/deleteDescription'; else return false;">Delete</a></td>
                <td><a href="/editDescription/${description.id}?questionnaireId=${questionnaireId}">Edit</a></td>
            </tr>
        </c:forEach>

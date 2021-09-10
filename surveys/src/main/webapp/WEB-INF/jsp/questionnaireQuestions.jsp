@@ -29,7 +29,7 @@
        </div>
 
         <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" onclick="notRequired()">Change questionnaire fields</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire"onclick="notRequired()">Delete questionnaire</button>
+        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire"onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addQQuestion'; else {notRequired(); return false;}">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
         <button type="submit" class="btn btn-success" name="addDescriptions" onclick="notRequired()">Add descriptions</button>
     </form>
@@ -42,7 +42,8 @@
            <tr>
                <td>${question.number}</td>
                <td>${question.name}</td>
-               <td><a href="/deleteQQuestion/${question.number}?questionnaireId=${questionnaireId}">Delete</a></td>
+               <td><a href="/deleteQQuestion/${question.number}?questionnaireId=${questionnaireId}"
+               onclick="if (confirm('Are you sure you want to delete the question?')) form.action='/deleteQQuestion'; else return false;">Delete</a></td>
            </tr>
        </c:forEach>
    </table>

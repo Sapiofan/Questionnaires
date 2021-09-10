@@ -43,6 +43,12 @@ public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestions
     public QQuestion createQQuestion(Long questionnaireId, String inputtedQuestion) {
         log.info("start of creating of question");
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+        List<QQuestion> qQuestions = findAllQuestions(questionnaireId);
+        for (QQuestion qQuestion : qQuestions) {
+            if (qQuestion.getName().equals(inputtedQuestion)) {
+                return qQuestion;
+            }
+        }
         QQuestion question = new QQuestion();
         question.setNumber(questionnaire.getQuestions().size() + 1);
         question.setName(inputtedQuestion);

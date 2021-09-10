@@ -23,7 +23,8 @@
        <input type="hidden" name="surveyId" value=${surveyId}>
        <input type="hidden" name="questionId" value=${questionId}>
         <button type="submit" class="btn btn-warning" name="changeSurveyName" >Change survey name</button>
-        <button type="submit" class="btn btn-danger" name="deleteSurvey">Delete survey</button>
+        <button type="submit" class="btn btn-danger" name="deleteSurvey"
+        onclick="if (confirm('Are you sure you want to delete the survey?')) form.action='/addQuestion'; else return false;">Delete survey</button>
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
         <button type="submit" class="btn btn-success" name="saveSurvey" >Save a survey</button>
     </form>
@@ -36,7 +37,8 @@
              <tr>
                  <td><a href="/listOfAnswers/${question.number}?surveyId=${surveyId}">${question.number}</a></td>
                  <td>${question.description}</td>
-                 <td><a href="/deleteQuestion/${question.number}?surveyId=${surveyId}">Delete</a></td>
+                 <td><a href="/deleteQuestion/${question.number}?surveyId=${surveyId}"
+                 onclick="if (confirm('Are you sure you want to delete the question?')) form.action='/deleteQuestion'; else return false;">Delete</a></td>
              </tr>
         </c:forEach>
     </table>
