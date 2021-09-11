@@ -3,6 +3,8 @@ version: '3'
 services:
   app:
     image: surveys:0.0.1-SNAPSHOT
+    volumes:
+      - surveys/src/webapp:/usr/local/tomcat/webapp
     container_name: surveys
     build:
       context: .

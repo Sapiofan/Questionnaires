@@ -1,19 +1,5 @@
-FROM tomcat:10-jdk11
-ADD target/Surveys.jar /usr/local/tomcat/webapps/Surveys.jar
+FROM adoptopenjdk/openjdk11:alpine-jre as builder
 EXPOSE 8080
-CMD ["catalina.sh", "run"]
-
-#FROM adoptopenjdk/openjdk11:alpine-jre as builder
-#WORKDIR application
-#ARG JAR_FILE=target/*.jar
-#COPY ${JAR_FILE} application.jar
-#RUN java -Djarmode=layertools -jar application.jar extract
-#
-#FROM adoptopenjdk/openjdk11:alpine-jre
-#WORKDIR application
-#
-#COPY --from=builder application/dependencies/ ./
-#COPY --from=builder application/spring-boot-loader ./
-#COPY --from=builder application/snapshot-dependencies/ ./
-#COPY --from=builder application/application/ ./
-#ENTRYPOINT ["java", "com\sapiofan\surveys\SurveysApplication"]
+ARG JAR_FILE=target/surveys-0.0.1-SNAPSHOT.jar
+ADD ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
