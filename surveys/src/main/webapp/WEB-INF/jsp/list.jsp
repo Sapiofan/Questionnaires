@@ -22,16 +22,38 @@
             border: 1px solid #999;
             padding: 5px;
         }
+        h2 {
+            text-align: center;
+            font-size: 26px;
+        }
+
+
+        input[type=text] {
+          width: 130px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          padding: 12px 20px 12px 40px;
+          transition: width 0.4s ease-in-out;
+        }
+
+        input[type=text]:focus {
+          width: 50%;
+        }
     </style>
 
     <form action="/search" method="get">
          <label for="search" class="form-label">Search by survey/user</label>
-        <input type="text" class="form-control" id="search" placeholder="Search..." name="search" required>
-
+        <input type="search" class="input-box" id="search" placeholder="Search..." name="search" required>
         <select id="type" name="type">
           <option value="survey">Survey</option>
           <option value="user">User</option>
         </select>
+        <br>
 
         <a href="/main", class="btn btn-danger">Back to main</a>
         <button type="submit" class="btn btn-primary" name="backToList" onclick="disable()">Back to all list</button>

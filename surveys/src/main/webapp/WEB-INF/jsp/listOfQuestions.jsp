@@ -12,16 +12,57 @@
 </head>
 <body>
    <style>
-       table {
-           border-collapse: collapse;
+        body {
+             background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+             background-repeat: no-repeat;
+             background-attachment: fixed;
+             background-size: cover;
+       }
+       #table {
+         font-family: Arial, Helvetica, sans-serif;
+         border-collapse: collapse;
+         width: 50%;
        }
 
-       table, td, th {
-           border: 1px solid #999;
-           padding: 5px;
+       #table td, #table th {
+         border: 1px solid #ddd;
+         padding: 8px;
        }
+
+       #table tr:nth-child(even){background-color: #f2f2f2;}
+
+       #table tr:nth-child(odd){background-color: #C0C0C0;}
+
+       #table tr:hover {background-color: #ddd;}
+
+       #table th {
+         padding-top: 12px;
+         padding-bottom: 12px;
+         text-align: left;
+         background-color: #157DEC;
+         color: white;
+       }
+
+       input[type=number] {
+        float:right;
+         box-sizing: border-box;
+         border: 2px solid #ccc;
+         border-radius: 4px;
+         font-size: 16px;
+         background-color: white;
+         background-position: 10px 10px;
+         background-repeat: no-repeat;
+       }
+
+       #label{
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+       }
+
    </style>
 
+    <br>
     <form action="/addQuestion" method="get">
        <input type="hidden" name="surveyId" value=${surveyId}>
        <input type="hidden" name="questionId" value=${questionId}>
@@ -31,7 +72,26 @@
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
         <button type="submit" class="btn btn-success" name="saveSurvey" >Save a survey</button>
     </form>
-    <table border="1">
+    <br>
+
+    <form action="/changedQuestionNumber" method="post">
+        <input type="hidden" name="surveyId" value=${surveyId}>
+        <input type="hidden" name="questionId" value=${questionId}>
+
+        <label for="from" class="form-label" id="label">Current question number</label>
+        <label for="to" class="form-label" id="label">New question number</label>
+
+        <div class="input-group">
+            <input type="number" class="form-control" min="1" max="${size}" id="from" placeholder="from" style="width: 10px;" name="from">
+            <input type="number" class="form-control" min="1" max="${size}" id="to" placeholder="to" name="to" style="width: 10px;">
+        </div>
+        <p></p>
+
+         <button type="submit" class="btn btn-warning" name="changeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
+    </form>
+    <br><br>
+
+    <table border="1" id="table">
         <tr>
             <th>number</th>
             <th>description of question</th>
@@ -45,18 +105,7 @@
              </tr>
         </c:forEach>
     </table>
-    <form action="/changedQuestionNumber" method="post">
-        <input type="hidden" name="surveyId" value=${surveyId}>
-        <input type="hidden" name="questionId" value=${questionId}>
 
-        <label for="from" class="form-label">Current question number</label>
-        <input type="number" class="form-control" size="5" id="from" placeholder="from" name="from">
-
-        <label for="to" class="form-label">New question number</label>
-        <input type="number" class="form-control" id="to" placeholder="to" name="to">
-
-         <button type="submit" class="btn btn-primary" name="changeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
-    </form>
     <script>
         function checkSize(size){
            var from = document.getElementById('from').value;

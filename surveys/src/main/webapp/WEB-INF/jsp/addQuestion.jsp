@@ -11,21 +11,17 @@
 </head>
 <body>
     <style>
-        .vertical-center {
-          margin: 0;
-          position: absolute;
-          top: 90%;
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+        body {
+              background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
         }
 
-        table {
-            border-collapse: collapse;
-        }
-
-        table, td, th {
-            border: 1px solid #999;
-            padding: 5px;
+        label{
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
         }
     </style>
 
@@ -39,7 +35,7 @@
 
 
             <div class="form-group">
-                <label for="question" class="form-label">Question</label>
+                <label for="question" class="form-label" id="label">Question</label>
                 <input type="text" class="form-control" id="question" placeholder="Enter a question" value="${name}" name="question" required>
             </div>
             <div class="vertical-center">

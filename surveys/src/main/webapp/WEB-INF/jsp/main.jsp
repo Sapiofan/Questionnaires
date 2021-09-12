@@ -11,31 +11,64 @@
 <body>
     <style>
         div.scrollmenu {
-          background-color: #E5E4E2;
+          background-color:#2554C7;
           overflow: auto;
           white-space: nowrap;
         }
 
         div.scrollmenu a {
           display: inline-block;
-          color: black;
+          color: white;
           text-align: center;
           padding: 14px;
           text-decoration: none;
         }
 
         div.scrollmenu a:hover {
-          background-color: #767;
+          background-color: #1E90FF;
         }
+
+        #input{
+            position:relative;
+            left:770px;
+            top: -3px;
+        }
+        body {
+              background-image: url("http://www.trainerize.com/blog/wp-content/uploads/2017/12/Client-Questionnaire.jpg");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+        }
+
+        .container {
+          position: relative;
+          text-align: center;
+          color: white;
+        }
+
+        .centered {
+          position: relative;
+
+          left: 50%;
+          transform: translate(-50%, 10%);
+        }
+
     </style>
-    <h3>Hello, here you can create simple surveys and questionnaires.</h3>
     <form action="/logout" method="get">
     <div class="scrollmenu">
-      <a href="/survey">Create survey</a>
-      <a href="/createQuestionnaire">Create questionnaire</a>
-      <a href="/list">Surveys list</a>
-      <a href="/listOfQuestionnaires">Questionnaires list</a>
-      <input type="submit" class="btn btn-danger" value="Sign out" />
+      <b><a href="/survey">Create survey</a></b>
+      <b><a href="/createQuestionnaire">Create questionnaire</a></b>
+      <b><a href="/list">Surveys list</a></b>
+      <b><a href="/listOfQuestionnaires">Questionnaires list</a></b>
+      <input type="submit" id="input" class="btn btn-danger" value="Sign out" />
+    </div>
+
+    <div class="container">
+        <div class="centered">
+            <h1>Now you are on homepage!</h1>
+            <h2>Here you can start creating of survey or questionnaire,</h2>
+            <h2>go to list of surveys or questionnaires and pass any one from the list.</h2>
+        </div>
     </div>
 
     </form>

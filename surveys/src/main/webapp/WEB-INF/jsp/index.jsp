@@ -21,13 +21,11 @@
           padding-bottom: 20px;
           padding-top: 20px;
         }
-        .hero-image {
+        body {
           background-image: url("https://media.gettyimages.com/videos/abstract-stripes-background-loop-video-id946877514?s=640x640");
-          background-color: #cccccc;
-          height: 720px;
-          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
           background-size: cover;
-          position: relative;
         }
 
         .hero-text {
@@ -47,13 +45,12 @@
             font-size: 20px;
         }
     </style>
-    <div class="hero-image">
-        <div class="text-block">
-            <h3>Welcome to survey and questionnaire creator</h3>
-            <p>Here you can sign in or login</p>
-            <a href="/register" class="btn btn-primary">Register</a>
-            <a href="/login" class="btn btn-primary">Login</a>
-        </div>
+
+    <div class="text-block">
+        <h3>Welcome to survey and questionnaire creator</h3>
+        <p>Here you can sign in or login</p>
+        <a href="/register" class="btn btn-primary">Register</a>
+        <a href="/login" class="btn btn-primary">Login</a>
     </div>
 </body>
 </html>

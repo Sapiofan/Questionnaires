@@ -9,7 +9,7 @@
 </head>
 <body>
     <style>
-        .hero-image {
+        body {
               background-image: url("https://eskipaper.com/images/free-blue-background-1.jpg");
               background-color: #cccccc;
               height: 720px;

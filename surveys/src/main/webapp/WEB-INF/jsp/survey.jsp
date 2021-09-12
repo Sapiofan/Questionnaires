@@ -10,15 +10,29 @@
     <title>Survey</title>
 </head>
 <body>
-    <h1 style="text-align: center">Hello, here you will be able to create survey!</h1>
-
     <style>
-        .vertical-center {
-          margin: 0;
-          position: absolute;
-          top: 90%;
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+        body {
+              background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+        }
+        #description {
+          width: 100%;
+          height: 150px;
+          padding: 12px 20px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          background-color: #f8f8f8;
+          font-size: 16px;
+          resize: none;
+        }
+
+        label{
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
         }
     </style>
 
@@ -26,17 +40,15 @@
         <form action="/createSurvey" method="post">
             <input type="hidden" name="surveyId" value=${surveyId}>
             <div class="form-group">
-                <label for="SurveyName" class="form-label">Survey name</label>
+                <label for="SurveyName" class="form-label" id="label">Survey name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" value="${name}" required>
             </div>
             <div class="form-group">
-                <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" placeholder="Enter a name" value="${description}" name="description" required>
+                <label for="description" class="form-label" id="label">Description</label>
+                <textarea class="form-control" id="description" placeholder="Enter a description" name="description" required>${description}</textarea>
             </div>
-            <div class="vertical-center">
-                <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
-                <input type="submit" class="btn btn-success" value="Continue" />
-            </div>
+            <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
+            <input type="submit" class="btn btn-success" value="Continue" />
         </form>
     </div>
 

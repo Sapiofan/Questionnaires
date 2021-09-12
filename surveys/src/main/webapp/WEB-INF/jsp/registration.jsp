@@ -24,7 +24,7 @@
           padding-top: 70px;
           border-radius: 10px;
         }
-        .hero-image {
+        body {
           background-image: url("https://7themes.su/_ph/37/441883712.jpg");
           background-color: #cccccc;
           height: 720px;
@@ -66,24 +66,22 @@
     		<form action="/process" method="get">
 
 		    <input type="hidden" name="exist" id="exist" value=${exist}>
-            <div class="hero-image">
-                <br><br><br><br>
-                <h1>Registration - Sign Up</h1>
-                <div class="text-block">
-                    <div class="form-group">
-                        <label for="nickname" class="form-label" id="label">Nickname</label>
-                        <input type="text" name="nickname" class="form-control" id="input" placeholder="Enter a nickname" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="nickname" class="form-label" id="label">Password</label>
-                        <input type="password" name="password" id="input" class="form-control" placeholder="password"
-                                                    required minlength="6" maxlength="20"/>
-                    </div>
-                    <br><br><br>
-                        <a href="/", class="btn btn-danger">Back</a>
-                        <a href="/login", class="btn btn-primary">Sign in</a>
-                        <button type="submit" class="btn btn-success" name="signUp">Sign Up</button>
+            <br><br><br><br>
+            <h1>Registration - Sign Up</h1>
+            <div class="text-block">
+                <div class="form-group">
+                    <label for="nickname" class="form-label" id="label">Nickname</label>
+                    <input type="text" name="nickname" class="form-control" id="input" placeholder="Enter a nickname" required />
                 </div>
+                <div class="form-group">
+                    <label for="nickname" class="form-label" id="label">Password</label>
+                    <input type="password" name="password" id="input" class="form-control" placeholder="password"
+                                                required minlength="6" maxlength="20"/>
+                </div>
+                <br><br><br>
+                    <a href="/", class="btn btn-danger">Back</a>
+                    <a href="/login", class="btn btn-primary">Sign in</a>
+                    <button type="submit" class="btn btn-success" name="signUp">Sign Up</button>
             </div>
         </form>
 

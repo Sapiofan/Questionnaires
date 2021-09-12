@@ -110,6 +110,7 @@ public class SurveyAnswersController {
         model.addAttribute("questionId", questionId);
         model.addAttribute("answer", answer);
         model.addAttribute("value", getValue(answer));
+        model.addAttribute("size", answersService.findAllAnswers(questionId).size());
         return "updateAnswer";
     }
 

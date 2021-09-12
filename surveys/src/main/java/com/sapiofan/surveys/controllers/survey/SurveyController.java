@@ -68,6 +68,7 @@ public class SurveyController {
         model.addAttribute("questionId", 0);
         List<Question> questions = surveyQuestionService.findAllQuestions(surveyId);
         model.addAttribute("questions", questions);
+        model.addAttribute("size", questions.size());
         return "listOfQuestions";
     }
 
