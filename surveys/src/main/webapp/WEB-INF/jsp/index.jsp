@@ -9,35 +9,51 @@
 </head>
 <body>
     <style>
-        .container {
-          position: relative;
-          font-family: Arial;
-        }
-
         .text-block {
-          opacity: 0.7;
           position: absolute;
           text-align: center;
-          bottom: 20px;
-          right: 20px;
-          background-color: black;
+          top: 280px;
+          right: 420px;
+          background-color: rgba(0, 0, 0, 0.8);
           color: white;
-          padding-left: 20px;
-          padding-right: 20px;
+          padding-left: 50px;
+          padding-right: 50px;
+          padding-bottom: 20px;
+          padding-top: 20px;
         }
-        img {
-          width: 100%;
-          height: auto;
+        .hero-image {
+          background-image: url("https://media.gettyimages.com/videos/abstract-stripes-background-loop-video-id946877514?s=640x640");
+          background-color: #cccccc;
+          height: 720px;
+          background-position: center;
+          background-size: cover;
+          position: relative;
+        }
+
+        .hero-text {
+          text-align: center;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: white;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 20px;
         }
     </style>
-    <div class="container">
-      <img src="https://cbsnews3.cbsistatic.com/hub/i/r/2015/12/11/7f3c9843-adb1-4022-be13-82515641a9fc/thumbnail/1200x630/5af2e16fd2ecd02f06637db5ca110a43/open-book.jpg">
-      <div class="text-block">
-        <h3>Welcome to survey and questionnaire creator</h3>
-        <p>Hello, here you can sign in or login</p>
-        <h3><a href="/register" class="btn btn-primary">Register</a></h3>
-        <h3><a href="/login" class="btn btn-primary">Login</a></h3>
-      </div>
+    <div class="hero-image">
+        <div class="text-block">
+            <h3>Welcome to survey and questionnaire creator</h3>
+            <p>Here you can sign in or login</p>
+            <a href="/register" class="btn btn-primary">Register</a>
+            <a href="/login" class="btn btn-primary">Login</a>
+        </div>
     </div>
 </body>
 </html>
