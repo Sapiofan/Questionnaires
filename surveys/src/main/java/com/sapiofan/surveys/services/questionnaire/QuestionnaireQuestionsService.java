@@ -16,5 +16,5 @@ public interface QuestionnaireQuestionsService {
 
     void changeQuestionNumber(Integer from, Integer to, Long questionnaireId);
 
-    void deleteQQuestionById(Long questionnaireId, Integer number);
+    void deleteQQuestionById(Long questionnaireId, Long questionId);
 }

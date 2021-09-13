@@ -19,5 +19,5 @@ public interface AnswersService {
 
     Answer updateAnswer(Long answerId, String inputtedAnswer, String correctness, Integer number, Long questionId);
 
-    void deleteAnswerByNumber(Long questionId, Integer number);
+    void deleteAnswerByNumber(Long questionId, Long answerId);
 }

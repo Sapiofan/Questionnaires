@@ -92,16 +92,25 @@ public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestions
     }
 
     @Transactional
-    public void deleteQQuestionById(Long questionnaireId, Integer number) {
+    public QQuestion findQuestionById(Long id){
+        log.info("find questionnaire question by Id = " + id);
+        return questionRepository.findQuestionById(id);
+    }
+
+    @Transactional
+    public void deleteQQuestionById(Long questionnaireId, Long questionId) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        QQuestion question = findQuestionByNumber(questionnaireId, number);
-        log.warn("start of deleting of question id = " + question.getId());
-        for (int i = 1; i <= questionnaire.getQuestions().size() - question.getNumber(); i++) {
-            QQuestion question1 = findQuestionByNumber(questionnaireId, number + i);
-            question1.setNumber(question1.getNumber() - 1);
-            saveQQuestion(question1);
+        QQuestion question = findQuestionById(questionId);
+        if(question != null) {
+            log.warn("start of deleting of question id = " + question.getId());
+            int number = question.getNumber();
+            for (int i = 1; i <= questionnaire.getQuestions().size() - question.getNumber(); i++) {
+                QQuestion question1 = findQuestionByNumber(questionnaireId, number + i);
+                question1.setNumber(question1.getNumber() - 1);
+                saveQQuestion(question1);
+            }
+            questionRepository.deleteQQuestionById(question.getId());
+            log.warn("description was deleted");
         }
-        questionRepository.deleteQQuestionById(question.getId());
-        log.warn("description was deleted");
     }
 }

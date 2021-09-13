@@ -87,12 +87,12 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-    @GetMapping(("/deleteAnswer/{number}"))
-    public String deleteAnswerByNumber(@PathVariable("number") Integer number,
+    @GetMapping(("/deleteAnswer/{id}"))
+    public String deleteAnswerByNumber(@PathVariable("id") Long answerId,
                                    @RequestParam("questionId") Long questionId,
                                    Model model) {
         Question question = surveyQuestionService.findQuestionById(questionId);
-        answersService.deleteAnswerByNumber(questionId, number);
+        answersService.deleteAnswerByNumber(questionId, answerId);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());
         model.addAttribute("answers", answersService.findAllAnswers(questionId));

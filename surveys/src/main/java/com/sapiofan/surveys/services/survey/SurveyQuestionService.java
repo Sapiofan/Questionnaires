@@ -17,6 +17,6 @@ public interface SurveyQuestionService {
 
     void changeQuestionNumber(Integer from, Integer to, Long surveyId);
 
-    void deleteQuestionByNumber(Long surveyId, Integer number);
+    void deleteQuestionByNumber(Long surveyId, Long questionId);
 
 }

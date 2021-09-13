@@ -110,7 +110,7 @@
           <tr>
               <td>${question.number}</td>
               <td>${question.name}</td>
-              <td><a href="/deleteQQuestion/${question.number}?questionnaireId=${questionnaireId}"
+              <td><a href="/deleteQQuestion/${question.id}?questionnaireId=${questionnaireId}"
               onclick="if (confirm('Are you sure you want to delete the question?')) form.action='/deleteQQuestion'; else return false;">Delete</a></td>
           </tr>
       </c:forEach>

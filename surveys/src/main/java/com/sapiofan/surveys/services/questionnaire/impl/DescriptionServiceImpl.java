@@ -91,9 +91,10 @@ public class DescriptionServiceImpl implements DescriptionService {
     }
 
     @Transactional
-    public void deleteDescriptionById(Description description, Questionnaire questionnaire) {
-        log.warn("start of deleting of description id = " + description.getId());
+    public void deleteDescriptionById(Long descriptionId, Questionnaire questionnaire) {
+        Description description = findDescriptionById(descriptionId);
         if (description != null) {
+            log.warn("start of deleting of description id = " + description.getId());
             int number = description.getNumber();
             int diff = description.getEnd_scale() - description.getStart_scale() + 1;
 

@@ -100,7 +100,7 @@
              <tr>
                  <td><a href="/listOfAnswers/${question.number}?surveyId=${surveyId}">${question.number}</a></td>
                  <td>${question.description}</td>
-                 <td><a href="/deleteQuestion/${question.number}?surveyId=${surveyId}"
+                 <td><a href="/deleteQuestion/${question.id}?surveyId=${surveyId}"
                  onclick="if (confirm('Are you sure you want to delete the question?')) form.action='/deleteQuestion'; else return false;">Delete</a></td>
              </tr>
         </c:forEach>

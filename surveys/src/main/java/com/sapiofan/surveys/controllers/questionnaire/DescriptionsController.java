@@ -85,8 +85,7 @@ public class DescriptionsController {
                                         @RequestParam("questionnaireId") Long questionnaireId,
                                         Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        Description description = descriptionService.findDescriptionById(descriptionId);
-        descriptionService.deleteDescriptionById(description, questionnaire);
+        descriptionService.deleteDescriptionById(descriptionId, questionnaire);
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
         int minimum = descriptionService.minimum(descriptions);
         int max = questionnaireService.maximum(questionnaire);

@@ -73,7 +73,7 @@ public class QuestionServiceTest {
     @Test
     @Order(4)
     public void testDeleteQuestionById(){
-        surveyQuestionService.deleteQuestionByNumber(surveyId, 1);
+        surveyQuestionService.deleteQuestionByNumber(surveyId, questionId);
         Assertions.assertNull(surveyQuestionService.findQuestionById(questionId));
         userService.deleteUser(userService.findUserByNickname("TestSQuestions"));
     }

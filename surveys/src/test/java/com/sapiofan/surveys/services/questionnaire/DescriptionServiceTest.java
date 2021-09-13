@@ -83,7 +83,7 @@ public class DescriptionServiceTest {
     @Test
     @Order(5)
     public void testDeleteDescriptionByNumber(){
-        descriptionService.deleteDescriptionById(descriptionService.findDescriptionById(descriptionId),
+        descriptionService.deleteDescriptionById(descriptionId,
                 questionnaireService.findQuestionnaireById(questionnaireId));
         Assertions.assertNull(descriptionService.findDescriptionById(descriptionId));
         userService.deleteUser(userService.findUserByNickname("TestDescriptions"));

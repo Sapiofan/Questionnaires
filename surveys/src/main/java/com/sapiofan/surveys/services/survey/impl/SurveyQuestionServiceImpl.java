@@ -95,15 +95,18 @@ public class SurveyQuestionServiceImpl implements SurveyQuestionService {
     }
 
     @Transactional
-    public void deleteQuestionByNumber(Long surveyId, Integer number) {
-        Question question = questionRepository.findQuestionByNumber(surveyId, number);
-        log.warn("start of deleting of question id = " + question.getId());
-        for (int i = 1; i <= findAllQuestions(surveyId).size() - question.getNumber(); i++) {
-            Question question1 = questionRepository.findQuestionByNumber(surveyId, number + i);
-            question1.setNumber(question1.getNumber() - 1);
-            saveQuestion(question1);
+    public void deleteQuestionByNumber(Long surveyId, Long id) {
+        Question question = questionRepository.findQuestionById(id);
+        if(question != null) {
+            int number = question.getNumber();
+            log.warn("start of deleting of question id = " + question.getId());
+            for (int i = 1; i <= findAllQuestions(surveyId).size() - question.getNumber(); i++) {
+                Question question1 = questionRepository.findQuestionByNumber(surveyId, number + i);
+                question1.setNumber(question1.getNumber() - 1);
+                saveQuestion(question1);
+            }
+            questionRepository.deleteQuestion(question.getId());
+            log.warn("description was deleted");
         }
-        questionRepository.deleteQuestion(question.getId());
-        log.warn("description was deleted");
     }
 }

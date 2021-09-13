@@ -55,14 +55,16 @@ public class SurveyController {
                                     @RequestParam("questionId") Long questionId) {
         Question question = surveyQuestionService.findQuestionById(questionId);
         int counter = 0;
-        for (Answer answer : question.getAnswers()) {
-            if(answer.getCorrectness()){
-                counter++;
+        if(questionId != 0) {
+            for (Answer answer : question.getAnswers()) {
+                if (answer.getCorrectness()) {
+                    counter++;
+                }
             }
         }
 
         if (questionId != 0 && (question.getAnswers().size() < 2 || counter != 1)) {
-            surveyQuestionService.deleteQuestionByNumber(surveyId, question.getNumber());
+            surveyQuestionService.deleteQuestionByNumber(surveyId, question.getId());
         }
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", 0);

@@ -99,15 +99,18 @@ public class AnswersServiceImpl implements AnswersService {
     }
 
     @Transactional
-    public void deleteAnswerByNumber(Long questionId, Integer number) {
-        Answer answer = answerRepository.findAnswerByNumber(questionId, number);
-        log.warn("start of deleting of answer id = " + answer.getId());
-        for (int i = 1; i <= findAllAnswers(questionId).size() - answer.getNumber(); i++) {
-            Answer answer1 = answerRepository.findAnswerByNumber(questionId, number + i);
-            answer1.setNumber(answer1.getNumber() - 1);
-            saveAnswer(answer1);
+    public void deleteAnswerByNumber(Long questionId, Long answerId) {
+        Answer answer = answerRepository.findAnswerById(answerId);
+        if(answer != null) {
+            int number = answer.getNumber();
+            log.warn("start of deleting of answer id = " + answer.getId());
+            for (int i = 1; i <= findAllAnswers(questionId).size() - answer.getNumber(); i++) {
+                Answer answer1 = answerRepository.findAnswerByNumber(questionId, number + i);
+                answer1.setNumber(answer1.getNumber() - 1);
+                saveAnswer(answer1);
+            }
+            answerRepository.deleteAnswerById(answer.getId());
+            log.warn("description was deleted");
         }
-        answerRepository.deleteAnswerById(answer.getId());
-        log.warn("description was deleted");
     }
 }

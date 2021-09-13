@@ -21,7 +21,7 @@ public interface DescriptionService {
     Description updateDescription(Long descriptionId, String inputtedDescription,
                                   Integer rangeLow, Integer rangeHigh, Questionnaire questionnaire);
 
-    void deleteDescriptionById(Description description, Questionnaire questionnaire);
+    void deleteDescriptionById(Long descriptionId, Questionnaire questionnaire);
 
     int minimum(List<Description> descriptions);
 }

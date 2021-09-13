@@ -97,7 +97,7 @@ public class AnswerServiceTest {
     @Test
     @Order(6)
     public void testDeleteAnswerById(){
-        answersService.deleteAnswerByNumber(questionId, 1);
+        answersService.deleteAnswerByNumber(questionId, answerId);
         Assertions.assertNull(answersService.findAnswerById(answerId));
         userService.deleteUser(userService.findUserByNickname("TestAnswers"));
     }

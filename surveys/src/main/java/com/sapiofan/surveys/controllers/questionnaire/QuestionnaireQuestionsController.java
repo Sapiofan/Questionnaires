@@ -86,11 +86,11 @@ public class QuestionnaireQuestionsController {
         return "questionnaireQuestions";
     }
 
-    @GetMapping("/deleteQQuestion/{number}")
-    public String deleteQQuestionById(@PathVariable("number") Integer number,
+    @GetMapping("/deleteQQuestion/{id}")
+    public String deleteQQuestionById(@PathVariable("id") Long questionId,
                                       @RequestParam("questionnaireId") Long questionnaireId,
                                       Model model) {
-        questionnaireQuestionsService.deleteQQuestionById(questionnaireId, number);
+        questionnaireQuestionsService.deleteQQuestionById(questionnaireId, questionId);
         model.addAttribute("questionnaireId", questionnaireId);
         model.addAttribute("questions", questionnaireQuestionsService.findAllQuestions(questionnaireId));
         return "questionnaireQuestions";
