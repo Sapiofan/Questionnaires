@@ -108,7 +108,7 @@ public class SurveyController {
     public String startPageSurvey(@PathVariable("id") Long id, Model model) {
         model.addAttribute("surveyId", id);
         Survey survey = surveyService.findSurveyById(id);
-        surveyService.save(survey);
+        model.addAttribute("name", survey.getName());
         model.addAttribute("question", surveyQuestionService.findQuestionByNumber(id, 1));
         model.addAttribute("description", survey.getDescription());
         return "startSurvey";

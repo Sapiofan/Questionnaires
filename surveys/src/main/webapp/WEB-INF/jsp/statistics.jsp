@@ -10,15 +10,38 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+    <style>
+        .container{
+            text-align: center;
+        }
+        body {
+            background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+      }
+      #label{
+                 color: white;
+                 font-size: 48px;
+                 font-weight: bold;
+            }
+      h3 {
+           color: white;
+           font-size: 32px;
+           font-weight: bold;
+      }
+
+    </style>
     <input type="hidden" name="surveyId" value=${surveyId}>
     <input type="hidden" name="questions" value=${questions}>
     <input type="hidden" name="question" value=${question}>
     <input type="hidden" name="answers" value=${answers}>
-    <h2>You have passed the test</h2>
-    <h3>Your results:</h3>
-    <h5>Lost time: hours: ${hours}, minutes: ${minutes} seconds: ${seconds}</h5>
-    <h5>Right answers/all answers: ${counter}/${allAnswers}</h5>
-
-    <a href="/list", class="btn btn-danger">Back to list of surveys</a>
+    <div class="container">
+        <h2 id="label">You have passed the survey</h2>
+        <h3>Your results:</h3>
+        <h3>Lost time: hours: ${hours}, minutes: ${minutes} seconds: ${seconds}</h3>
+        <h3>Right answers/all answers: ${counter}/${allAnswers}</h3>
+        <a href="/list", class="btn btn-danger">Back to list of surveys</a>
+    </div>
 </body>
 </html>

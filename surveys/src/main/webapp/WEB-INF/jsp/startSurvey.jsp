@@ -10,17 +10,34 @@
     <title>Start passing</title>
 </head>
 <body>
-    <h1 style="text-align: center">Hello, here you can pass the test!</h1>
-
+<h1 id="label" style="text-align: center">${name}</h1>
     <style>
         .vertical-center {
-          margin: 0;
-          position: absolute;
-          top: 90%;
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-        }
+              margin: 0;
+              position: absolute;
+              top: 90%;
+              -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+            }
+        body {
+            background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+      }
+      #label{
+                 color: white;
+                 font-size: 48px;
+                 font-weight: bold;
+            }
+      h3 {
+           color: white;
+           font-size: 32px;
+           font-weight: bold;
+      }
+
     </style>
+
     <div class="container mt-5">
         <form action="/survey/${surveyId}" method="post">
             <h3><p>Description: ${description}</p></h3>

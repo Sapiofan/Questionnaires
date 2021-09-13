@@ -11,12 +11,37 @@
 
 </head>
 <body>
+
+    <style>
+        .container{
+            text-align: center;
+        }
+        body {
+            background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+      }
+      #label{
+                 color: white;
+                 font-size: 48px;
+                 font-weight: bold;
+                 text-align: center;
+            }
+      h3 {
+           color: white;
+           font-size: 32px;
+           font-weight: bold;
+      }
+
+    </style>
+
     <input type="hidden" name="questionnaireId" value=${questionnaireId}>
     <input type="hidden" name="question" value=${question}>
-    <h2>You have passed the test</h2>
+    <h2 id="label">You have passed the questionnaire</h2>
 
-    <h5>Lost time: hours: ${hours}, minutes: ${minutes} seconds: ${seconds}</h5>
-    <h5>Description: ${description}</h5>
+    <h3>Lost time: hours: ${hours}, minutes: ${minutes} seconds: ${seconds}</h3>
+    <h3>Description: ${description}</h3>
 
     <form action="/listOfQuestionnaires" method="post">
         <input type="hidden" name="resultId" value=${resultId}>

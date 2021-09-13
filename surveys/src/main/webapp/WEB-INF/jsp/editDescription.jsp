@@ -13,38 +13,73 @@
 <body onLoad="javascript:disable(${minimum})">
    <style>
        .slider {
-         -webkit-appearance: none;
-         width: 100%;
-         height: 15px;
-         border-radius: 5px;
-         background: #d3d3d3;
-         outline: none;
-         opacity: 0.7;
-         -webkit-transition: .2s;
-         transition: opacity .2s;
-       }
+            -webkit-appearance: none;
+            width: 50%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+          }
 
-       .slider:hover {
-         opacity: 1;
-       }
+          .slider:hover {
+            opacity: 1;
+          }
 
-       .slider::-webkit-slider-thumb {
-         -webkit-appearance: none;
-         appearance: none;
-         width: 25px;
-         height: 25px;
-         border-radius: 50%;
-         background: #04AA6D;
-         cursor: pointer;
-       }
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #00FF00;
+            cursor: pointer;
+          }
 
-       .slider::-moz-range-thumb {
-         width: 25px;
-         height: 25px;
-         border-radius: 50%;
-         background: #04AA6D;
-         cursor: pointer;
-       }
+          .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
+          }
+
+       body {
+              background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+            }
+
+        input[type=number] {
+         float:right;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+        }
+
+        #label{
+             color: white;
+             font-size: 20px;
+             font-weight: bold;
+        }
+
+        input[type=text]{
+            width: 30%;
+           box-sizing: border-box;
+           border: 2px solid #ccc;
+           border-radius: 4px;
+           font-size: 16px;
+           background-color: white;
+           background-position: 10px 10px;
+           background-repeat: no-repeat;
+         }
    </style>
 
     <form action="/addDescription" method="post">
@@ -54,24 +89,24 @@
         <input type="hidden" name="descriptionId" value=${descriptionId}>
 
         <div class="form-group">
-            <label for="Description" class="form-label">Description</label>
+            <label for="Description" class="form-label" id="label">Description</label>
             <input type="text" class="form-control" id="description" value="${description.description}" placeholder="Enter a description" name="description" required>
         </div>
-        <h1>Low range</h1>
+        <p id="label">Low range</p>
 
         <div class="slidecontainer">
             <input type="range" min="${minimum}" max="${value_min}" value="${value_min}" class="slider" name="range1" id="myRange1">
             <p>Value: <span id="demo"></span></p>
         </div>
 
-        <h1>High range</h1>
+        <p id="label">High range</p>
         <div class="slidecontainer">
             <input type="range" min="${value_min}" max="${maximum}" value="${value}" class="slider" name="range2" id="myRange2">
             <p>Value: <span id="second"></span></p>
         </div>
 
         <button type="submit" class="btn btn-warning" name="back" onclick="notRequired()">Back</button>
-        <button type="submit" class="btn btn-primary" id="update" name="update" >Update</button>
+        <button type="submit" class="btn btn-success" id="update" name="update" >Update</button>
     </form>
 
    <script>
