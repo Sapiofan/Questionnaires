@@ -13,66 +13,81 @@
 <body>
 
     <style>
-        .vertical-center {
-          margin: 0;
-          position: absolute;
-          top: 90%;
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-        }
+           body {
+                  background-image: url("https://i.pinimg.com/originals/4f/2f/7d/4f2f7d2aa8582dcca07ca3eb600e922b.png");
+                  background-repeat: no-repeat;
+                  background-attachment: fixed;
+                  background-size: cover;
+            }
 
-           .slidecontainer {
-             width: 100%;
-           }
+            #label{
+                 color: white;
+                 font-size: 32px;
+                 font-weight: bold;
+            }
+            p {
+                color: white;
+                 font-size: 20px;
+                 font-weight: bold;
+            }
 
-           .slider {
-             -webkit-appearance: none;
-             width: 100%;
-             height: 15px;
-             border-radius: 5px;
-             background: #d3d3d3;
-             outline: none;
-             opacity: 0.7;
-             -webkit-transition: .2s;
-             transition: opacity .2s;
-           }
+            input[type=text]{
+                width: 30%;
+               box-sizing: border-box;
+               border: 2px solid #ccc;
+               border-radius: 4px;
+               font-size: 16px;
+               background-color: white;
+               background-position: 10px 10px;
+               background-repeat: no-repeat;
+             }
 
-           .slider:hover {
-             opacity: 1;
-           }
+              .slider {
+                -webkit-appearance: none;
+                width: 50%;
+                height: 15px;
+                border-radius: 5px;
+                background: #d3d3d3;
+                outline: none;
+                opacity: 0.7;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+              }
 
-           .slider::-webkit-slider-thumb {
-             -webkit-appearance: none;
-             appearance: none;
-             width: 25px;
-             height: 25px;
-             border-radius: 50%;
-             background: #04AA6D;
-             cursor: pointer;
-           }
+              .slider:hover {
+                opacity: 1;
+              }
 
-           .slider::-moz-range-thumb {
-             width: 25px;
-             height: 25px;
-             border-radius: 50%;
-             background: #04AA6D;
-             cursor: pointer;
-           }
+              .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background: #00FF00;
+                cursor: pointer;
+              }
+
+              .slider::-moz-range-thumb {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background: #04AA6D;
+                cursor: pointer;
+              }
     </style>
 
     <div class="container mt-5">
         <form action="/questionnaire/${questionnaireId}/${question.number}" method="get">
             <input type="hidden" name="resultId" value=${resultId}>
             <input type="hidden" name="flag" value=${flag}>
-            <h3>Q${question.number}. ${question.name}</h3>
+            <h3 id="label">Q${question.number}. ${question.name}</h3>
             <div class="slidecontainer">
                 <input type="range" min="${minimum}" max="${maximum}" value="${middle}" class="slider" name="range" id="myRange">
                 <p>Degree of agreement : <span id="demo"></span></p>
             </div>
-            <div class="vertical-center">
-                <input type="submit" class="btn btn-danger" value="back" name="back" />
-                <input type="submit" class="btn btn-primary" value="next" name="next" />
-            </div>
+            <input type="submit" class="btn btn-danger" value="back" name="back" />
+            <input type="submit" class="btn btn-primary" value="next" name="next" />
         </form>
     </div>
 

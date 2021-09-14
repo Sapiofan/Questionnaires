@@ -13,7 +13,7 @@
 <body>
    <style>
         body {
-             background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+             background-image: url("https://i.pinimg.com/originals/4f/2f/7d/4f2f7d2aa8582dcca07ca3eb600e922b.png");
              background-repeat: no-repeat;
              background-attachment: fixed;
              background-size: cover;
@@ -44,7 +44,7 @@
        }
 
        input[type=number] {
-        float:right;
+        float:left;
          box-sizing: border-box;
          border: 2px solid #ccc;
          border-radius: 4px;
@@ -78,14 +78,8 @@
         <input type="hidden" name="surveyId" value=${surveyId}>
         <input type="hidden" name="questionId" value=${questionId}>
 
-        <label for="from" class="form-label" id="label">Current question number</label>
-        <label for="to" class="form-label" id="label">New question number</label>
-
-        <div class="input-group">
-            <input type="number" class="form-control" min="1" max="${size}" id="from" placeholder="from" style="width: 10px;" name="from">
-            <input type="number" class="form-control" min="1" max="${size}" id="to" placeholder="to" name="to" style="width: 10px;">
-        </div>
-        <p></p>
+        <input type="number" class="form-control" min="1" max="${size}" id="from" placeholder="from" style="width: 100px;" name="from">
+        <input type="number" class="form-control" min="1" max="${size}" id="to" placeholder="to" name="to" style="width: 100px;">
 
          <button type="submit" class="btn btn-warning" name="changeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
     </form>

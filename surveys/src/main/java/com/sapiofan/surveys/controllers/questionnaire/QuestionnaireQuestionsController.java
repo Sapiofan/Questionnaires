@@ -29,7 +29,7 @@ public class QuestionnaireQuestionsController {
     @Autowired
     private QuestionnaireQuestionsService questionnaireQuestionsService;
 
-    @GetMapping(value = "/addQQuestion", params = "changeQuestionnaireFields")
+    @PostMapping(value = "/addQQuestion", params = "changeQuestionnaireFields")
     public String changeFields(@RequestParam("questionnaireId") Long questionnaireId,
                                Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
@@ -40,13 +40,13 @@ public class QuestionnaireQuestionsController {
         return "questionnaire";
     }
 
-    @GetMapping(value = "/addQQuestion", params = "deleteQuestionnaire")
+    @PostMapping(value = "/addQQuestion", params = "deleteQuestionnaire")
     public String deleteQuestionnaire(@RequestParam("questionnaireId") Long questionnaireId) {
         questionnaireService.deleteQuestionnaire(questionnaireId);
         return "main";
     }
 
-    @GetMapping(value = "/addQQuestion", params = "add")
+    @PostMapping(value = "/addQQuestion", params = "add")
     public String addQQuestion(@RequestParam("questionnaireId") Long questionnaireId,
                                @RequestParam("question") String inputtedQuestion,
                                Model model) {
@@ -58,7 +58,7 @@ public class QuestionnaireQuestionsController {
         return "questionnaireQuestions";
     }
 
-    @GetMapping(value = "/addQQuestion", params = "addDescriptions")
+    @PostMapping(value = "/addQQuestion", params = "addDescriptions")
     public String goToDescriptions(Model model, @RequestParam("questionnaireId") Long questionnaireId) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
         questionnaire.setSize(questionnaire.getQuestions().size());

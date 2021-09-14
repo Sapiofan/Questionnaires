@@ -12,14 +12,14 @@
 <body>
     <style>
         body {
-              background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+              background-image: url("https://i.pinimg.com/originals/4f/2f/7d/4f2f7d2aa8582dcca07ca3eb600e922b.png");
               background-repeat: no-repeat;
               background-attachment: fixed;
               background-size: cover;
         }
 
         label{
-            color: black;
+            color: white;
             font-size: 24px;
             font-weight: bold;
         }

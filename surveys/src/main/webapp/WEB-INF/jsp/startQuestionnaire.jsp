@@ -10,7 +10,7 @@
     <title>Start passing</title>
 </head>
 <body>
-    <h1 style="text-align: center">Hello, here you can pass the test!</h1>
+    <h1 style="text-align: center; color:white;">${name}</h1>
 
     <style>
         .vertical-center {
@@ -20,6 +20,22 @@
           -ms-transform: translateY(-50%);
           transform: translateY(-50%);
         }
+        body {
+                background-image: url("https://i.pinimg.com/originals/4f/2f/7d/4f2f7d2aa8582dcca07ca3eb600e922b.png");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+          }
+          #label{
+                     color: white;
+                     font-size: 48px;
+                     font-weight: bold;
+                }
+          h3 {
+               color: white;
+               font-size: 32px;
+               font-weight: bold;
+          }
     </style>
 
     <div class="container mt-5">

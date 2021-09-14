@@ -13,7 +13,7 @@
 <body>
    <style>
        body {
-            background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+            background-image: url("https://i.pinimg.com/originals/4f/2f/7d/4f2f7d2aa8582dcca07ca3eb600e922b.png");
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
@@ -44,7 +44,7 @@
       }
 
       input[type=number] {
-       float:right;
+       float:left;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 4px;
@@ -60,6 +60,12 @@
            font-weight: bold;
       }
 
+      h3{
+             color: white;
+             font-size: 24px;
+             font-weight: bold;
+        }
+
       input[type=text]{
           width: 30%;
          box-sizing: border-box;
@@ -72,7 +78,7 @@
        }
    </style>
 
-    <form action="/addQQuestion" method="get">
+    <form action="/addQQuestion" method="post">
        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
 
         <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" onclick="notRequired()">Change questionnaire fields</button>
@@ -90,17 +96,14 @@
    <form action="/changedNumber" method="post">
        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
 
-        <label for="from" class="form-label" id="label">Current question number</label>
-        <label for="to" class="form-label" id="label">New question number</label>
+       <input type="number" class="form-control" min="1" max="${size}" id="from" placeholder="from" style="width: 100px;" name="from">
+       <input type="number" class="form-control" min="1" max="${size}" id="to" placeholder="to" name="to" style="width: 100px;">
 
-       <div class="input-group">
-           <input type="number" class="form-control" min="1" max="${size}" id="from" placeholder="from" style="width: 10px;" name="from">
-           <input type="number" class="form-control" min="1" max="${size}" id="to" placeholder="to" name="to" style="width: 10px;">
-       </div>
-
-        <button type="submit" class="btn btn-primary" name="changeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
+        <button type="submit" class="btn btn-warning" name="changeQuestionNumber" onclick="checkSize(${size})">Change question number</button>
    </form>
+   <br><br>
 
+    <h3>All questions:</h3>
    <table border="1" id="table">
       <tr>
           <th>number</th>

@@ -55,7 +55,7 @@ public class SurveyQuestionsController {
         return "listOfAnswers";
     }
 
-    @GetMapping(value = "/addAnswer", params = "changeQuestionName")
+    @PostMapping(value = "/addAnswer", params = "changeQuestionName")
     public String changeQuestionName(Model model,
                                      @RequestParam("questionId") Long questionId) {
         model.addAttribute("surveyId", surveyQuestionService.findQuestionById(questionId).getSurvey().getId());
@@ -91,7 +91,7 @@ public class SurveyQuestionsController {
         return "listOfAnswers";
     }
 
-    @GetMapping(value = "/addAnswer", params = "addQuestion")
+    @PostMapping(value = "/addAnswer", params = "addQuestion")
     public String addQuestionWithAnswers(Model model,
                                          @RequestParam("questionId") Long questionId) {
         Question question = surveyQuestionService.findQuestionById(questionId);

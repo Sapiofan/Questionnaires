@@ -13,7 +13,7 @@
 <body onLoad="javascript:checking()">
    <style>
        body {
-            background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+            background-image: url("https://i.pinimg.com/originals/4f/2f/7d/4f2f7d2aa8582dcca07ca3eb600e922b.png");
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
@@ -46,6 +46,12 @@
       #label{
            color: white;
            font-size: 20px;
+           font-weight: bold;
+      }
+
+      h3{
+            color: white;
+           font-size: 28px;
            font-weight: bold;
       }
 
@@ -130,13 +136,13 @@
     }
    </style>
 
-    <form action="/addAnswer" method="get">
+    <form action="/addAnswer" method="post">
        <input type="hidden" name="questionId" value=${questionId}>
        <input type="hidden" id="size" name="size" value=${size}>
        <input type="hidden" id="input" name="input" value=${input}>
 
         <button type="submit" class="btn btn-danger" name="changeQuestionName" onclick="notRequired()">Change question name</button>
-        <button type="submit" class="btn btn-primary" name="saveAnswer">Add answer</button>
+        <button type="submit" class="btn btn-primary" name="saveAnswer">Add an answer</button>
         <button type="submit" class="btn btn-success" id="addQuestion" name="addQuestion" onclick="notRequired()">Submit a question</button>
 
         <br>
@@ -154,8 +160,8 @@
           </div>
 
 
-
-        <h3>Question: ${question}</h3>
+        <br><br><br>
+        <h3>Question: ${question}<br>Answers:</h3>
         <table border="1" id="table">
             <tr>
                 <th>number</th>

@@ -29,7 +29,7 @@ public class DescriptionsController {
     @Autowired
     private QuestionnaireQuestionsService questionnaireQuestionsService;
 
-    @GetMapping(value = "/addDescription", params = "addQuestions")
+    @PostMapping(value = "/addDescription", params = "addQuestions")
     public String addQuestions(@RequestParam("questionnaireId") Long questionnaireId,
                                Model model) {
         model.addAttribute("questionnaireId", questionnaireId);
@@ -37,13 +37,13 @@ public class DescriptionsController {
         return "questionnaireQuestions";
     }
 
-    @GetMapping(value = "/addDescription", params = "deleteQuestionnaire")
+    @PostMapping(value = "/addDescription", params = "deleteQuestionnaire")
     public String deleteQuestionnaireFromDescription(@RequestParam("questionnaireId") Long questionnaireId) {
         questionnaireService.deleteQuestionnaire(questionnaireId);
         return "main";
     }
 
-    @GetMapping(value = "/addDescription", params = "addDescription")
+    @PostMapping(value = "/addDescription", params = "addDescription")
     public String addDescription(@RequestParam("questionnaireId") Long questionnaireId,
                                  @RequestParam("description") String inputtedDescription,
                                  @RequestParam("range") Integer range,
@@ -74,7 +74,7 @@ public class DescriptionsController {
         return "descriptions";
     }
 
-    @GetMapping(value = "/addDescription", params = "saveQuestionnaire")
+    @PostMapping(value = "/addDescription", params = "saveQuestionnaire")
     public String saveQuestionnaire(Model model) {
         model.addAttribute("questionnaires", questionnaireService.findAllQuestionnaires());
         return "listOfQuestionnaires";

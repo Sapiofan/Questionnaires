@@ -30,7 +30,7 @@
 
         #input{
             position:relative;
-            left:770px;
+            left:720px;
             top: -3px;
         }
         body {
@@ -60,6 +60,7 @@
       <b><a href="/createQuestionnaire">Create questionnaire</a></b>
       <b><a href="/list">Surveys list</a></b>
       <b><a href="/listOfQuestionnaires">Questionnaires list</a></b>
+      <b><a href="/help">Help</a></b>
       <input type="submit" id="input" class="btn btn-danger" value="Sign out" />
     </div>
 

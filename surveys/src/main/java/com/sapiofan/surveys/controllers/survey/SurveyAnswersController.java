@@ -28,13 +28,6 @@ public class SurveyAnswersController {
     private SurveyQuestionService surveyQuestionService;
 
 
-//    @GetMapping(value = "/addAnswer", params = "addAnswer")
-//    public String listOfAnswers(Model model,
-//                                @RequestParam("questionId") String questionId) {
-//        model.addAttribute("questionId", questionId);
-//        return "addAnswer";
-//    }
-
     @GetMapping("/listOfAnswers")
     public String showListAnswers(@RequestParam("questionId") Long questionId, Model model) {
         model.addAttribute("questionId", questionId);
@@ -60,18 +53,7 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-//    @PostMapping(value = "/listOfAnswers", params = "answers")
-//    public String backToAnswers(@RequestParam("questionId") Long questionId, Model model) {
-//        List<Answer> answers = answersService.findAllAnswers(questionId);
-//        model.addAttribute("questionId", questionId);
-//        model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
-//        model.addAttribute("answers", answers);
-//        model.addAttribute("size", answers.size());
-//        model.addAttribute("input", surveyService.checkInput(answers));
-//        return "listOfAnswers";
-//    }
-
-    @GetMapping(value = "/addAnswer", params = "saveAnswer")
+    @PostMapping(value = "/addAnswer", params = "saveAnswer")
     public String addAnswer(Model model,
                             @RequestParam("questionId") Long questionId,
                             @RequestParam("answer") String inputtedAnswer,

@@ -125,6 +125,7 @@ public class SurveyController {
         model.addAttribute("question", question);
         model.addAttribute("answers", question.getAnswers());
         model.addAttribute("questions", surveyQuestionService.findAllQuestions(id));
+        model.addAttribute("size", question.getAnswers().size());
         return "passSurvey";
     }
 
@@ -146,6 +147,7 @@ public class SurveyController {
             model.addAttribute("questions", survey.getQuestions().size());
             model.addAttribute("question", question1);
             model.addAttribute("answers", answers);
+            model.addAttribute("size", answers.size());
         }
         model.addAttribute("questions", surveyQuestionService.findAllQuestions(id));
         return "passSurvey";
@@ -201,6 +203,7 @@ public class SurveyController {
             return "statistics";
         }
         model.addAttribute("questions", surveyQuestionService.findAllQuestions(id));
+        model.addAttribute("size", question.getAnswers().size());
         return "passSurvey";
     }
 }

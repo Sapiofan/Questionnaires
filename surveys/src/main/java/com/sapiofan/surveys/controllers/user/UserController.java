@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -58,9 +59,13 @@ public class UserController {
     }
 
     @GetMapping("/main")
-    public String main(
-    ) {
+    public String main() {
         return "main";
+    }
+
+    @GetMapping("/help")
+    public String help() {
+        return "help";
     }
 
     @GetMapping("/logout")
@@ -76,7 +81,7 @@ public class UserController {
         return "list";
     }
 
-    @GetMapping(value = "/search", params = "searchRows")
+    @PostMapping(value = "/search", params = "searchRows")
     public String search(@RequestParam("type") String type,
                          @RequestParam("search") String search,
                          Model model){
@@ -89,7 +94,7 @@ public class UserController {
         return "list";
     }
 
-    @GetMapping(value = "/search", params = "backToList")
+    @PostMapping(value = "/search", params = "backToList")
     public String backToList(Model model){
         List<Survey> surveys = surveyService.findAllSurveys();
         model.addAttribute("surveys", surveys);
@@ -103,7 +108,7 @@ public class UserController {
         return "listOfQuestionnaires";
     }
 
-    @GetMapping(value = "/searchQuestionnaire", params = "searchRows")
+    @PostMapping(value = "/searchQuestionnaire", params = "searchRows")
     public String searchQuestionnaires(@RequestParam("type") String type,
                          @RequestParam("search") String search,
                          Model model){
@@ -116,7 +121,7 @@ public class UserController {
         return "listOfQuestionnaires";
     }
 
-    @GetMapping(value = "/searchQuestionnaire", params = "backToList")
+    @PostMapping(value = "/searchQuestionnaire", params = "backToList")
     public String backToQuestionnaireList(Model model){
         List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
         model.addAttribute("questionnaires", questionnaires);

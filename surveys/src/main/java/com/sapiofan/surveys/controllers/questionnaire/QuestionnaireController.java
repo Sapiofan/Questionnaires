@@ -70,6 +70,7 @@ public class QuestionnaireController {
         questionnaireService.saveQuestionnaire(questionnaire);
         model.addAttribute("question", questionnaireQuestionsService.findQuestionByNumber(id, 1));
         model.addAttribute("description", questionnaire.getGeneral_description());
+        model.addAttribute("name", questionnaire.getName());
         return "startQuestionnaire";
     }
 

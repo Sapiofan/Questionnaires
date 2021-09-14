@@ -15,8 +15,12 @@
 
     <h2>Surveys</h2>
     <style>
+        h2{
+            color: white;
+            text-align: center;
+        }
         body {
-                background-image: url("https://www.pngkey.com/png/full/45-455323_picture-black-and-white-stock-blue-geometric-transprent.png");
+                background-image: url("https://i.pinimg.com/originals/4f/2f/7d/4f2f7d2aa8582dcca07ca3eb600e922b.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-size: cover;
@@ -45,9 +49,6 @@
             background-color: #157DEC;
             color: white;
           }
-
-
-
 
         form.search input[type=text] {
           padding: 10px;
@@ -86,12 +87,12 @@
         }
     </style>
 
-    <form class="search" action="/search" method="get">
+    <form class="search" action="/search" method="post">
 
 
          <label for="search" class="form-label" id="label">Search by survey/user</label>
          <br>
-        <input type="text" class="input-box" id="search" placeholder="Search..." name="search" required>
+        <input type="text" class="form-control" id="search" placeholder="Search..." name="search" style="width: 30%" required>
         <button type="submit" id="button" class="fa fa-search" name="searchRows">Search</button>
         <select id="type" name="type">
           <option value="survey">Survey</option>
@@ -101,8 +102,6 @@
 
         <a href="/main", class="btn btn-danger">Back to main</a>
         <button type="submit" class="btn btn-primary" name="backToList" onclick="disable()">Back to all list</button>
-
-
     </form>
 
     <table border="1" id="table">
