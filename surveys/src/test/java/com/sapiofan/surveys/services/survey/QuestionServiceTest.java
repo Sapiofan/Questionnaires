@@ -64,7 +64,7 @@ public class QuestionServiceTest {
 
     @Test
     @Order(3)
-    public void testFindQuestionByNumber(){
+    public void testFindQuestionByNumber() {
         Question question = surveyQuestionService.findQuestionByNumber(surveyId, 1);
         System.out.println("Question description: " + question.getDescription());
         assertThat(question.getDescription().equals("NewQuestion"));
@@ -72,14 +72,14 @@ public class QuestionServiceTest {
 
     @Test
     @Order(4)
-    public void testFindAllQuestions(){
+    public void testFindAllQuestions() {
         Collection<Question> questions = surveyQuestionService.findAllQuestions(surveyId);
         assertThat(questions.size() != 0);
     }
 
     @Test
     @Order(5)
-    public void testChangeNumber(){
+    public void testChangeNumber() {
         surveyQuestionService.createQuestion(0l, surveyId, "QuestionWithNumber");
         surveyQuestionService.changeQuestionNumber(1, 2, surveyId);
         Question question = surveyQuestionService.findQuestionById(questionId);
@@ -88,7 +88,7 @@ public class QuestionServiceTest {
 
     @Test
     @Order(6)
-    public void testDeleteQuestionById(){
+    public void testDeleteQuestionById() {
         surveyQuestionService.deleteQuestionByNumber(surveyId, questionId);
         Assertions.assertNull(surveyQuestionService.findQuestionById(questionId));
         userService.deleteUser(userService.findUserByNickname("TestSQuestions"));

@@ -84,18 +84,17 @@ public class UserController {
     @PostMapping(value = "/search", params = "searchRows")
     public String search(@RequestParam("type") String type,
                          @RequestParam("search") String search,
-                         Model model){
-        if(type.equals("survey")){
+                         Model model) {
+        if (type.equals("survey")) {
             model.addAttribute("surveys", surveyService.findBySurveyName(search));
-        }
-        else {
+        } else {
             model.addAttribute("surveys", surveyService.findSurveyByNickName(search));
         }
         return "list";
     }
 
     @PostMapping(value = "/search", params = "backToList")
-    public String backToList(Model model){
+    public String backToList(Model model) {
         List<Survey> surveys = surveyService.findAllSurveys();
         model.addAttribute("surveys", surveys);
         return "list";
@@ -110,19 +109,18 @@ public class UserController {
 
     @PostMapping(value = "/searchQuestionnaire", params = "searchRows")
     public String searchQuestionnaires(@RequestParam("type") String type,
-                         @RequestParam("search") String search,
-                         Model model){
-        if(type.equals("questionnaire")){
+                                       @RequestParam("search") String search,
+                                       Model model) {
+        if (type.equals("questionnaire")) {
             model.addAttribute("questionnaires", questionnaireService.findByQuestionnaireName(search));
-        }
-        else {
+        } else {
             model.addAttribute("questionnaires", questionnaireService.findQuestionnaireByNickName(search));
         }
         return "listOfQuestionnaires";
     }
 
     @PostMapping(value = "/searchQuestionnaire", params = "backToList")
-    public String backToQuestionnaireList(Model model){
+    public String backToQuestionnaireList(Model model) {
         List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
         model.addAttribute("questionnaires", questionnaires);
         return "listOfQuestionnaires";

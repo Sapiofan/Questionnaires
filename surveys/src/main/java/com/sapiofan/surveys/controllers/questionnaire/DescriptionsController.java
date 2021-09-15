@@ -88,9 +88,9 @@ public class DescriptionsController {
                                         Authentication authentication,
                                         Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        if(questionnaire != null){
+        if (questionnaire != null) {
             CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-            if(!questionnaire.getUser().getNickname().equals(principal.getUsername())){
+            if (!questionnaire.getUser().getNickname().equals(principal.getUsername())) {
                 return "main";
             }
         }
@@ -111,9 +111,9 @@ public class DescriptionsController {
                                       Authentication authentication,
                                       Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        if(questionnaire != null){
+        if (questionnaire != null) {
             CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-            if(!questionnaire.getUser().getNickname().equals(principal.getUsername())){
+            if (!questionnaire.getUser().getNickname().equals(principal.getUsername())) {
                 return "main";
             }
         }

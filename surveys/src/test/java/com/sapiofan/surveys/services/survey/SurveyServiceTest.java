@@ -34,7 +34,7 @@ public class SurveyServiceTest {
         survey.setSize(0);
         survey.setUser(user);
         survey.setDescription("Description");
-        survey.setNumber(surveyService.findAllSurveys().size()+1);
+        survey.setNumber(surveyService.findAllSurveys().size() + 1);
         surveyService.save(survey);
 
         Survey newSurvey = surveyService.findSurveyById(survey.getId());
@@ -58,21 +58,21 @@ public class SurveyServiceTest {
 
     @Test
     @Order(3)
-    public void testFindAllSurveys(){
+    public void testFindAllSurveys() {
         Collection<Survey> surveys = surveyService.findAllSurveys();
         assertThat(surveys.size() != 0);
     }
 
     @Test
     @Order(4)
-    public void testFindSurveyByName(){
+    public void testFindSurveyByName() {
         List<Survey> surveys = surveyService.findBySurveyName("TestSurvey");
         Assertions.assertTrue(surveys.size() == 1 && surveys.get(0).getName().equals("TestSurvey"));
     }
 
     @Test
     @Order(5)
-    public void testFindSurveyByUser(){
+    public void testFindSurveyByUser() {
         List<Survey> surveys = surveyService.findSurveyByNickName("TestSurveyUser");
         User user = userService.findUserByNickname("TestSurveyUser");
         Assertions.assertEquals(1, surveys.size());
@@ -81,7 +81,7 @@ public class SurveyServiceTest {
 
     @Test
     @Order(6)
-    public void testDeleteSurveyById(){
+    public void testDeleteSurveyById() {
         surveyService.deleteSurveyById(surveyId);
         Assertions.assertNull(surveyService.findSurveyById(surveyId));
         userService.deleteUser(userService.findUserByNickname("TestSurveyUser"));
@@ -89,7 +89,7 @@ public class SurveyServiceTest {
 
     @Test
     @Order(7)
-    public void notCreatedSurvey(){
+    public void notCreatedSurvey() {
         Assertions.assertNull(surveyService.findSurveyById(0l));
     }
 }

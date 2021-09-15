@@ -66,7 +66,7 @@ public class QuestionnaireResultsServiceTest {
 
     @Test
     @Order(3)
-    public void testDeleteResultsById(){
+    public void testDeleteResultsById() {
         questionnaireResultsService.deleteResultsById(resultsId);
         Assertions.assertNull(questionnaireResultsService.findQuestionnaireResultById(resultsId));
         userService.deleteUser(userService.findUserByNickname("TestQResults"));

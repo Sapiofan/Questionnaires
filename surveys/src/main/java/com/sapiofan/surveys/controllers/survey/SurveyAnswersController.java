@@ -48,7 +48,7 @@ public class SurveyAnswersController {
                               Model model) {
         Survey survey = surveyService.findSurveyById(surveyId);
         Long questionId = 1l;
-        if(number > 0 && number <= survey.getQuestions().size()) {
+        if (number > 0 && number <= survey.getQuestions().size()) {
             questionId = survey.getQuestions().get(number - 1).getId();
         }
         model.addAttribute("questionId", questionId);
@@ -78,14 +78,14 @@ public class SurveyAnswersController {
 
     @GetMapping(("/deleteAnswer/{id}"))
     public String deleteAnswerByNumber(@PathVariable("id") Long answerId,
-                                   @RequestParam("questionId") Long questionId,
-                                   Authentication authentication,
-                                   Model model) {
+                                       @RequestParam("questionId") Long questionId,
+                                       Authentication authentication,
+                                       Model model) {
         Question question = surveyQuestionService.findQuestionById(questionId);
         Survey survey = question.getSurvey();
-        if(survey != null){
+        if (survey != null) {
             CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-            if(!survey.getUser().getNickname().equals(principal.getUsername())){
+            if (!survey.getUser().getNickname().equals(principal.getUsername())) {
                 return "main";
             }
         }
@@ -104,9 +104,9 @@ public class SurveyAnswersController {
                              Authentication authentication,
                              Model model) {
         Survey survey = surveyQuestionService.findQuestionById(questionId).getSurvey();
-        if(survey != null){
+        if (survey != null) {
             CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-            if(!survey.getUser().getNickname().equals(principal.getUsername())){
+            if (!survey.getUser().getNickname().equals(principal.getUsername())) {
                 return "main";
             }
         }
@@ -150,8 +150,8 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-    private int getValue(Answer answer){
-        if(answer.getCorrectness())
+    private int getValue(Answer answer) {
+        if (answer.getCorrectness())
             return 1;
         else
             return 2;

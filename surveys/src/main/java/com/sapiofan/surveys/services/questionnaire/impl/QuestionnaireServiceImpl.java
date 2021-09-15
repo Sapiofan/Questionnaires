@@ -43,15 +43,16 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Transactional
-    public List<Questionnaire> findQuestionnaireByNickName(String nickname){
+    public List<Questionnaire> findQuestionnaireByNickName(String nickname) {
         log.info("find all questionnaires of a certain user");
         return questionnaireRepository.findQuestionnaireByNickName(nickname)
                 .stream()
                 .sorted(Comparator.comparingInt(Questionnaire::getNumber))
                 .collect(Collectors.toList());
     }
+
     @Transactional
-    public List<Questionnaire> findByQuestionnaireName(String name){
+    public List<Questionnaire> findByQuestionnaireName(String name) {
         log.info("find all questionnaires by name");
         return questionnaireRepository.findByQuestionnaireName(name)
                 .stream()
@@ -81,7 +82,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         questionnaire.setName(name);
         questionnaire.setGeneral_description(description);
         questionnaire.setSize(0);
-        questionnaire.setNumber(findAllQuestionnaires().size()+1);
+        questionnaire.setNumber(findAllQuestionnaires().size() + 1);
         if (scale == 5) {
             questionnaire.setScale(Scale.FIVE);
         } else {

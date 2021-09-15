@@ -71,10 +71,10 @@ public class SurveyQuestionServiceImpl implements SurveyQuestionService {
     }
 
     @Transactional
-    public void changeQuestionNumber(Integer from, Integer to, Long surveyId){
+    public void changeQuestionNumber(Integer from, Integer to, Long surveyId) {
         List<Question> questions = findAllQuestions(surveyId);
         int size = questions.size();
-        if(size != 0 && from <= size && from > 0 && to <= size && to > 0) {
+        if (size != 0 && from <= size && from > 0 && to <= size && to > 0) {
             Question question = findQuestionByNumber(surveyId, from);
             if (from > to) {
                 for (int i = 1; i < from - to + 1; i++) {
@@ -97,7 +97,7 @@ public class SurveyQuestionServiceImpl implements SurveyQuestionService {
     @Transactional
     public void deleteQuestionByNumber(Long surveyId, Long id) {
         Question question = questionRepository.findQuestionById(id);
-        if(question != null) {
+        if (question != null) {
             int number = question.getNumber();
             log.warn("start of deleting of question id = " + question.getId());
             for (int i = 1; i <= findAllQuestions(surveyId).size() - question.getNumber(); i++) {

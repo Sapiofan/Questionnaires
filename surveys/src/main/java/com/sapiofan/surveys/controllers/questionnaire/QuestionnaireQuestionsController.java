@@ -79,7 +79,7 @@ public class QuestionnaireQuestionsController {
     public String changeQuestionNumber(@RequestParam("from") Integer from,
                                        @RequestParam("to") Integer to,
                                        @RequestParam("questionnaireId") Long questionnaireId,
-                                       Model model){
+                                       Model model) {
         questionnaireQuestionsService.changeQuestionNumber(from, to, questionnaireId);
         model.addAttribute("questionnaireId", questionnaireId);
         List<QQuestion> qQuestions = questionnaireQuestionsService.findAllQuestions(questionnaireId);
@@ -94,9 +94,9 @@ public class QuestionnaireQuestionsController {
                                       Authentication authentication,
                                       Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        if(questionnaire != null){
+        if (questionnaire != null) {
             CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-            if(!questionnaire.getUser().getNickname().equals(principal.getUsername())){
+            if (!questionnaire.getUser().getNickname().equals(principal.getUsername())) {
                 return "main";
             }
         }
@@ -124,8 +124,8 @@ public class QuestionnaireQuestionsController {
         return minimum;
     }
 
-    private int getValue(Questionnaire questionnaire){
-        if(questionnaire.getScale().equals(Scale.FIVE))
+    private int getValue(Questionnaire questionnaire) {
+        if (questionnaire.getScale().equals(Scale.FIVE))
             return 5;
         else
             return 10;

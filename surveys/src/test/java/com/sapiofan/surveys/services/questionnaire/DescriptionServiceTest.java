@@ -72,14 +72,14 @@ public class DescriptionServiceTest {
 
     @Test
     @Order(4)
-    public void testFindAllDescriptions(){
+    public void testFindAllDescriptions() {
         Collection<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
         assertThat(descriptions.size() != 0);
     }
 
     @Test
     @Order(5)
-    public void testUpdateDescription(){
+    public void testUpdateDescription() {
         Description description = descriptionService
                 .updateDescription(descriptionId, "UPDATED", 1, 2, questionnaireService.findQuestionnaireById(questionnaireId));
         Assertions.assertTrue(description.getDescription().equals("UPDATED") && description.getEnd_scale() == 2);
@@ -88,7 +88,7 @@ public class DescriptionServiceTest {
 
     @Test
     @Order(6)
-    public void testDeleteDescriptionByNumber(){
+    public void testDeleteDescriptionByNumber() {
         descriptionService.deleteDescriptionById(descriptionId,
                 questionnaireService.findQuestionnaireById(questionnaireId));
         Assertions.assertNull(descriptionService.findDescriptionById(descriptionId));

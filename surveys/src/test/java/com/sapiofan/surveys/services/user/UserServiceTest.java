@@ -36,14 +36,14 @@ public class UserServiceTest {
 
     @Test
     @Order(3)
-    public void testDeleteUserByNickname(){
+    public void testDeleteUserByNickname() {
         userService.deleteUser(userService.findUserByNickname("TestNickname"));
         Assertions.assertNull(userService.findUserByNickname("TestNickname"));
     }
 
     @Test
     @Order(4)
-    public void notRegisteredUser(){
+    public void notRegisteredUser() {
         Assertions.assertNull(userService.findUserByNickname("nicknameNickname"));
     }
 }

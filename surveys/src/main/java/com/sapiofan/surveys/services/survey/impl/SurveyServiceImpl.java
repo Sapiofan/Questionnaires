@@ -39,15 +39,16 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Transactional
-    public List<Survey> findSurveyByNickName(String nickname){
+    public List<Survey> findSurveyByNickName(String nickname) {
         log.info("find all surveys of a certain user");
         return surveyRepository.findSurveyByNickName(nickname)
                 .stream()
                 .sorted(Comparator.comparingInt(Survey::getNumber))
                 .collect(Collectors.toList());
     }
+
     @Transactional
-    public List<Survey> findBySurveyName(String name){
+    public List<Survey> findBySurveyName(String name) {
         log.info("find all surveys by name");
         return surveyRepository.findBySurveyName(name)
                 .stream()
@@ -65,7 +66,7 @@ public class SurveyServiceImpl implements SurveyService {
             survey.setName(name);
             survey.setSize(0);
             survey.setDescription(description);
-            survey.setNumber(findAllSurveys().size()+1);
+            survey.setNumber(findAllSurveys().size() + 1);
             survey.setUser(userService.findUserByNickname(principal.getUsername()));
         } else {
             survey = findSurveyById(surveyId);

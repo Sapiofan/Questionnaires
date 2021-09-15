@@ -33,7 +33,7 @@ public class QuestionnaireServiceTest {
 
         Questionnaire questionnaire = new Questionnaire();
         questionnaire.setName("Questionnaire");
-        questionnaire.setNumber(questionnaireService.findAllQuestionnaires().size()+1);
+        questionnaire.setNumber(questionnaireService.findAllQuestionnaires().size() + 1);
         questionnaire.setSize(0);
         questionnaire.setUser(user);
         questionnaire.setGeneral_description("description");
@@ -52,27 +52,27 @@ public class QuestionnaireServiceTest {
     @Order(2)
     public void testFindQuestionnaireById() {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
-        System.out.println("Questionnaire name: "+questionnaire.getName());
+        System.out.println("Questionnaire name: " + questionnaire.getName());
         assertThat(questionnaire.getName().equals("Questionnaire"));
     }
 
     @Test
     @Order(3)
-    public void testFindAllQuestionnaires(){
+    public void testFindAllQuestionnaires() {
         Collection<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
         assertThat(questionnaires.size() != 0);
     }
 
     @Test
     @Order(4)
-    public void testFindQuestionnaireByName(){
+    public void testFindQuestionnaireByName() {
         List<Questionnaire> questionnaires = questionnaireService.findByQuestionnaireName("Questionnaire");
         Assertions.assertTrue(questionnaires.size() == 1 && questionnaires.get(0).getName().equals("Questionnaire"));
     }
 
     @Test
     @Order(5)
-    public void testFindQuestionnaireByUser(){
+    public void testFindQuestionnaireByUser() {
         List<Questionnaire> questionnaires = questionnaireService.findQuestionnaireByNickName("TestQuestionnaires");
         User user = userService.findUserByNickname("TestQuestionnaires");
         Assertions.assertEquals(1, questionnaires.size());
@@ -81,7 +81,7 @@ public class QuestionnaireServiceTest {
 
     @Test
     @Order(6)
-    public void testDeleteQuestionnaireById(){
+    public void testDeleteQuestionnaireById() {
         questionnaireService.deleteQuestionnaire(questionnaireId);
         Assertions.assertNull(questionnaireService.findQuestionnaireById(questionnaireId));
         userService.deleteUser(userService.findUserByNickname("TestQuestionnaires"));
@@ -89,7 +89,7 @@ public class QuestionnaireServiceTest {
 
     @Test
     @Order(7)
-    public void notCreatedQuestionnaire(){
+    public void notCreatedQuestionnaire() {
         Assertions.assertNull(questionnaireService.findQuestionnaireById(0l));
     }
 }

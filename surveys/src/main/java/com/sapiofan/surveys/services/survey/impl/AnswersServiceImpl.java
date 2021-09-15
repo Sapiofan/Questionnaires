@@ -55,7 +55,7 @@ public class AnswersServiceImpl implements AnswersService {
     }
 
     @Transactional
-    public Answer createAnswer(Question question, String inputtedAnswer, String correctness){
+    public Answer createAnswer(Question question, String inputtedAnswer, String correctness) {
         log.info("start of creating of answer");
         List<Answer> answers = findAllAnswers(question.getId());
         for (Answer value : answers) {
@@ -101,7 +101,7 @@ public class AnswersServiceImpl implements AnswersService {
     @Transactional
     public void deleteAnswerByNumber(Long questionId, Long answerId) {
         Answer answer = answerRepository.findAnswerById(answerId);
-        if(answer != null) {
+        if (answer != null) {
             int number = answer.getNumber();
             log.warn("start of deleting of answer id = " + answer.getId());
             for (int i = 1; i <= findAllAnswers(questionId).size() - answer.getNumber(); i++) {

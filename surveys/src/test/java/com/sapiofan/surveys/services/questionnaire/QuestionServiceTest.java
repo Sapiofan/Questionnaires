@@ -64,14 +64,14 @@ public class QuestionServiceTest {
 
     @Test
     @Order(3)
-    public void testFindAllQuestions(){
+    public void testFindAllQuestions() {
         Collection<QQuestion> questions = questionnaireQuestionsService.findAllQuestions(questionId);
         assertThat(questions.size() != 0);
     }
 
     @Test
     @Order(4)
-    public void testDeleteQuestionByNumber(){
+    public void testDeleteQuestionByNumber() {
         questionnaireQuestionsService.deleteQQuestionById(questionnaireId, questionId);
         Assertions.assertNull(questionnaireQuestionsService.findQuestionByNumber(questionnaireId, 1));
         userService.deleteUser(userService.findUserByNickname("TestQuestionnaireQuestions"));

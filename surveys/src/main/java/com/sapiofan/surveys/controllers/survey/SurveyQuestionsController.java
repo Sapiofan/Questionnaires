@@ -73,7 +73,7 @@ public class SurveyQuestionsController {
                                        @RequestParam("to") Integer to,
                                        @RequestParam("questionId") Long questionId,
                                        @RequestParam("surveyId") Long surveyId,
-                                       Model model){
+                                       Model model) {
         surveyQuestionService.changeQuestionNumber(from, to, surveyId);
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", questionId);
@@ -112,9 +112,9 @@ public class SurveyQuestionsController {
                                      Authentication authentication,
                                      Model model) {
         Survey survey = surveyService.findSurveyById(surveyId);
-        if(survey != null){
+        if (survey != null) {
             CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-            if(!survey.getUser().getNickname().equals(principal.getUsername())){
+            if (!survey.getUser().getNickname().equals(principal.getUsername())) {
                 return "main";
             }
         }

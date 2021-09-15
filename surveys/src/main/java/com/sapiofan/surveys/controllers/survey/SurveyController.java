@@ -61,7 +61,7 @@ public class SurveyController {
                                     @RequestParam("questionId") Long questionId) {
         Question question = surveyQuestionService.findQuestionById(questionId);
         int counter = 0;
-        if(questionId != 0) {
+        if (questionId != 0) {
             for (Answer answer : question.getAnswers()) {
                 if (answer.getCorrectness()) {
                     counter++;

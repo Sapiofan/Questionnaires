@@ -77,21 +77,21 @@ public class AnswerServiceTest {
 
     @Test
     @Order(4)
-    public void testFindAllAnswers(){
+    public void testFindAllAnswers() {
         Collection<Answer> answers = answersService.findAllAnswers(questionId);
         assertThat(answers.size() != 0);
     }
 
     @Test
     @Order(5)
-    public void testUpdateAnswer(){
+    public void testUpdateAnswer() {
         Answer answer = answersService.updateAnswer(answerId, "UPDATED", "1", 1, questionId);
         assertThat(answer.getAnswer().equals("UPDATED"));
     }
 
     @Test
     @Order(6)
-    public void testDeleteAnswerById(){
+    public void testDeleteAnswerById() {
         answersService.deleteAnswerByNumber(questionId, answerId);
         Assertions.assertNull(answersService.findAnswerById(answerId));
         userService.deleteUser(userService.findUserByNickname("TestAnswers"));

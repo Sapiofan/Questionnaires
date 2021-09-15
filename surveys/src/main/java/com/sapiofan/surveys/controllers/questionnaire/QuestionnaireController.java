@@ -81,12 +81,11 @@ public class QuestionnaireController {
         model.addAttribute("resultId", questionnaireResult.getId());
         QQuestion question = questionnaireQuestionsService.findQuestionByNumber(id, 1);
         model.addAttribute("question", question);
-        if(questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
+        if (questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
             model.addAttribute("maximum", 5);
             model.addAttribute("minimum", 1);
             model.addAttribute("middle", 3);
-        }
-        else {
+        } else {
             model.addAttribute("maximum", 10);
             model.addAttribute("minimum", 1);
             model.addAttribute("middle", 5);
@@ -109,12 +108,11 @@ public class QuestionnaireController {
             QQuestion question = questionnaireQuestionsService.findQuestionByNumber(id, number - 1);
             model.addAttribute("question", question);
         }
-        if(questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
+        if (questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
             model.addAttribute("maximum", 5);
             model.addAttribute("minimum", 1);
             model.addAttribute("middle", 3);
-        }
-        else {
+        } else {
             model.addAttribute("maximum", 10);
             model.addAttribute("minimum", 1);
             model.addAttribute("middle", 5);
@@ -169,12 +167,11 @@ public class QuestionnaireController {
             model.addAttribute("seconds", seconds_difference);
             return "questionnaireStatistics";
         }
-        if(questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
+        if (questionnaireService.findQuestionnaireById(id).getScale().equals(Scale.FIVE)) {
             model.addAttribute("maximum", 5);
             model.addAttribute("minimum", 1);
             model.addAttribute("middle", 3);
-        }
-        else {
+        } else {
             model.addAttribute("maximum", 10);
             model.addAttribute("minimum", 1);
             model.addAttribute("middle", 5);

@@ -59,10 +59,10 @@ public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestions
     }
 
     @Transactional
-    public void changeQuestionNumber(Integer from, Integer to, Long questionnaireId){
+    public void changeQuestionNumber(Integer from, Integer to, Long questionnaireId) {
         List<QQuestion> questions = findAllQuestions(questionnaireId);
         int size = questions.size();
-        if(size != 0 && from <= size && from > 0 && to <= size && to > 0) {
+        if (size != 0 && from <= size && from > 0 && to <= size && to > 0) {
             QQuestion question = findQuestionByNumber(questionnaireId, from);
             if (from > to) {
                 for (int i = 1; i < from - to + 1; i++) {
@@ -92,7 +92,7 @@ public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestions
     }
 
     @Transactional
-    public QQuestion findQuestionById(Long id){
+    public QQuestion findQuestionById(Long id) {
         log.info("find questionnaire question by Id = " + id);
         return questionRepository.findQuestionById(id);
     }
@@ -101,7 +101,7 @@ public class QuestionnaireQuestionsServiceImpl implements QuestionnaireQuestions
     public void deleteQQuestionById(Long questionnaireId, Long questionId) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
         QQuestion question = findQuestionById(questionId);
-        if(question != null) {
+        if (question != null) {
             log.warn("start of deleting of question id = " + question.getId());
             int number = question.getNumber();
             for (int i = 1; i <= questionnaire.getQuestions().size() - question.getNumber(); i++) {
