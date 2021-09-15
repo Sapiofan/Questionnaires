@@ -104,18 +104,31 @@
          background: #04AA6D;
          cursor: pointer;
        }
+       form {
+          display: inline;
+       }
    </style>
+   <form action="/questionnaireQuestions" method="post">
+       <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+       <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Add questions</button>
+   </form>
 
-    <form action="/addDescription" method="post">
+   <form action="/main" method="post">
+       <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+       <button type="submit" class="btn btn-danger" name="deleteQuestionnaireD" onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/main'; else { return false;}; notRequired();">Delete questionnaire</button>
+   </form>
+
+   <form action="/listOfQuestionnaires" method="post">
+       <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+       <button type="submit" class="btn btn-success" id="save" name="saveQuestionnaire" onclick="notRequired()" disabled>Save a questionnaire</button>
+   </form>
+
+    <form action="/descriptions" method="post">
         <input type="hidden" name="questionnaireId" value=${questionnaireId}>
         <input type="hidden" name="minimum" value=${minimum}>
         <input type="hidden" name="maximum" value=${maximum}>
 
-         <button type="submit" class="btn btn-warning" name="addQuestions" onclick="notRequired()">Add questions</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire" onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addDescription'; else { return false;}; notRequired();">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" id="add" name="addDescription" >Add a description</button>
-        <button type="submit" class="btn btn-success" id="save" name="saveQuestionnaire" onclick="notRequired()" disabled>Save a questionnaire</button>
-
 
         <div class="form-group">
             <label for="Description" class="form-label" id="label">Description</label>

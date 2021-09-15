@@ -34,10 +34,14 @@
             font-size: 24px;
             font-weight: bold;
         }
+        form { display: inline; }
+        #mar{
+            margin-left: 10px;
+        }
     </style>
 
     <div class="container mt-5">
-        <form action="/createSurvey" method="post">
+        <form action="/listOfQuestions" method="post">
             <input type="hidden" name="surveyId" value=${surveyId}>
             <div class="form-group">
                 <label for="SurveyName" class="form-label" id="label">Survey name</label>
@@ -47,9 +51,14 @@
                 <label for="description" class="form-label" id="label">Description</label>
                 <textarea class="form-control" id="description" placeholder="Enter a description" name="description" required>${description}</textarea>
             </div>
-            <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
-            <input type="submit" class="btn btn-success" value="Continue" />
+            <input type="submit" class="btn btn-success" id="mar" value="Continue" name="continue"/>
         </form>
+        <div style="float: left;">
+            <form action="/main" method="post">
+                <input type="hidden" name="surveyId" value=${surveyId}>
+                <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
+            </form>
+        </div>
     </div>
 
     <script>

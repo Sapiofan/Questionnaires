@@ -76,19 +76,34 @@
          background-position: 10px 10px;
          background-repeat: no-repeat;
        }
+       form {
+           display: inline;
+        }
    </style>
 
-    <form action="/addQQuestion" method="post">
+    <form action="/createQuestionnaire" method="post">
+        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+        <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" onclick="notRequired()">Change questionnaire fields</button>
+    </form>
+
+    <form action="/main" method="post">
+        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+        <button type="submit" class="btn btn-danger" style="margin-left: 5px;" name="deleteQuestionnaire"onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/main'; else {return false;}; notRequired();">Delete questionnaire</button>
+    </form>
+
+    <form action="/descriptions" method="post">
+        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+        <button type="submit" class="btn btn-success" name="addDescriptions" style="margin-left: 5px;" onclick="notRequired()">Add descriptions</button>
+    </form>
+
+    <form action="/questionnaireQuestions" method="post">
        <input type="hidden" name="questionnaireId" value=${questionnaireId}>
 
-        <button type="submit" class="btn btn-warning" name="changeQuestionnaireFields" onclick="notRequired()">Change questionnaire fields</button>
-        <button type="submit" class="btn btn-danger" name="deleteQuestionnaire"onclick="if (confirm('Are you sure you want to delete the questionnaire?')) form.action='/addQQuestion'; else {return false;}; notRequired();">Delete questionnaire</button>
         <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
-        <button type="submit" class="btn btn-success" name="addDescriptions" onclick="notRequired()">Add descriptions</button>
 
        <div class="form-group">
-               <label for="Question" class="form-label" id="label">Question</label>
-               <input type="text" class="form-control" id="question" placeholder="Enter a question" name="question" required>
+           <label for="Question" class="form-label" id="label">Question</label>
+           <input type="text" class="form-control" style="margin-left: 5px;" id="question" placeholder="Enter a question" name="question" required>
        </div>
     </form>
     <br><br>

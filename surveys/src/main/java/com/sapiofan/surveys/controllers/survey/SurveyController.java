@@ -6,6 +6,8 @@ import com.sapiofan.surveys.services.survey.StatisticsService;
 import com.sapiofan.surveys.services.survey.SurveyQuestionService;
 import com.sapiofan.surveys.services.survey.SurveyResultsService;
 import com.sapiofan.surveys.services.survey.SurveyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -36,7 +40,9 @@ public class SurveyController {
     @Autowired
     private StatisticsService statisticsService;
 
-    @PostMapping(value = "/createSurvey")
+    private static final Logger log = LoggerFactory.getLogger("log");
+
+    @PostMapping(value = "/listOfQuestions", params = "continue")
     public String addSurvey(@RequestParam("name") String name,
                             @RequestParam("surveyId") Long surveyId,
                             @RequestParam("description") String description,
@@ -49,7 +55,7 @@ public class SurveyController {
         return "listOfQuestions";
     }
 
-    @PostMapping(value = "/addQuestion", params = "returnToQuestions")
+    @PostMapping(value = "/listOfQuestions", params = "returnToQuestions")
     public String returnToQuestions(Model model,
                                     @RequestParam("surveyId") Long surveyId,
                                     @RequestParam("questionId") Long questionId) {
@@ -74,24 +80,24 @@ public class SurveyController {
         return "listOfQuestions";
     }
 
-    @GetMapping(value = "/addQuestion", params = "changeSurveyName")
+    @PostMapping(value = "/survey", params = "changeSurveyName")
     public String changeSurveyName(@RequestParam(name = "surveyId") Long surveyId, Model model) {
-        model.addAttribute("surveyId", surveyId);
         Survey survey = surveyService.findSurveyById(surveyId);
+        model.addAttribute("surveyId", surveyId);
         model.addAttribute("name", survey.getName());
         model.addAttribute("description", survey.getDescription());
         return "survey";
     }
 
-    @PostMapping(value = "/createSurvey", params = "backToMain")
+    @PostMapping(value = "/main", params = "backToMain")
     public String backToMain(@RequestParam("surveyId") Long surveyId) {
-        if (surveyId != 0) {
+        if (surveyId != 0 && surveyService.findSurveyById(surveyId).getQuestions().size() != 0) {
             surveyService.deleteSurveyById(surveyId);
         }
         return "main";
     }
 
-    @GetMapping(value = "/addQuestion", params = "saveSurvey")
+    @PostMapping(value = "/list", params = "saveSurvey")
     public String saveSurvey(Model model, @RequestParam("surveyId") Long surveyId) {
         Survey survey = surveyService.findSurveyById(surveyId);
         survey.setSize(survey.getQuestions().size());
@@ -100,16 +106,16 @@ public class SurveyController {
         return "list";
     }
 
-    @GetMapping(value = "/addQuestion", params = "deleteSurvey")
-    public String deleteSurvey(Model model, @RequestParam("surveyId") Long surveyId) {
+    @PostMapping(value = "/main", params = "deleteSurvey")
+    public String deleteSurvey(@RequestParam("surveyId") Long surveyId) {
         surveyService.deleteSurveyById(surveyId);
         return "main";
     }
 
     @GetMapping("/survey/{id}")
     public String startPageSurvey(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("surveyId", id);
         Survey survey = surveyService.findSurveyById(id);
+        model.addAttribute("surveyId", id);
         model.addAttribute("name", survey.getName());
         model.addAttribute("question", surveyQuestionService.findQuestionByNumber(id, 1));
         model.addAttribute("description", survey.getDescription());
@@ -123,7 +129,7 @@ public class SurveyController {
         model.addAttribute("resultId", surveyResults.getId());
         Question question = surveyQuestionService.findQuestionByNumber(id, 1);
         model.addAttribute("question", question);
-        model.addAttribute("answers", question.getAnswers());
+        model.addAttribute("answers", question.getAnswers().stream().sorted(Comparator.comparingInt(Answer::getNumber)).collect(Collectors.toList()));
         model.addAttribute("questions", surveyQuestionService.findAllQuestions(id));
         model.addAttribute("size", question.getAnswers().size());
         return "passSurvey";

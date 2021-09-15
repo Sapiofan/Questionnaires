@@ -2,10 +2,13 @@ package com.sapiofan.surveys.controllers.survey;
 
 import com.sapiofan.surveys.entities.survey.Answer;
 import com.sapiofan.surveys.entities.survey.Question;
+import com.sapiofan.surveys.entities.survey.Survey;
+import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.survey.AnswersService;
 import com.sapiofan.surveys.services.survey.SurveyQuestionService;
 import com.sapiofan.surveys.services.survey.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +32,7 @@ public class SurveyQuestionsController {
     private AnswersService answersService;
 
 
-    @GetMapping(value = "/addQuestion", params = "add")
+    @PostMapping(value = "/addQuestion", params = "goTo")
     public String addQuestionForm(Model model,
                                   @RequestParam("surveyId") Long surveyId,
                                   @RequestParam("questionId") Long questionId) {
@@ -40,7 +43,7 @@ public class SurveyQuestionsController {
         return "addQuestion";
     }
 
-    @PostMapping(value = "/addQuestion", params = "add")
+    @PostMapping(value = "/listOfAnswers", params = "add")
     public String addQuestion(@RequestParam("question") String inputtedQuestion,
                               @RequestParam(name = "surveyId") Long surveyId,
                               @RequestParam(name = "questionId") Long questionId,
@@ -55,10 +58,11 @@ public class SurveyQuestionsController {
         return "listOfAnswers";
     }
 
-    @PostMapping(value = "/addAnswer", params = "changeQuestionName")
+    @PostMapping(value = "/addQuestion", params = "changeQuestionName")
     public String changeQuestionName(Model model,
                                      @RequestParam("questionId") Long questionId) {
-        model.addAttribute("surveyId", surveyQuestionService.findQuestionById(questionId).getSurvey().getId());
+        Survey survey = surveyQuestionService.findQuestionById(questionId).getSurvey();
+        model.addAttribute("surveyId", survey.getId());
         model.addAttribute("questionId", questionId);
         model.addAttribute("name", surveyQuestionService.findQuestionById(questionId).getDescription());
         return "addQuestion";
@@ -80,8 +84,7 @@ public class SurveyQuestionsController {
     }
 
     @GetMapping("/question/{number}")
-    public String getQuestionByNumber(@PathVariable("number") Integer number,
-                                      @RequestParam("questionId") Long questionId,
+    public String getQuestionByNumber(@RequestParam("questionId") Long questionId,
                                       Model model) {
         model.addAttribute("questionId", questionId);
         List<Answer> answers = answersService.findAllAnswers(questionId);
@@ -91,7 +94,7 @@ public class SurveyQuestionsController {
         return "listOfAnswers";
     }
 
-    @PostMapping(value = "/addAnswer", params = "addQuestion")
+    @PostMapping(value = "/listOfQuestions", params = "addQuestion")
     public String addQuestionWithAnswers(Model model,
                                          @RequestParam("questionId") Long questionId) {
         Question question = surveyQuestionService.findQuestionById(questionId);
@@ -106,7 +109,15 @@ public class SurveyQuestionsController {
     @GetMapping(("/deleteQuestion/{id}"))
     public String deleteQuestionById(@PathVariable("id") Long id,
                                      @RequestParam("surveyId") Long surveyId,
+                                     Authentication authentication,
                                      Model model) {
+        Survey survey = surveyService.findSurveyById(surveyId);
+        if(survey != null){
+            CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+            if(!survey.getUser().getNickname().equals(principal.getUsername())){
+                return "main";
+            }
+        }
         surveyQuestionService.deleteQuestionByNumber(surveyId, id);
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("questionId", 0);

@@ -59,20 +59,36 @@
             font-size: 20px;
             font-weight: bold;
        }
-
+        form {
+            display: inline;
+            float: left;
+         }
    </style>
 
     <br>
-    <form action="/addQuestion" method="get">
+
+    <form action="/survey" method="post">
        <input type="hidden" name="surveyId" value=${surveyId}>
-       <input type="hidden" name="questionId" value=${questionId}>
         <button type="submit" class="btn btn-warning" name="changeSurveyName" >Change survey name</button>
-        <button type="submit" class="btn btn-danger" name="deleteSurvey"
-        onclick="if (confirm('Are you sure you want to delete the survey?')) form.action='/addQuestion'; else return false;">Delete survey</button>
-        <button type="submit" class="btn btn-primary" name="add" >Add a question</button>
-        <button type="submit" class="btn btn-success" name="saveSurvey" >Save a survey</button>
     </form>
-    <br>
+
+    <form action="/main" method="post">
+        <input type="hidden" name="surveyId" value=${surveyId}>
+        <button type="submit" class="btn btn-danger" name="deleteSurvey" style="margin-left: 5px;"
+         onclick="if (confirm('Are you sure you want to delete the survey?')) form.action='/main'; else return false;">Delete survey</button>
+    </form>
+
+    <form action="/addQuestion" method="post">
+        <input type="hidden" name="surveyId" value=${surveyId}>
+        <input type="hidden" name="questionId" value=${questionId}>
+        <button type="submit" class="btn btn-primary" style="margin-left: 5px;" name="goTo" >Add a question</button>
+    </form>
+
+    <form action="/list" method="post">
+        <input type="hidden" name="surveyId" value=${surveyId}>
+        <button type="submit" class="btn btn-success" style="margin-left: 5px;" name="saveSurvey" >Save a survey</button>
+    </form>
+    <br><br><br>
 
     <form action="/changedQuestionNumber" method="post">
         <input type="hidden" name="surveyId" value=${surveyId}>

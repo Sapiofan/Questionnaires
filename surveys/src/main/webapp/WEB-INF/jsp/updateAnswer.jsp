@@ -107,7 +107,7 @@
     </style>
 
     <div class="container mt-5">
-        <form action="/updateAnswer" method="post">
+        <form action="/listOfAnswers" method="post">
             <div class="form-group">
 
                 <input type="hidden" name="questionId" value=${questionId}>
@@ -122,16 +122,16 @@
 
                 <div class="form-check form-check-inline">
                     <input class="custom-radio" type="radio" name="correctAnswer" id="true" value="1" required">
-                    <label class="form-check-label" for="inlineRadio1">Correct</label>
+                    <label class="form-check-label" for="true">Correct</label>
                   </div>
 
                   <div class="form-check form-check-inline">
                     <input class="custom-radio" type="radio" name="correctAnswer" id="false" value="2" required>
-                    <label class="form-check-label" for="inlineRadio2">Incorrect</label>
+                    <label class="form-check-label" for="false">Incorrect</label>
                   </div>
           </div>
         <button type="submit" class="btn btn-danger" name="backToAnswersList" onclick="notRequired()">Back</button>
-        <button type="submit" class="btn btn-success" name="saveAnswer">Submit</button>
+        <button type="submit" class="btn btn-success" name="updateAnswer">Submit</button>
         </form>
     </div>
 

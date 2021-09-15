@@ -91,7 +91,7 @@
     </style>
 
     <form class="search" action="/searchQuestionnaire" method="post">
-         <label for="search" class="form-label" id="label">Search by survey/user</label>
+         <label for="search" class="form-label" id="label">Search by questionnaire/user</label>
          <br>
         <input type="text" class="form-control" id="search" placeholder="Search..." name="search" required>
         <button type="submit" id="button" class="fa fa-search" name="searchRows">Search</button>

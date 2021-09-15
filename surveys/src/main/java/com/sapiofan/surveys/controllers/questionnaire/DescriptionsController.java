@@ -2,10 +2,12 @@ package com.sapiofan.surveys.controllers.questionnaire;
 
 import com.sapiofan.surveys.entities.questionnaire.Description;
 import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
+import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.questionnaire.DescriptionService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireQuestionsService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class DescriptionsController {
     @Autowired
     private QuestionnaireQuestionsService questionnaireQuestionsService;
 
-    @PostMapping(value = "/addDescription", params = "addQuestions")
+    @PostMapping(value = "/questionnaireQuestions", params = "addQuestions")
     public String addQuestions(@RequestParam("questionnaireId") Long questionnaireId,
                                Model model) {
         model.addAttribute("questionnaireId", questionnaireId);
@@ -37,13 +39,13 @@ public class DescriptionsController {
         return "questionnaireQuestions";
     }
 
-    @PostMapping(value = "/addDescription", params = "deleteQuestionnaire")
+    @PostMapping(value = "/main", params = "deleteQuestionnaireD")
     public String deleteQuestionnaireFromDescription(@RequestParam("questionnaireId") Long questionnaireId) {
         questionnaireService.deleteQuestionnaire(questionnaireId);
         return "main";
     }
 
-    @PostMapping(value = "/addDescription", params = "addDescription")
+    @PostMapping(value = "/descriptions", params = "addDescription")
     public String addDescription(@RequestParam("questionnaireId") Long questionnaireId,
                                  @RequestParam("description") String inputtedDescription,
                                  @RequestParam("range") Integer range,
@@ -74,7 +76,7 @@ public class DescriptionsController {
         return "descriptions";
     }
 
-    @PostMapping(value = "/addDescription", params = "saveQuestionnaire")
+    @PostMapping(value = "/listOfQuestionnaires", params = "saveQuestionnaire")
     public String saveQuestionnaire(Model model) {
         model.addAttribute("questionnaires", questionnaireService.findAllQuestionnaires());
         return "listOfQuestionnaires";
@@ -83,8 +85,15 @@ public class DescriptionsController {
     @GetMapping("/deleteDescription/{id}")
     public String deleteDescriptionById(@PathVariable("id") Long descriptionId,
                                         @RequestParam("questionnaireId") Long questionnaireId,
+                                        Authentication authentication,
                                         Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+        if(questionnaire != null){
+            CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+            if(!questionnaire.getUser().getNickname().equals(principal.getUsername())){
+                return "main";
+            }
+        }
         descriptionService.deleteDescriptionById(descriptionId, questionnaire);
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
         int minimum = descriptionService.minimum(descriptions);
@@ -99,23 +108,30 @@ public class DescriptionsController {
     @GetMapping("/editDescription/{id}")
     public String editDescriptionForm(@PathVariable("id") Long descriptionId,
                                       @RequestParam("questionnaireId") Long questionnaireId,
+                                      Authentication authentication,
                                       Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+        if(questionnaire != null){
+            CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+            if(!questionnaire.getUser().getNickname().equals(principal.getUsername())){
+                return "main";
+            }
+        }
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
         Description description = descriptionService.findDescriptionById(descriptionId);
         int number = description.getNumber();
         int minimum, max;
 
-        if (number - 1 > 0 && number + 1 == descriptions.size()) {
+        if (number - 1 > 0 && number + 1 <= descriptions.size()) {
             Description before = descriptionService.findDescriptionByNumber(questionnaireId, number - 1);
             Description after = descriptionService.findDescriptionByNumber(questionnaireId, number + 1);
             minimum = before.getStart_scale() + 1;
             max = after.getEnd_scale() - 1;
-        } else if (number - 1 <= 0) {
+        } else if (number - 1 <= 0 && number + 1 <= descriptions.size()) {
             Description after = descriptionService.findDescriptionByNumber(questionnaireId, number + 1);
             minimum = 1;
             max = after.getEnd_scale() - 1;
-        } else if (number + 1 > descriptions.size()) {
+        } else if (number + 1 > descriptions.size() && number - 1 > 0) {
             Description before = descriptionService.findDescriptionByNumber(questionnaireId, number - 1);
             minimum = before.getStart_scale() + 1;
             max = questionnaireService.maximum(questionnaire);
@@ -133,7 +149,7 @@ public class DescriptionsController {
         return "editDescription";
     }
 
-    @PostMapping(value = "/addDescription", params = "back")
+    @PostMapping(value = "/descriptions", params = "back")
     public String backToDescriptions(@RequestParam("questionnaireId") Long questionnaireId,
                                      Model model) {
         List<Description> descriptions = descriptionService.findAllDescriptions(questionnaireId);
@@ -145,7 +161,7 @@ public class DescriptionsController {
         return "descriptions";
     }
 
-    @PostMapping(value = "/addDescription", params = "update")
+    @PostMapping(value = "/descriptions", params = "update")
     public String editDescription(@RequestParam("questionnaireId") Long questionnaireId,
                                   @RequestParam("description") String inputtedDescription,
                                   @RequestParam("range1") Integer rangeLow,

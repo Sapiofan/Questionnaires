@@ -4,10 +4,12 @@ import com.sapiofan.surveys.entities.questionnaire.Description;
 import com.sapiofan.surveys.entities.questionnaire.QQuestion;
 import com.sapiofan.surveys.entities.questionnaire.Questionnaire;
 import com.sapiofan.surveys.entities.questionnaire.Scale;
+import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.questionnaire.DescriptionService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireQuestionsService;
 import com.sapiofan.surveys.services.questionnaire.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class QuestionnaireQuestionsController {
     @Autowired
     private QuestionnaireQuestionsService questionnaireQuestionsService;
 
-    @PostMapping(value = "/addQQuestion", params = "changeQuestionnaireFields")
+    @PostMapping(value = "/createQuestionnaire", params = "changeQuestionnaireFields")
     public String changeFields(@RequestParam("questionnaireId") Long questionnaireId,
                                Model model) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
@@ -40,13 +42,13 @@ public class QuestionnaireQuestionsController {
         return "questionnaire";
     }
 
-    @PostMapping(value = "/addQQuestion", params = "deleteQuestionnaire")
+    @PostMapping(value = "/main", params = "deleteQuestionnaire")
     public String deleteQuestionnaire(@RequestParam("questionnaireId") Long questionnaireId) {
         questionnaireService.deleteQuestionnaire(questionnaireId);
         return "main";
     }
 
-    @PostMapping(value = "/addQQuestion", params = "add")
+    @PostMapping(value = "/questionnaireQuestions", params = "add")
     public String addQQuestion(@RequestParam("questionnaireId") Long questionnaireId,
                                @RequestParam("question") String inputtedQuestion,
                                Model model) {
@@ -58,7 +60,7 @@ public class QuestionnaireQuestionsController {
         return "questionnaireQuestions";
     }
 
-    @PostMapping(value = "/addQQuestion", params = "addDescriptions")
+    @PostMapping(value = "/descriptions", params = "addDescriptions")
     public String goToDescriptions(Model model, @RequestParam("questionnaireId") Long questionnaireId) {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
         questionnaire.setSize(questionnaire.getQuestions().size());
@@ -89,7 +91,15 @@ public class QuestionnaireQuestionsController {
     @GetMapping("/deleteQQuestion/{id}")
     public String deleteQQuestionById(@PathVariable("id") Long questionId,
                                       @RequestParam("questionnaireId") Long questionnaireId,
+                                      Authentication authentication,
                                       Model model) {
+        Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
+        if(questionnaire != null){
+            CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+            if(!questionnaire.getUser().getNickname().equals(principal.getUsername())){
+                return "main";
+            }
+        }
         questionnaireQuestionsService.deleteQQuestionById(questionnaireId, questionId);
         model.addAttribute("questionnaireId", questionnaireId);
         model.addAttribute("questions", questionnaireQuestionsService.findAllQuestions(questionnaireId));

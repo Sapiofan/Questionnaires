@@ -2,10 +2,13 @@ package com.sapiofan.surveys.controllers.survey;
 
 import com.sapiofan.surveys.entities.survey.Answer;
 import com.sapiofan.surveys.entities.survey.Question;
+import com.sapiofan.surveys.entities.survey.Survey;
+import com.sapiofan.surveys.security.realization.CustomUserDetails;
 import com.sapiofan.surveys.services.survey.AnswersService;
 import com.sapiofan.surveys.services.survey.SurveyQuestionService;
 import com.sapiofan.surveys.services.survey.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +46,11 @@ public class SurveyAnswersController {
     public String showAnswers(@PathVariable("number") Integer number,
                               @RequestParam("surveyId") Long surveyId,
                               Model model) {
-        Long questionId = surveyService.findSurveyById(surveyId).getQuestions().get(number - 1).getId();
+        Survey survey = surveyService.findSurveyById(surveyId);
+        Long questionId = 1l;
+        if(number > 0 && number <= survey.getQuestions().size()) {
+            questionId = survey.getQuestions().get(number - 1).getId();
+        }
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
         List<Answer> answers = answersService.findAllAnswers(questionId);
@@ -53,7 +60,7 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-    @PostMapping(value = "/addAnswer", params = "saveAnswer")
+    @PostMapping(value = "/listOfAnswers", params = "saveAnswer")
     public String addAnswer(Model model,
                             @RequestParam("questionId") Long questionId,
                             @RequestParam("answer") String inputtedAnswer,
@@ -72,8 +79,16 @@ public class SurveyAnswersController {
     @GetMapping(("/deleteAnswer/{id}"))
     public String deleteAnswerByNumber(@PathVariable("id") Long answerId,
                                    @RequestParam("questionId") Long questionId,
+                                   Authentication authentication,
                                    Model model) {
         Question question = surveyQuestionService.findQuestionById(questionId);
+        Survey survey = question.getSurvey();
+        if(survey != null){
+            CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+            if(!survey.getUser().getNickname().equals(principal.getUsername())){
+                return "main";
+            }
+        }
         answersService.deleteAnswerByNumber(questionId, answerId);
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", question.getDescription());
@@ -86,7 +101,15 @@ public class SurveyAnswersController {
     @GetMapping(("/editAnswer/{number}"))
     public String editAnswer(@PathVariable("number") Integer number,
                              @RequestParam("questionId") Long questionId,
+                             Authentication authentication,
                              Model model) {
+        Survey survey = surveyQuestionService.findQuestionById(questionId).getSurvey();
+        if(survey != null){
+            CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+            if(!survey.getUser().getNickname().equals(principal.getUsername())){
+                return "main";
+            }
+        }
         Answer answer = answersService.findAnswerByNumber(questionId, number);
         model.addAttribute("answerId", answer.getId());
         model.addAttribute("questionId", questionId);
@@ -96,7 +119,7 @@ public class SurveyAnswersController {
         return "updateAnswer";
     }
 
-    @PostMapping(value = "/updateAnswer", params = "saveAnswer")
+    @PostMapping(value = "/listOfAnswers", params = "updateAnswer")
     public String updateAnswer(Model model,
                                @RequestParam("questionId") Long questionId,
                                @RequestParam("answerId") Long answerId,
@@ -114,9 +137,10 @@ public class SurveyAnswersController {
         return "listOfAnswers";
     }
 
-    @PostMapping(value = "/updateAnswer", params = "backToAnswersList")
+    @PostMapping(value = "/listOfAnswers", params = "backToAnswersList")
     public String backToAnswersList(@RequestParam("questionId") Long questionId,
-                                    Model model) {
+                                    Model model,
+                                    Authentication authentication) {
         model.addAttribute("questionId", questionId);
         model.addAttribute("question", surveyQuestionService.findQuestionById(questionId).getDescription());
         List<Answer> answers = answersService.findAllAnswers(questionId);

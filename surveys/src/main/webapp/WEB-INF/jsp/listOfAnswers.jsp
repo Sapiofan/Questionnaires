@@ -134,16 +134,25 @@
     .radio {
       margin-bottom: 0.4em;
     }
+    form { display: inline; }
    </style>
 
-    <form action="/addAnswer" method="post">
+   <form action="/addQuestion" method="post">
+       <input type="hidden" name="questionId" value=${questionId}>
+       <button type="submit" class="btn btn-danger" name="changeQuestionName" onclick="notRequired()">Change question name</button>
+   </form>
+
+   <form action="/listOfQuestions" method="post">
+       <input type="hidden" name="questionId" value=${questionId}>
+       <button type="submit" class="btn btn-success" id="addQuestion" style="margin-left: 10px;" name="addQuestion" onclick="notRequired()">Submit a question</button>
+   </form>
+
+    <form action="/listOfAnswers" method="post">
        <input type="hidden" name="questionId" value=${questionId}>
        <input type="hidden" id="size" name="size" value=${size}>
        <input type="hidden" id="input" name="input" value=${input}>
 
-        <button type="submit" class="btn btn-danger" name="changeQuestionName" onclick="notRequired()">Change question name</button>
-        <button type="submit" class="btn btn-primary" name="saveAnswer">Add an answer</button>
-        <button type="submit" class="btn btn-success" id="addQuestion" name="addQuestion" onclick="notRequired()">Submit a question</button>
+        <button type="submit" class="btn btn-primary" name="saveAnswer"style="margin-left: 10px;">Add an answer</button>
 
         <br>
         <label for="answer" class="form-label" id="label">Answer</label>
@@ -158,7 +167,7 @@
             <input class="custom-radio" type="radio" name="correctAnswer" id="inlineRadio2" value="2" required>
             <label class="form-check-label" for="inlineRadio2">Incorrect</label>
           </div>
-
+    </form>
 
         <br><br><br>
         <h3>Question: ${question}<br>Answers:</h3>
@@ -179,7 +188,6 @@
                  </tr>
             </c:forEach>
        </table>
-    </form>
 
     <script type="text/javascript">
        function checking() {

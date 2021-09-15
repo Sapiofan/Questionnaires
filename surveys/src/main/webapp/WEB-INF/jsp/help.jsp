@@ -47,7 +47,8 @@
         <p>3. If you delete one of the descriptions, all grades will be added equally to the nearest descriptions in the table</p>
         <p>4. If you edit description scale, you take grades from other the nearest in the table descriptions (if description is first</p>
         <p>in list, 1-st range will be frozen, if description is last and grades are available, you can add all remaining grades)</p>
-
+        <br>
+        <h4>If you return to home page from survey/questionnaire creating, survey/questionnaire automatically will be deleted</h4>
       <b><a href="/main" class="btn btn-danger">Back to home page</a></b>
 
 </body>

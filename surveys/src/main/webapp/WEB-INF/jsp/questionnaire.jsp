@@ -103,9 +103,10 @@
         .radio {
           margin-bottom: 0.4em;
         }
+        form { display: inline; }
     </style>
     <div class="container mt-5">
-        <form action="/createQuestionnaire" method="post">
+        <form action="/questionnaireQuestions" method="post">
 
             <input type="hidden" name="questionnaireId" value=${questionnaireId}>
 
@@ -131,9 +132,15 @@
                 <label class="form-check-label" for="inlineRadio2">10-point scale</label>
               </div>
             <br><br>
-            <input type="submit" class="btn btn-danger" value="Back" name="backToMain" onclick="requiredDisabled()" />
-            <input type="submit" class="btn btn-success" value="Continue" name"continue" />
+            <input type="submit" class="btn btn-success" value="Continue" style="margin-left: 10px;" name"continue" />
         </form>
+
+        <div style="float: left;">
+            <form action="/main" method="post">
+                <input type="hidden" name="questionnaireId" value=${questionnaireId}>
+                <input type="submit" class="btn btn-danger" value="Back" name="backToMainQ" onclick="requiredDisabled()" />
+            </form>
+        </div>
     </div>
     <script>
         function requiredDisabled(){

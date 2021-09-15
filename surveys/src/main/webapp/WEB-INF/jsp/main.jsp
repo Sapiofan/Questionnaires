@@ -54,24 +54,24 @@
         }
 
     </style>
+
     <form action="/logout" method="get">
-    <div class="scrollmenu">
-      <b><a href="/survey">Create survey</a></b>
-      <b><a href="/createQuestionnaire">Create questionnaire</a></b>
-      <b><a href="/list">Surveys list</a></b>
-      <b><a href="/listOfQuestionnaires">Questionnaires list</a></b>
-      <b><a href="/help">Help</a></b>
-      <input type="submit" id="input" class="btn btn-danger" value="Sign out" />
-    </div>
-
-    <div class="container">
-        <div class="centered">
-            <h1>Now you are on homepage!</h1>
-            <h2>Here you can start creating of survey or questionnaire,</h2>
-            <h2>go to list of surveys or questionnaires and pass any one from the list.</h2>
+        <div class="scrollmenu">
+          <b><a href="/survey">Create survey</a></b>
+          <b><a href="/createQuestionnaire">Create questionnaire</a></b>
+          <b><a href="/list">Surveys list</a></b>
+          <b><a href="/listOfQuestionnaires">Questionnaires list</a></b>
+          <b><a href="/help">Help</a></b>
+          <input type="submit" id="input" class="btn btn-danger" value="Sign out" />
         </div>
-    </div>
 
+        <div class="container">
+            <div class="centered">
+                <h1>Now you are on homepage!</h1>
+                <h2>Here you can start creating of survey or questionnaire,</h2>
+                <h2>go to list of surveys or questionnaires and pass any one from the list.</h2>
+            </div>
+        </div>
     </form>
 </body>
 </html>

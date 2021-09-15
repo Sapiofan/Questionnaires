@@ -82,7 +82,7 @@
          }
    </style>
 
-    <form action="/addDescription" method="post">
+    <form action="/descriptions" method="post">
         <input type="hidden" name="questionnaireId" value=${questionnaireId}>
         <input type="hidden" name="minimum" value=${minimum}>
         <input type="hidden" name="maximum" value=${maximum}>

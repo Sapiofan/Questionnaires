@@ -41,14 +41,14 @@ public class QuestionnaireController {
         return "questionnaire";
     }
 
-    @PostMapping(value = "/createQuestionnaire", params = "backToMain")
+    @PostMapping(value = "/main", params = "backToMainQ")
     public String returnToMainPage(@RequestParam("questionnaireId") Long questionnaireId) {
         if (questionnaireId != 0)
             questionnaireService.deleteQuestionnaire(questionnaireId);
         return "main";
     }
 
-    @PostMapping(value = "/createQuestionnaire")
+    @PostMapping(value = "/questionnaireQuestions")
     public String createQuestionnaire(@RequestParam("name") String name,
                                       @RequestParam("description") String description,
                                       @RequestParam("questionnaireId") Long questionnaireId,
