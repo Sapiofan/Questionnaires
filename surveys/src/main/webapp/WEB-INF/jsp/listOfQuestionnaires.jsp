@@ -88,6 +88,12 @@
             color: white;
             text-align: center;
         }
+        select {
+            font-size: 20px;
+            padding: 9px 14px;
+            color: black;
+            background: white;
+        }
     </style>
 
     <form class="search" action="/searchQuestionnaire" method="post">

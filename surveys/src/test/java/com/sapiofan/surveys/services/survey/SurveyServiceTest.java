@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collection;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,10 +27,10 @@ public class SurveyServiceTest {
     @Test
     @Order(1)
     public void testCreateSurvey() {
-        userService.save("TestSurvey", "test2021");
-        User user = userService.findUserByNickname("TestSurvey");
+        userService.save("TestSurveyUser", "test2021");
+        User user = userService.findUserByNickname("TestSurveyUser");
         Survey survey = new Survey();
-        survey.setName("Survey");
+        survey.setName("TestSurvey");
         survey.setSize(0);
         survey.setUser(user);
         survey.setDescription("Description");
@@ -52,7 +53,7 @@ public class SurveyServiceTest {
         Survey survey = surveyService.findSurveyById(surveyId);
         Assertions.assertNotNull(survey);
         System.out.println("Survey name: " + survey.getName());
-        assertThat(survey.getName().equals("Survey"));
+        assertThat(survey.getName().equals("TestSurvey"));
     }
 
     @Test
@@ -64,14 +65,30 @@ public class SurveyServiceTest {
 
     @Test
     @Order(4)
-    public void testDeleteSurveyById(){
-        surveyService.deleteSurveyById(surveyId);
-        Assertions.assertNull(surveyService.findSurveyById(surveyId));
-        userService.deleteUser(userService.findUserByNickname("TestSurvey"));
+    public void testFindSurveyByName(){
+        List<Survey> surveys = surveyService.findBySurveyName("TestSurvey");
+        Assertions.assertTrue(surveys.size() == 1 && surveys.get(0).getName().equals("TestSurvey"));
     }
 
     @Test
     @Order(5)
+    public void testFindSurveyByUser(){
+        List<Survey> surveys = surveyService.findSurveyByNickName("TestSurveyUser");
+        User user = userService.findUserByNickname("TestSurveyUser");
+        Assertions.assertEquals(1, surveys.size());
+        Assertions.assertEquals(surveys.get(0).getUser().getId(), user.getId());
+    }
+
+    @Test
+    @Order(6)
+    public void testDeleteSurveyById(){
+        surveyService.deleteSurveyById(surveyId);
+        Assertions.assertNull(surveyService.findSurveyById(surveyId));
+        userService.deleteUser(userService.findUserByNickname("TestSurveyUser"));
+    }
+
+    @Test
+    @Order(7)
     public void notCreatedSurvey(){
         Assertions.assertNull(surveyService.findSurveyById(0l));
     }

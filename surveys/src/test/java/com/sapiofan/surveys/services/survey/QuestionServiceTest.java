@@ -59,19 +59,35 @@ public class QuestionServiceTest {
     public void testFindQuestionById() {
         Question question = surveyQuestionService.findQuestionById(questionId);
         System.out.println("Question description: " + question.getDescription());
-        Assertions.assertNotNull(question);
         assertThat(question.getDescription().equals("NewQuestion"));
     }
 
     @Test
     @Order(3)
+    public void testFindQuestionByNumber(){
+        Question question = surveyQuestionService.findQuestionByNumber(surveyId, 1);
+        System.out.println("Question description: " + question.getDescription());
+        assertThat(question.getDescription().equals("NewQuestion"));
+    }
+
+    @Test
+    @Order(4)
     public void testFindAllQuestions(){
         Collection<Question> questions = surveyQuestionService.findAllQuestions(surveyId);
         assertThat(questions.size() != 0);
     }
 
     @Test
-    @Order(4)
+    @Order(5)
+    public void testChangeNumber(){
+        surveyQuestionService.createQuestion(0l, surveyId, "QuestionWithNumber");
+        surveyQuestionService.changeQuestionNumber(1, 2, surveyId);
+        Question question = surveyQuestionService.findQuestionById(questionId);
+        Assertions.assertEquals(2, question.getNumber());
+    }
+
+    @Test
+    @Order(6)
     public void testDeleteQuestionById(){
         surveyQuestionService.deleteQuestionByNumber(surveyId, questionId);
         Assertions.assertNull(surveyQuestionService.findQuestionById(questionId));

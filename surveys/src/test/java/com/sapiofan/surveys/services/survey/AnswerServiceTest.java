@@ -57,8 +57,6 @@ public class AnswerServiceTest {
 
         Answer savedAnswer = answersService.findAnswerById(answerId);
 
-
-        Assertions.assertNotNull(savedAnswer);
         assertThat(answer.getAnswer().equals(savedAnswer.getAnswer()));
 
     }
@@ -67,7 +65,6 @@ public class AnswerServiceTest {
     @Order(2)
     public void testFindAnswerById() {
         Answer answer = answersService.findAnswerById(answerId);
-        Assertions.assertNotNull(answer);
         assertThat(answer.getAnswer().equals("Answer"));
     }
 
@@ -75,7 +72,6 @@ public class AnswerServiceTest {
     @Order(3)
     public void testFindAnswerByNumber() {
         Answer answer = answersService.findAnswerByNumber(questionId, 1);
-        Assertions.assertNotNull(answer);
         assertThat(answer.getAnswer().equals("Answer"));
     }
 
@@ -90,7 +86,6 @@ public class AnswerServiceTest {
     @Order(5)
     public void testUpdateAnswer(){
         Answer answer = answersService.updateAnswer(answerId, "UPDATED", "1", 1, questionId);
-        Assertions.assertNotNull(answer);
         assertThat(answer.getAnswer().equals("UPDATED"));
     }
 

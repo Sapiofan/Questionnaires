@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collection;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@DataJpaTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@Rollback(false)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class QuestionnaireServiceTest {
@@ -46,7 +44,6 @@ public class QuestionnaireServiceTest {
 
         questionnaireId = questionnaire.getId();
 
-        Assertions.assertNotNull(newQuestionnaire);
         assertThat(newQuestionnaire.getName().equals(questionnaire.getName()));
 
     }
@@ -56,7 +53,6 @@ public class QuestionnaireServiceTest {
     public void testFindQuestionnaireById() {
         Questionnaire questionnaire = questionnaireService.findQuestionnaireById(questionnaireId);
         System.out.println("Questionnaire name: "+questionnaire.getName());
-        Assertions.assertNotNull(questionnaire);
         assertThat(questionnaire.getName().equals("Questionnaire"));
     }
 
@@ -69,14 +65,30 @@ public class QuestionnaireServiceTest {
 
     @Test
     @Order(4)
-    public void testDeleteSurveyById(){
+    public void testFindQuestionnaireByName(){
+        List<Questionnaire> questionnaires = questionnaireService.findByQuestionnaireName("Questionnaire");
+        Assertions.assertTrue(questionnaires.size() == 1 && questionnaires.get(0).getName().equals("Questionnaire"));
+    }
+
+    @Test
+    @Order(5)
+    public void testFindQuestionnaireByUser(){
+        List<Questionnaire> questionnaires = questionnaireService.findQuestionnaireByNickName("TestQuestionnaires");
+        User user = userService.findUserByNickname("TestQuestionnaires");
+        Assertions.assertEquals(1, questionnaires.size());
+        Assertions.assertEquals(questionnaires.get(0).getUser().getId(), user.getId());
+    }
+
+    @Test
+    @Order(6)
+    public void testDeleteQuestionnaireById(){
         questionnaireService.deleteQuestionnaire(questionnaireId);
         Assertions.assertNull(questionnaireService.findQuestionnaireById(questionnaireId));
         userService.deleteUser(userService.findUserByNickname("TestQuestionnaires"));
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     public void notCreatedQuestionnaire(){
         Assertions.assertNull(questionnaireService.findQuestionnaireById(0l));
     }

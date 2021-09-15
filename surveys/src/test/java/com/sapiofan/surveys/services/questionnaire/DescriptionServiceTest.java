@@ -51,7 +51,6 @@ public class DescriptionServiceTest {
 
         descriptionId = description.getId();
 
-        Assertions.assertNotNull(savedDescription);
         assertThat(description.getDescription().equals(savedDescription.getDescription()));
 
     }
@@ -61,7 +60,6 @@ public class DescriptionServiceTest {
     public void testFindDescriptionById() {
         Description description = descriptionService.findDescriptionById(descriptionId);
         System.out.println("Description name: " + description.getDescription());
-        Assertions.assertNotNull(description);
         assertThat(description.getDescription().equals("Description"));
     }
 
@@ -69,7 +67,6 @@ public class DescriptionServiceTest {
     @Order(3)
     public void testFindDescriptionByNumber() {
         Description description = descriptionService.findDescriptionByNumber(questionnaireId, 1);
-        Assertions.assertNotNull(description);
         assertThat(description.getDescription().equals("Description"));
     }
 
@@ -82,6 +79,15 @@ public class DescriptionServiceTest {
 
     @Test
     @Order(5)
+    public void testUpdateDescription(){
+        Description description = descriptionService
+                .updateDescription(descriptionId, "UPDATED", 1, 2, questionnaireService.findQuestionnaireById(questionnaireId));
+        Assertions.assertTrue(description.getDescription().equals("UPDATED") && description.getEnd_scale() == 2);
+        Assertions.assertEquals(1, description.getStart_scale());
+    }
+
+    @Test
+    @Order(6)
     public void testDeleteDescriptionByNumber(){
         descriptionService.deleteDescriptionById(descriptionId,
                 questionnaireService.findQuestionnaireById(questionnaireId));

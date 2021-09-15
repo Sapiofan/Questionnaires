@@ -51,7 +51,6 @@ public class QuestionServiceTest {
 
         questionId = question.getId();
 
-        Assertions.assertNotNull(savedQuestion);
         assertThat(question.getName().equals(savedQuestion.getName()));
 
     }
@@ -60,7 +59,6 @@ public class QuestionServiceTest {
     @Order(2)
     public void testFindQuestionById() {
         QQuestion question = questionnaireQuestionsService.findQuestionByNumber(questionnaireId, 1);
-        Assertions.assertNotNull(question);
         assertThat(question.getName().equals("NewQuestion"));
     }
 

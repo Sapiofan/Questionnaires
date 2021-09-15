@@ -85,6 +85,12 @@
              font-size: 24px;
              font-weight: bold;
         }
+        select {
+            font-size: 20px;
+            padding: 9px 14px;
+            color: black;
+            background: white;
+        }
     </style>
 
     <form class="search" action="/search" method="post">
